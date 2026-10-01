@@ -159,36 +159,104 @@ const WA_MESSAGES = {
     }, 1200));
   }
 
-  /* ---------- Brillo que sigue al cursor ---------- */
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  /* =========================================================
+     EXPERIENCIA INMERSIVA
+     Puntero / giroscopio → estrellas 3D, monograma 3D y tarjetas que se inclinan
+     ========================================================= */
+  const immersive = !reducedMotion.matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  // Posición del puntero normalizada de -1 a 1 (la comparten todas las capas)
+  const pointer = { x: 0, y: 0, seen: false };
+  window.addEventListener('pointermove', (e) => {
+    pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
+    pointer.px = e.clientX; pointer.py = e.clientY; pointer.seen = true;
+  }, { passive: true });
+  // En celulares Android, inclinar el teléfono mueve la escena
+  window.addEventListener('deviceorientation', (e) => {
+    if (e.gamma == null || e.beta == null) return;
+    pointer.x = clamp(e.gamma / 30, -1, 1);
+    pointer.y = clamp((e.beta - 45) / 30, -1, 1);
+  }, { passive: true });
+
+  /* ---------- Tarjetas: brillo + inclinación 3D ---------- */
+  if (finePointer) {
+    const active = new Set();
+    let tiltRaf = 0;
+    const tiltLoop = () => {
+      active.forEach((t) => {
+        t.rx += (t.trx - t.rx) * 0.14;
+        t.ry += (t.tryy - t.ry) * 0.14;
+        t.lift += (t.tlift - t.lift) * 0.14;
+        t.el.style.transform = `perspective(1000px) rotateX(${t.rx.toFixed(2)}deg) rotateY(${t.ry.toFixed(2)}deg) translateY(${t.lift.toFixed(2)}px)`;
+        if (!t.on && Math.abs(t.rx) + Math.abs(t.ry) + Math.abs(t.lift) < 0.05) {
+          t.el.style.transform = '';
+          t.el.classList.remove('is-tilting');
+          active.delete(t);
+        }
+      });
+      tiltRaf = active.size ? requestAnimationFrame(tiltLoop) : 0;
+    };
+
     $$('.glow').forEach((el) => {
+      const max = el.matches('.project__media') ? 4 : 7;            // grados máximos
+      const lift = el.matches('.card') ? -8 : el.matches('.project__media') ? -2 : -6;
+      const t = { el, rx: 0, ry: 0, lift: 0, trx: 0, tryy: 0, tlift: 0, on: false };
       el.addEventListener('pointermove', (e) => {
         const r = el.getBoundingClientRect();
-        el.style.setProperty('--mx', `${e.clientX - r.left}px`);
-        el.style.setProperty('--my', `${e.clientY - r.top}px`);
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        el.style.setProperty('--mx', `${x}px`);
+        el.style.setProperty('--my', `${y}px`);
+        if (!immersive) return;
+        t.on = true;
+        t.tryy = (x / r.width - 0.5) * 2 * max;
+        t.trx = -(y / r.height - 0.5) * 2 * max;
+        t.tlift = lift;
+        el.classList.add('is-tilting');
+        active.add(t);
+        if (!tiltRaf) tiltRaf = requestAnimationFrame(tiltLoop);
       });
+      el.addEventListener('pointerleave', () => { t.on = false; t.trx = 0; t.tryy = 0; t.tlift = 0; });
     });
   }
 
-  /* ---------- Fondo de estrellas ✦ ---------- */
+  /* ---------- Escena: estrellas 3D, monograma, luz y progreso ---------- */
   const canvas = $('#stars');
   const ctx = canvas && canvas.getContext('2d');
+  const hero = $('.hero');
+  const mono = $('.mono');
+  const heroCopy = $('.hero__copy');
+  const heroArt = $('.hero__art');
+
+  let spot = null, progress = null;
+  if (immersive) {
+    progress = Object.assign(document.createElement('div'), { className: 'scroll-progress' });
+    progress.setAttribute('aria-hidden', 'true');
+    document.body.append(progress);
+    if (finePointer && canvas) {
+      spot = Object.assign(document.createElement('div'), { className: 'spotlight' });
+      spot.setAttribute('aria-hidden', 'true');
+      canvas.after(spot);
+    }
+  }
+
   if (ctx) {
     let w = 0, h = 0, dpr = 1, stars = [], raf = 0, last = 0;
+    let sx = 0, sy = 0;                         // puntero suavizado
+    let scrollVel = 0, lastScroll = window.scrollY, warp = 0;
 
-    const makeStar = (randomY = true) => {
-      const big = Math.random() < 0.08;
-      return {
-        x: Math.random() * w,
-        y: randomY ? Math.random() * h : h + 10,
-        r: big ? 2.6 + Math.random() * 2.2 : 0.7 + Math.random() * 1.5,
-        speed: 0.006 + Math.random() * 0.018,          // px por ms
-        alpha: 0.25 + Math.random() * 0.55,
-        phase: Math.random() * Math.PI * 2,
-        tw: 0.0006 + Math.random() * 0.0016,           // velocidad de titileo
-        big,
-      };
-    };
+    // Cada estrella vive en un espacio 3D: x, y de -1 a 1 y profundidad z (1 = lejos, 0 = encima tuyo)
+    const makeStar = (z = Math.random()) => ({
+      x: Math.random() * 2 - 1,
+      y: Math.random() * 2 - 1,
+      z: Math.max(0.08, z),
+      big: Math.random() < 0.07,
+      phase: Math.random() * Math.PI * 2,
+      tw: 0.0008 + Math.random() * 0.0016,
+      px: null, py: null,
+    });
 
     const resize = () => {
       const newW = window.innerWidth;
@@ -198,14 +266,13 @@ const WA_MESSAGES = {
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      // Solo regenerar si cambia el ancho (evita saltos con la barra del navegador móvil)
       if (widthChanged || !stars.length) {
-        const count = Math.max(36, Math.min(130, Math.round((w * h) / 13000)));
-        stars = Array.from({ length: count }, () => makeStar(true));
+        const count = clamp(Math.round((w * h) / 8000), 60, 220);
+        stars = Array.from({ length: count }, () => makeStar());
       }
     };
 
-    // Estrella de 4 puntas
+    // Estrella de 4 puntas ✦
     const drawStar = (x, y, r) => {
       const k = r * 0.16;
       ctx.beginPath();
@@ -219,33 +286,91 @@ const WA_MESSAGES = {
 
     const render = (t, dt) => {
       ctx.clearRect(0, 0, w, h);
+      const cx = w / 2 + sx * -w * 0.04;
+      const cy = h / 2 + sy * -h * 0.04;
+      const spread = Math.max(w, h) * 0.55;
+      const speed = 0.000035 + warp;          // avance en profundidad por ms
+      const streak = warp > 0.00012;
+
       for (const s of stars) {
-        s.y -= s.speed * dt;
-        if (s.y < -12) { Object.assign(s, makeStar(false)); }
-        const twinkle = 0.55 + 0.45 * Math.sin(t * s.tw + s.phase);
-        const a = s.alpha * twinkle;
-        if (s.big) {
-          ctx.fillStyle = `rgba(232, 233, 238, ${a * 0.08})`;
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 2.2, 0, Math.PI * 2); ctx.fill();
-          ctx.fillStyle = `rgba(255, 255, 255, ${a})`;
-          drawStar(s.x, s.y, s.r * 2.4);
-        } else {
-          ctx.fillStyle = `rgba(232, 233, 238, ${a})`;
-          drawStar(s.x, s.y, s.r * 1.8);
+        const pz = s.z;
+        s.z -= speed * dt;
+        if (s.z <= 0.06) { Object.assign(s, makeStar(1)); continue; }
+        const scale = 1 / s.z;
+        const x = cx + s.x * spread * scale * 0.5 - sx * 26 * scale;
+        const y = cy + s.y * spread * scale * 0.5 - sy * 26 * scale;
+        if (x < -60 || x > w + 60 || y < -60 || y > h + 60) { Object.assign(s, makeStar(1)); continue; }
+
+        const near = 1 - s.z;                                  // 0 lejos → 1 cerca
+        const twinkle = 0.6 + 0.4 * Math.sin(t * s.tw + s.phase);
+        const a = clamp(0.12 + near * 1.6, 0, 1) * twinkle * (s.big ? 1 : 0.85);
+        const r = (0.35 + near * near * 2.6) * (s.big ? 2.2 : 1);
+
+        if (streak && s.px != null && pz !== s.z) {           // salto a velocidad warp
+          ctx.strokeStyle = `rgba(232, 233, 238, ${a * 0.55})`;
+          ctx.lineWidth = Math.max(0.6, r * 0.45);
+          ctx.beginPath(); ctx.moveTo(s.px, s.py); ctx.lineTo(x, y); ctx.stroke();
         }
+        if (s.big && near > 0.35) {
+          ctx.fillStyle = `rgba(232, 233, 238, ${a * 0.07})`;
+          ctx.beginPath(); ctx.arc(x, y, r * 2.4, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.fillStyle = `rgba(${s.big ? '255, 255, 255' : '232, 233, 238'}, ${a})`;
+        drawStar(x, y, r * 1.8);
+        s.px = x; s.py = y;
+      }
+    };
+
+    // Monograma, luz del cursor y barra de progreso (una sola vuelta por cuadro)
+    let lastP = -1;
+    const scene = () => {
+      sx += (pointer.x - sx) * 0.05;
+      sy += (pointer.y - sy) * 0.05;
+
+      const y = window.scrollY;
+      scrollVel += ((y - lastScroll) - scrollVel) * 0.2;
+      lastScroll = y;
+      warp += (clamp(Math.abs(scrollVel) * 0.000014, 0, 0.0011) - warp) * 0.08;
+
+      if (mono) mono.style.transform = `rotateX(${(-sy * 16).toFixed(2)}deg) rotateY(${(sx * 22).toFixed(2)}deg)`;
+
+      // Al bajar, "atraviesas" el hero: el texto se aleja y el monograma viene hacia ti
+      if (hero) {
+        const p = clamp(y / (hero.offsetHeight * 0.85), 0, 1);
+        if (Math.abs(p - lastP) > 0.001) {
+          lastP = p;
+          if (p > 0) {
+            heroCopy.style.transform = `translate3d(0, ${(p * 90).toFixed(1)}px, 0)`;
+            heroCopy.style.opacity = String(clamp(1 - p * 1.25, 0, 1));
+            heroArt.style.transform = `translate3d(0, ${(p * -30).toFixed(1)}px, 0) scale(${(1 + p * 0.5).toFixed(3)})`;
+            heroArt.style.opacity = String(clamp(1 - p * 1.1, 0, 1));
+          } else {
+            heroCopy.style.transform = heroCopy.style.opacity = heroArt.style.transform = heroArt.style.opacity = '';
+          }
+        }
+      }
+
+      if (spot && pointer.seen) {
+        spot.classList.add('is-on');
+        spot.style.transform = `translate3d(${pointer.px}px, ${pointer.py}px, 0)`;
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = `scaleX(${max > 0 ? (y / max).toFixed(4) : 0})`;
       }
     };
 
     const loop = (t) => {
       const dt = Math.min(t - (last || t), 50);
       last = t;
+      scene();
       render(t, dt);
       raf = requestAnimationFrame(loop);
     };
 
     const start = () => {
       cancelAnimationFrame(raf);
-      if (reducedMotion.matches) { render(0, 0); return; }
+      if (!immersive) { render(0, 0); return; }
       last = 0;
       raf = requestAnimationFrame(loop);
     };
@@ -255,12 +380,11 @@ const WA_MESSAGES = {
     let rt;
     window.addEventListener('resize', () => {
       clearTimeout(rt);
-      rt = setTimeout(() => { resize(); if (reducedMotion.matches) render(0, 0); }, 150);
+      rt = setTimeout(() => { resize(); if (!immersive) render(0, 0); }, 150);
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) cancelAnimationFrame(raf); else start();
     });
-    reducedMotion.addEventListener('change', start);
   }
 
   /* ---------- Proceso: pasos + panel de seguimiento ---------- */
