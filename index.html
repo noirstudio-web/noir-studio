@@ -43,10 +43,11 @@
   <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap"></noscript>
 
-  <link rel="preload" as="image" href="assets/noir-monograma.webp" type="image/webp">
-  <link rel="stylesheet" href="css/styles.css?v=202610011150">
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="assets/noir-monograma-320.webp 320w, assets/noir-monograma-480.webp 480w, assets/noir-monograma.webp 634w" imagesizes="(max-width: 900px) 40vw, 240px">
+  <link rel="stylesheet" href="css/styles.css?v=202610011206">
 
   <script type="application/ld+json">
   {
@@ -54,6 +55,8 @@
     "@type": "ProfessionalService",
     "name": "Noir Studio",
     "slogan": "Código que construye tu visión",
+    "url": "https://noirstudio-web.github.io/noir-studio/",
+    "logo": "https://noirstudio-web.github.io/noir-studio/icon-512.png",
     "description": "Estudio de desarrollo web a medida: páginas web, landing pages, tiendas online, apps y sistemas.",
     "image": "assets/og-image.png",
     "telephone": "+57 313 563 9329",
@@ -73,7 +76,7 @@
   <header class="nav" id="nav">
     <div class="nav__inner container">
       <a class="nav__logo" href="#inicio" aria-label="Noir Studio, ir al inicio">
-        <img src="assets/logo-navbar-para-fondo-oscuro.png" width="420" height="123" alt="Noir Studio">
+        <img src="assets/logo-navbar-para-fondo-oscuro.png" srcset="assets/logo-navbar-240.png 240w, assets/logo-navbar-para-fondo-oscuro.png 420w" sizes="120px" width="420" height="123" alt="Noir Studio">
       </a>
 
       <nav class="nav__menu" id="nav-menu" aria-label="Principal">
@@ -99,40 +102,40 @@
     <section class="hero">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="badge reveal"><span class="badge__dot" aria-hidden="true"></span> Disponible para nuevos proyectos</p>
+          <p class="badge intro" style="--i: 0s"><span class="badge__dot" aria-hidden="true"></span> Disponible para nuevos proyectos</p>
 
-          <h1 class="hero__title reveal">
+          <h1 class="hero__title intro" style="--i: .08s">
             <span class="shine">Código que construye tu&nbsp;visión.</span>
           </h1>
 
-          <p class="hero__lead reveal">
+          <p class="hero__lead intro" style="--i: .16s">
             Diseño y programo páginas web, tiendas online y apps a medida para negocios que quieren verse
             premium y vender más. Sin plantillas, sin intermediarios: tu idea convertida en un producto
             rápido, seguro y listo para crecer.
           </p>
 
-          <div class="hero__actions reveal">
+          <div class="hero__actions intro" style="--i: .24s">
             <a class="btn btn--chrome" href="https://wa.me/573135639329" data-wa="cotizar" target="_blank" rel="noopener">
               Cotizar mi proyecto <span aria-hidden="true">✦</span>
             </a>
             <a class="btn btn--ghost" href="#trabajos">Ver trabajos</a>
           </div>
 
-          <dl class="hero__stats reveal">
+          <dl class="hero__stats intro" style="--i: .32s">
             <div><dt>100&nbsp;%</dt><dd>a medida</dd></div>
             <div><dt>0</dt><dd>plantillas</dd></div>
             <div><dt>24/7</dt><dd>en línea</dd></div>
           </dl>
         </div>
 
-        <div class="hero__art reveal" aria-hidden="true">
+        <div class="hero__art intro" style="--i: .1s" aria-hidden="true">
           <div class="mono">
             <div class="mono__halo"></div>
             <div class="mono__ring"></div>
             <div class="mono__ring mono__ring--inner"></div>
             <picture>
-              <source srcset="assets/noir-monograma.webp" type="image/webp">
-              <img class="mono__img" src="assets/noir-monograma.png" width="634" height="760" alt="">
+              <source type="image/webp" srcset="assets/noir-monograma-320.webp 320w, assets/noir-monograma-480.webp 480w, assets/noir-monograma.webp 634w" sizes="(max-width: 900px) 40vw, 240px">
+              <img class="mono__img" src="assets/noir-monograma.png" width="634" height="760" alt="" fetchpriority="high" decoding="async">
             </picture>
           </div>
         </div>
@@ -244,7 +247,7 @@
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>barberia-reservas-seven.vercel.app</span></div>
                 <picture>
-                  <source srcset="assets/proyectos/barberia-reservas.webp" type="image/webp">
+                  <source type="image/webp" srcset="assets/proyectos/barberia-reservas-640.webp 640w, assets/proyectos/barberia-reservas.webp 1200w" sizes="(max-width: 900px) 92vw, 560px">
                   <img class="project__shot" src="assets/proyectos/barberia-reservas.jpg" width="1200" height="625" alt="Captura de la web de reservas para barberías: agenda en celular y web de Filo Barber Club" loading="lazy">
                 </picture>
               </div>
@@ -274,7 +277,7 @@
                 <div class="phone__notch" aria-hidden="true"></div>
                 <div class="phone__screen">
                   <picture>
-                    <source srcset="assets/proyectos/noir-menu.webp" type="image/webp">
+                    <source type="image/webp" srcset="assets/proyectos/noir-menu-300.webp 300w, assets/proyectos/noir-menu.webp 520w" sizes="250px">
                     <img class="phone__shot" src="assets/proyectos/noir-menu.jpg" width="520" height="1125" alt="Captura de Noir Menu: menú digital de Casa Brasa con hamburguesas y pedido en curso" loading="lazy">
                   </picture>
                 </div>
@@ -303,7 +306,7 @@
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>atelier.tienda</span></div>
                 <picture>
-                  <source srcset="assets/proyectos/tienda-atelier.webp" type="image/webp">
+                  <source type="image/webp" srcset="assets/proyectos/tienda-atelier-640.webp 640w, assets/proyectos/tienda-atelier.webp 1200w" sizes="(max-width: 900px) 92vw, 560px">
                   <img class="project__shot" src="assets/proyectos/tienda-atelier.jpg" width="1200" height="625" alt="Captura de la tienda online ATELIER con colección de chaquetas y ponchos" loading="lazy">
                 </picture>
               </div>
@@ -634,7 +637,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img src="assets/noir-wordmark-blanco.png" width="640" height="178" alt="Noir" loading="lazy">
+        <img src="assets/noir-wordmark-blanco.png" srcset="assets/noir-wordmark-440.png 440w, assets/noir-wordmark-blanco.png 640w" sizes="(max-width: 900px) 160px, 220px" width="640" height="178" alt="Noir" loading="lazy">
         <p class="footer__motto">Ideas <span>/</span> Código <span>/</span> Resultados</p>
         <p class="footer__slogan">Código que construye tu visión.</p>
       </div>
@@ -661,6 +664,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
   </a>
 
-  <script src="js/main.js?v=202610011150" defer></script>
+  <script src="js/main.js?v=202610011206" defer></script>
 </body>
 </html>

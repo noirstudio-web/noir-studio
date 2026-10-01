@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://noirstudio-web.github.io/noir-studio/sitemap.xml

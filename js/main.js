@@ -325,6 +325,16 @@ const WA_MESSAGES = {
       }
     };
 
+    // Alturas cacheadas: se actualizan solo cuando cambia el tamaño de la página
+    let heroH = hero ? hero.offsetHeight : 1;
+    let docMax = document.documentElement.scrollHeight - window.innerHeight;
+    const measure = () => {
+      heroH = hero ? hero.offsetHeight : 1;
+      docMax = document.documentElement.scrollHeight - window.innerHeight;
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+    window.addEventListener('resize', measure);
+
     // Monograma, luz del cursor y barra de progreso (una sola vuelta por cuadro)
     let lastP = -1;
     const scene = () => {
@@ -340,7 +350,7 @@ const WA_MESSAGES = {
 
       // Al bajar, "atraviesas" el hero: el texto se aleja y el monograma viene hacia ti
       if (hero) {
-        const p = clamp(y / (hero.offsetHeight * 0.85), 0, 1);
+        const p = clamp(y / (heroH * 0.85), 0, 1);
         if (Math.abs(p - lastP) > 0.001) {
           lastP = p;
           if (p > 0) {
@@ -359,8 +369,7 @@ const WA_MESSAGES = {
         spot.style.transform = `translate3d(${pointer.px}px, ${pointer.py}px, 0)`;
       }
       if (progress) {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.transform = `scaleX(${max > 0 ? (y / max).toFixed(4) : 0})`;
+        progress.style.transform = `scaleX(${docMax > 0 ? clamp(y / docMax, 0, 1).toFixed(4) : 0})`;
       }
     };
 
