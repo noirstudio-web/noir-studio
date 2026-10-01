@@ -7,6 +7,69 @@ const WHATSAPP_NUMBER = '573135639329';
 // ✦ Invitación a la comunidad de Discord
 const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
 
+// ✦ Mensajes que llegan a tu WhatsApp desde cada botón de la web.
+//   El cliente solo completa los espacios después de cada ":" antes de enviar.
+const WA_MESSAGES = {
+  // Botones "Cotizar mi proyecto", tarjeta de WhatsApp y footer
+  cotizar: [
+    '¡Hola, Noir Studio! 👋',
+    'Vengo de tu web y quiero cotizar un proyecto.',
+    '',
+    '📌 *Mi negocio:* ',
+    '🧩 *Lo que necesito:* (página web, tienda online, app, sistema…)',
+    '🎯 *Objetivo:* (vender más, recibir reservas, verme profesional…)',
+    '📅 *Para cuándo lo necesito:* ',
+    '💰 *Presupuesto aproximado:* ',
+    '',
+    '¿Me cuentas cómo trabajas y qué incluye?',
+  ],
+  // Proyecto real: reservas para barberías
+  barberia: [
+    '¡Hola, Noir Studio! 💈',
+    'Vi tu plataforma de reservas para barberías y la quiero para mi negocio.',
+    '',
+    '📌 *Nombre de la barbería:* ',
+    '👥 *Número de barberos:* ',
+    '📍 *Ciudad:* ',
+    '📲 *Instagram o web actual:* ',
+    '',
+    '¿Me explicas los planes y cómo activo la prueba gratis de 7 días?',
+  ],
+  // Demo Noir Menu
+  menu: [
+    '¡Hola, Noir Studio! 🍽️',
+    'Probé la demo de Noir Menu y quiero un menú digital para mi restaurante.',
+    '',
+    '📌 *Nombre del restaurante:* ',
+    '🍔 *Cantidad aproximada de platos:* ',
+    '🛵 *Pedidos para:* (mesa / domicilio / para recoger / todos)',
+    '📍 *Ciudad:* ',
+    '',
+    '¿Cuánto costaría y en cuánto tiempo estaría listo?',
+  ],
+  // Demo Tienda online
+  tienda: [
+    '¡Hola, Noir Studio! 🛍️',
+    'Probé la demo de la tienda online y quiero una para mi negocio.',
+    '',
+    '📌 *Mi negocio:* ',
+    '👕 *Qué vendo:* ',
+    '📦 *Cantidad aproximada de productos:* ',
+    '💳 *Cómo quiero cobrar:* (tarjeta, PSE, Nequi, contra entrega…)',
+    '🚚 *¿Hago envíos?:* ',
+    '',
+    '¿Me ayudas con una cotización?',
+  ],
+  // Botón verde flotante
+  flotante: [
+    '¡Hola, Noir Studio! 👋',
+    'Estoy viendo tu web y me gustaría hablar sobre un proyecto para mi negocio.',
+    '',
+    '📌 *Mi negocio:* ',
+    '🧩 *Lo que tengo en mente:* ',
+  ],
+};
+
 (() => {
   'use strict';
 
@@ -24,7 +87,10 @@ const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
     return m ? `+57 ${m[1]} ${m[2]} ${m[3]}` : `+${n}`;
   };
 
-  $$('[data-wa]').forEach((a) => { a.href = waLink(a.dataset.wa); });
+  $$('[data-wa]').forEach((a) => {
+    const msg = WA_MESSAGES[a.dataset.wa];
+    a.href = waLink(msg ? msg.join('\n') : a.dataset.wa);
+  });
   $$('[data-wa-display]').forEach((el) => { el.textContent = formatPhone(WHATSAPP_NUMBER); });
   $$('[data-discord]').forEach((a) => { a.href = DISCORD_URL; });
 
@@ -410,17 +476,18 @@ const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
 
       const v = (n) => form.elements[n].value.trim();
       const text = [
-        '✦ *Nueva solicitud de proyecto — Noir Studio*',
+        '¡Hola, Noir Studio! 👋',
+        'Llené el formulario de tu web y quiero cotizar este proyecto:',
         '',
         `👤 *Nombre:* ${v('nombre')}`,
         `🏢 *Negocio:* ${v('negocio') || 'No especificado'}`,
         `🧩 *Necesito:* ${v('necesidad')}`,
         `💰 *Presupuesto:* ${v('presupuesto')}${form.elements.moneda && !/[A-Z]{3}$/.test(v('presupuesto')) ? ` (moneda: ${v('moneda')})` : ''}`,
         '',
-        '📝 *Mensaje:*',
+        '📝 *Sobre mi proyecto:*',
         v('mensaje'),
         '',
-        '🌐 Enviado desde la web de Noir Studio',
+        'Quedo atento(a) a tu propuesta. ¡Gracias! ✦',
       ].join('\n');
 
       const url = waLink(text);
