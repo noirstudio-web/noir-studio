@@ -130,7 +130,11 @@ const WA_MESSAGES = {
         navLinks.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === `#${entry.target.id}`));
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    navLinks.forEach((l) => { const s = $(l.getAttribute('href')); if (s) spy.observe(s); });
+    navLinks.forEach((l) => {
+      const href = l.getAttribute('href');
+      const s = href.startsWith('#') && $(href);
+      if (s) spy.observe(s);
+    });
   }
 
   /* ---------- Aparición al hacer scroll ---------- */

@@ -179,6 +179,10 @@
       .tabs button { padding: 7px 10px; }
       .card__body { padding: 12px; } .card__name { font-size: .92rem; }
     }
+    @media (max-width: 440px) {
+      .bar { flex-wrap: wrap; height: auto; padding-top: 10px; padding-bottom: 10px; row-gap: 10px; }
+      .tabs { order: 3; width: 100%; } .tabs button { flex: 1; }
+    }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation-duration: .001ms !important; } }
   </style>
 </head>

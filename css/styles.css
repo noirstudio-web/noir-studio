@@ -1097,6 +1097,90 @@ main:focus { outline: none; }
 }
 .mono-text { font-family: var(--f-mono); font-size: .76rem; }
 
+/* Enlaces legales del footer */
+.footer__legal a { color: var(--muted); transition: color .25s; }
+.footer__legal a:hover { color: var(--white); }
+.form__legal a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* =========================================================
+   PÁGINA LEGAL (terminos.html)
+   ========================================================= */
+.legal-page { padding-top: calc(var(--nav-h) + clamp(40px, 7vw, 88px)); padding-bottom: clamp(64px, 9vw, 120px); }
+.legal-hero { max-width: 760px; }
+.legal-hero__title { font-size: clamp(1.8rem, 1.1rem + 3vw, 3.1rem); }
+.legal-hero__date { margin-top: 18px; font-family: var(--f-mono); font-size: .78rem; color: var(--muted); }
+
+.legal {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.legal__toc {
+  position: sticky; top: calc(var(--nav-h) + 24px);
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(15, 15, 19, .7);
+}
+.legal__toc-title { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.legal__toc ol { display: grid; gap: 2px; counter-reset: toc; }
+.legal__toc li { counter-increment: toc; }
+.legal__toc a {
+  display: flex; gap: 10px;
+  padding: 6px 8px; border-radius: 8px;
+  font-size: .88rem; color: var(--muted);
+  transition: color .25s, background-color .25s;
+}
+.legal__toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--f-mono); font-size: .72rem; color: #5d606a; padding-top: 2px; }
+.legal__toc a:hover { color: var(--white); background: var(--surface-2); }
+
+.legal__body { max-width: 760px; display: grid; gap: 14px; }
+.legal__body section {
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(21, 21, 27, .85), rgba(15, 15, 19, .85));
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+.legal__body h2 {
+  display: flex; align-items: baseline; gap: 14px;
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(1.05rem, .95rem + .5vw, 1.3rem);
+  color: var(--white);
+  line-height: 1.3;
+}
+.legal__body h2 span { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.legal__body h3 { margin-top: 22px; font-size: 1rem; font-weight: 700; color: var(--white); }
+.legal__body p, .legal__body li { color: #B4B7C0; font-size: .97rem; }
+.legal__body p { margin-top: 12px; }
+.legal__body ul { margin-top: 14px; display: grid; gap: 10px; }
+.legal__body li { position: relative; padding-left: 22px; }
+.legal__body li::before { content: "✦"; position: absolute; left: 0; top: .1em; font-size: .7em; color: var(--muted); }
+.legal__body strong { color: var(--text); font-weight: 700; }
+.legal__body a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.legal__privacy { border-color: var(--border-strong) !important; }
+.legal__cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px;
+  margin-top: 10px; padding: 22px 26px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--surface-2), var(--surface));
+}
+.legal__cta p { color: var(--muted); }
+.legal__cta b { color: var(--white); }
+.legal__cta .btn { text-decoration: none; }
+
+@media (max-width: 900px) {
+  .legal { grid-template-columns: minmax(0, 1fr); }
+  .legal__toc { position: static; }
+  .legal__toc ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .legal__toc ol { grid-template-columns: minmax(0, 1fr); }
+  .legal__cta .btn { width: 100%; }
+}
+
 /* =========================================================
    WHATSAPP FLOTANTE
    ========================================================= */
@@ -1174,11 +1258,11 @@ main:focus { outline: none; }
 
 @media (max-width: 900px) {
   .hero { min-height: auto; }
-  .hero__grid { grid-template-columns: 1fr; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
   .hero__art { order: -1; }
   .mono { width: min(300px, 76vw); }
 
-  .project, .process, .faq, .contact { grid-template-columns: 1fr; }
+  .project, .process, .faq, .contact { grid-template-columns: minmax(0, 1fr); }
   .project--flip .project__media { order: 0; }
   .project__media { min-height: 0; }
   .tracker, .faq .section__head { position: static; }
@@ -1218,6 +1302,24 @@ main:focus { outline: none; }
 @media (max-width: 400px) {
   .hero__stats > div { padding-right: 10px; }
   .hero__stats > div + div { padding-left: 12px; }
+}
+
+/* Celular acostado (horizontal): texto y monograma lado a lado */
+@media (max-width: 960px) and (orientation: landscape) and (max-height: 520px) {
+  .hero { min-height: auto; padding-top: calc(var(--nav-h) + 20px); padding-bottom: 40px; }
+  .hero__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 24px; }
+  .hero__art { order: 0; align-self: start; }
+  .mono { width: min(240px, 100%); }
+  .hero__title { margin-top: 18px; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+  .hero__actions { margin-top: 24px; }
+  .hero__actions .btn { flex: 0 1 auto; }
+  .hero__stats { margin-top: 28px; padding-top: 18px; }
+  .nav__menu { height: calc(100dvh - var(--nav-h)); }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .tracker__miles li { font-size: 0; padding-top: 12px; }
 }
 
 /* =========================================================
