@@ -296,7 +296,8 @@ const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
     let names;
     try { names = new Intl.DisplayNames(['es'], { type: 'currency' }); } catch { names = null; }
     const nameOf = (code) => {
-      const n = names && names.of(code);
+      let n = '';
+      try { n = names && names.of(code); } catch { n = ''; }
       return n && n !== code ? n.charAt(0).toUpperCase() + n.slice(1) : code;
     };
 
