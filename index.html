@@ -46,7 +46,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="assets/noir-monograma.webp" type="image/webp">
-  <link rel="stylesheet" href="css/styles.css?v=202610010016">
+  <link rel="stylesheet" href="css/styles.css?v=202610010025">
 
   <script type="application/ld+json">
   {
@@ -233,7 +233,7 @@
         <header class="section__head reveal">
           <p class="eyebrow"><span aria-hidden="true">✦</span> 02 — Trabajos</p>
           <h2 class="section__title" id="trabajos-title">Proyectos que hablan por mí</h2>
-          <p class="section__lead">Proyectos en línea, demos y conceptos que muestran lo que puedo construir para tu negocio.</p>
+          <p class="section__lead">Proyectos en línea y demos funcionales que puedes probar ahora mismo.</p>
         </header>
 
         <div class="projects">
@@ -267,76 +267,61 @@
             </div>
           </article>
 
-          <!-- Proyecto 2 -->
+          <!-- Proyecto 2 · DEMO FUNCIONAL -->
           <article class="project project--flip reveal">
-            <div class="project__media glow">
-              <div class="phone" aria-hidden="true">
-                <div class="phone__notch"></div>
-                <div class="phone__screen menu">
-                  <div class="menu__head">
-                    <span class="menu__brand">Noir Menu</span>
-                    <span class="menu__qr"></span>
-                  </div>
-                  <div class="menu__chips"><span class="is-on">Entradas</span><span>Fuertes</span><span>Bebidas</span></div>
-                  <ul class="menu__list">
-                    <li><i class="menu__thumb t1"></i><div><b>Burger Noir</b><small>Doble carne, cheddar</small></div><em>$28.000</em></li>
-                    <li><i class="menu__thumb t2"></i><div><b>Bowl Teriyaki</b><small>Salmón, arroz, sésamo</small></div><em>$32.000</em></li>
-                    <li><i class="menu__thumb t3"></i><div><b>Limonada coco</b><small>Natural, 16 oz</small></div><em>$9.000</em></li>
-                    <li><i class="menu__thumb t4"></i><div><b>Brownie Noir</b><small>Chocolate 70 %, helado</small></div><em>$14.000</em></li>
-                  </ul>
-                  <div class="menu__cta"><span>2 productos · $60.000</span><b>Pedir por WhatsApp</b></div>
+            <a class="project__media project__media--live glow" href="demos/noir-menu/?mesa=4" target="_blank" rel="noopener" aria-label="Abrir la demo de Noir Menu (se abre en otra pestaña)">
+              <div class="phone">
+                <div class="phone__notch" aria-hidden="true"></div>
+                <div class="phone__screen">
+                  <picture>
+                    <source srcset="assets/proyectos/noir-menu.webp" type="image/webp">
+                    <img class="phone__shot" src="assets/proyectos/noir-menu.jpg" width="520" height="1125" alt="Captura de Noir Menu: menú digital de Casa Brasa con hamburguesas y pedido en curso" loading="lazy">
+                  </picture>
                 </div>
               </div>
-            </div>
+            </a>
             <div class="project__body">
               <div class="project__meta"><span class="pill">Demo</span><span class="project__type">Restaurantes</span></div>
               <h3 class="project__title">Noir Menu</h3>
               <p>Menú digital con código QR: el cliente escanea, elige y envía su pedido directo a WhatsApp, sin apps ni comisiones.</p>
               <ul class="project__list">
-                <li>Menú editable con fotos y precios</li>
-                <li>Carrito y pedido formateado a WhatsApp</li>
-                <li>QR por mesa o para domicilios</li>
+                <li>Menú con fotos, categorías y buscador</li>
+                <li>Carrito con notas por plato y pedido a WhatsApp</li>
+                <li>Mesa, domicilio o para recoger · QR por mesa</li>
               </ul>
-              <ul class="tags"><li>Next.js</li><li>Supabase</li><li>PWA</li></ul>
+              <ul class="tags"><li>HTML</li><li>JavaScript</li><li>WhatsApp</li></ul>
               <div class="project__links">
+                <a class="link-arrow" href="demos/noir-menu/?mesa=4" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">↗</span></a>
                 <a class="link-arrow" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Me interesa un menú digital como Noir Menu." target="_blank" rel="noopener">Quiero algo así <span aria-hidden="true">→</span></a>
-                <!-- <a class="link-arrow" href="https://URL-DEL-PROYECTO" target="_blank" rel="noopener">Ver proyecto <span aria-hidden="true">↗</span></a> -->
               </div>
             </div>
           </article>
 
-          <!-- Proyecto 3 -->
+          <!-- Proyecto 3 · DEMO FUNCIONAL -->
           <article class="project reveal">
-            <div class="project__media glow">
-              <div class="browser" aria-hidden="true">
-                <div class="browser__bar"><i></i><i></i><i></i><span>tutienda.com</span></div>
-                <div class="browser__screen shop">
-                  <div class="shop__nav"><b>ATELIER</b><span class="shop__cart">Carrito <em>3</em></span></div>
-                  <div class="shop__grid">
-                    <div class="shop__item"><i class="p1"></i><span>Chaqueta Onyx</span><b>$189.000</b></div>
-                    <div class="shop__item"><i class="p2"></i><span>Reloj Steel</span><b>$245.000</b></div>
-                    <div class="shop__item"><i class="p3"></i><span>Tenis Carbon</span><b>$210.000</b></div>
-                  </div>
-                  <div class="shop__panel">
-                    <span>Ventas hoy</span><b>$1.284.000</b>
-                    <div class="shop__bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:70%"></i><i style="--h:95%"></i></div>
-                  </div>
-                </div>
+            <a class="project__media project__media--live glow" href="demos/tienda/" target="_blank" rel="noopener" aria-label="Abrir la demo de la tienda online (se abre en otra pestaña)">
+              <div class="browser">
+                <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>atelier.tienda</span></div>
+                <picture>
+                  <source srcset="assets/proyectos/tienda-atelier.webp" type="image/webp">
+                  <img class="project__shot" src="assets/proyectos/tienda-atelier.jpg" width="1200" height="625" alt="Captura de la tienda online ATELIER con colección de chaquetas y ponchos" loading="lazy">
+                </picture>
               </div>
-            </div>
+            </a>
             <div class="project__body">
-              <div class="project__meta"><span class="pill pill--alt">Concepto</span><span class="project__type">E-commerce</span></div>
+              <div class="project__meta"><span class="pill">Demo</span><span class="project__type">E-commerce</span></div>
               <h3 class="project__title">Tienda online</h3>
               <p>Tienda completa con catálogo, carrito, pagos en línea y un panel para ver ventas y gestionar inventario.</p>
               <ul class="project__list">
-                <li>Pagos con tarjeta y métodos locales</li>
-                <li>Panel de pedidos e inventario</li>
-                <li>Cupones, envíos y correos automáticos</li>
+                <li>Catálogo con filtros, tallas y ofertas</li>
+                <li>Carrito con cupones y envío gratis por monto</li>
+                <li>Checkout con tarjeta, PSE o contra entrega</li>
+                <li>Panel de ventas, pedidos e inventario</li>
               </ul>
-              <ul class="tags"><li>Next.js</li><li>Stripe</li><li>Supabase</li></ul>
+              <ul class="tags"><li>HTML</li><li>JavaScript</li><li>E-commerce</li></ul>
               <div class="project__links">
+                <a class="link-arrow" href="demos/tienda/" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">↗</span></a>
                 <a class="link-arrow" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Quiero una tienda online para mi negocio." target="_blank" rel="noopener">Quiero algo así <span aria-hidden="true">→</span></a>
-                <!-- <a class="link-arrow" href="https://URL-DEL-PROYECTO" target="_blank" rel="noopener">Ver proyecto <span aria-hidden="true">↗</span></a> -->
               </div>
             </div>
           </article>
@@ -621,6 +606,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
   </a>
 
-  <script src="js/main.js?v=202610010016" defer></script>
+  <script src="js/main.js?v=202610010025" defer></script>
 </body>
 </html>

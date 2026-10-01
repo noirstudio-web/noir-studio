@@ -555,6 +555,9 @@ main:focus { outline: none; }
 }
 .project__shot { width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--border); }
 .browser .project__shot { border: 0; border-radius: 0; }
+.phone__screen picture { height: 100%; }
+.phone__shot { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.project__media--live:hover .phone { transform: translateY(-8px) rotate(-1.5deg); }
 .project__media--live { cursor: pointer; padding: clamp(16px, 2.5vw, 28px); }
 .project__media--live .browser { max-width: none; }
 .project__media--live:hover .browser { transform: translateY(-8px); }
