@@ -46,7 +46,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 
   <link rel="preload" as="image" href="assets/noir-monograma.webp" type="image/webp">
-  <link rel="stylesheet" href="css/styles.css?v=202610010029">
+  <link rel="stylesheet" href="css/styles.css?v=202610011137">
 
   <script type="application/ld+json">
   {
@@ -335,45 +335,100 @@
       <div class="container">
         <header class="section__head reveal">
           <p class="eyebrow"><span aria-hidden="true">✦</span> 03 — Proceso</p>
-          <h2 class="section__title" id="proceso-title">De la idea al lanzamiento</h2>
-          <p class="section__lead">Un proceso claro, sin sorpresas. Sabes en qué punto va tu proyecto en todo momento.</p>
+          <h2 class="section__title" id="proceso-title">De tu idea a tu web en línea, en 5&nbsp;pasos</h2>
+          <p class="section__lead">Sin tecnicismos ni sorpresas: sabes qué pasa, qué recibes y cuándo, desde el primer mensaje hasta el día del lanzamiento.</p>
         </header>
 
         <div class="process">
-          <ol class="steps">
-            <li class="step reveal">
-              <span class="step__num">01</span>
-              <div><h3>Idea</h3><p>Hablamos de tu negocio, tus clientes y lo que quieres lograr. Sin tecnicismos.</p></div>
+          <ol class="steps" id="steps" style="--fill: 100">
+            <li class="step reveal" data-step="0">
+              <span class="step__num" aria-hidden="true">01</span>
+              <div class="step__body">
+                <span class="step__time">Día 1 · Gratis</span>
+                <h3><button class="step__btn" type="button" aria-controls="tracker">Idea</button></h3>
+                <p class="step__tagline">Hablamos de tu negocio</p>
+                <p>Una charla por WhatsApp o videollamada sobre tus clientes, tu competencia y lo que quieres lograr. Tú hablas de tu negocio; yo me encargo de la parte técnica.</p>
+                <p class="step__get"><span aria-hidden="true">✦</span> Recibes: claridad sobre lo que necesitas (y lo que no).</p>
+              </div>
             </li>
-            <li class="step reveal">
-              <span class="step__num">02</span>
-              <div><h3>Propuesta</h3><p>Recibes alcance, tiempos y precio cerrado por escrito. Sin costos ocultos.</p></div>
+            <li class="step reveal" data-step="1">
+              <span class="step__num" aria-hidden="true">02</span>
+              <div class="step__body">
+                <span class="step__time">En 24–48 h</span>
+                <h3><button class="step__btn" type="button" aria-controls="tracker">Propuesta</button></h3>
+                <p class="step__tagline">Precio cerrado, por escrito</p>
+                <p>Te envío el alcance, la fecha de entrega y un precio fijo. Si te convence, arrancamos con el 50&nbsp;% de anticipo.</p>
+                <p class="step__get"><span aria-hidden="true">✦</span> Recibes: una propuesta clara, sin letra pequeña.</p>
+              </div>
             </li>
-            <li class="step reveal">
-              <span class="step__num">03</span>
-              <div><h3>Diseño</h3><p>Diseño la interfaz a medida y la ajustamos juntos antes de escribir código.</p></div>
+            <li class="step reveal" data-step="2">
+              <span class="step__num" aria-hidden="true">03</span>
+              <div class="step__body">
+                <span class="step__time">2–5 días</span>
+                <h3><button class="step__btn" type="button" aria-controls="tracker">Diseño</button></h3>
+                <p class="step__tagline">Lo ves antes de programarlo</p>
+                <p>Diseño tu web a medida, con tu marca, para celular y computador. La ajustamos juntos hasta que te encante.</p>
+                <p class="step__get"><span aria-hidden="true">✦</span> Recibes: el diseño completo para aprobar.</p>
+              </div>
             </li>
-            <li class="step reveal">
-              <span class="step__num">04</span>
-              <div><h3>Código</h3><p>Programo con tecnologías modernas; ves avances reales durante el desarrollo.</p></div>
+            <li class="step reveal" data-step="3">
+              <span class="step__num" aria-hidden="true">04</span>
+              <div class="step__body">
+                <span class="step__time">1–3 semanas</span>
+                <h3><button class="step__btn" type="button" aria-controls="tracker">Código</button></h3>
+                <p class="step__tagline">Avances reales, no promesas</p>
+                <p>Programo con tecnologías modernas y te comparto un link de prueba para que veas el progreso en vivo, desde tu celular.</p>
+                <p class="step__get"><span aria-hidden="true">✦</span> Recibes: un link de avance siempre actualizado.</p>
+              </div>
             </li>
-            <li class="step reveal">
-              <span class="step__num">05</span>
-              <div><h3>Lanzamiento</h3><p>Publico tu proyecto, lo conecto a tu dominio y te enseño a usarlo.</p></div>
+            <li class="step reveal" data-step="4">
+              <span class="step__num" aria-hidden="true">05</span>
+              <div class="step__body">
+                <span class="step__time">Día de entrega</span>
+                <h3><button class="step__btn" type="button" aria-controls="tracker">Lanzamiento</button></h3>
+                <p class="step__tagline">Tu web, en línea y a tu nombre</p>
+                <p>La publico en tu dominio, la dejo lista para Google y te enseño a usarla. Pagas el 50&nbsp;% restante solo cuando la apruebas.</p>
+                <p class="step__get"><span aria-hidden="true">✦</span> Recibes: tu web publicada, todos los accesos y soporte.</p>
+              </div>
             </li>
           </ol>
 
-          <div class="terminal reveal" aria-label="Terminal de ejemplo del proceso de desarrollo">
-            <div class="terminal__bar"><i></i><i></i><i></i><span>noir@studio: ~/tu-proyecto</span></div>
-            <pre class="terminal__body" id="terminal"><code><span class="t-p">$</span> npx create-noir-app tu-negocio
-<span class="t-ok">✓</span> Brief y objetivos definidos
-<span class="t-ok">✓</span> Diseño a medida aprobado
-<span class="t-p">$</span> npm run build
-<span class="t-ok">✓</span> Compilado en 2.1s · 0 errores
-<span class="t-ok">✓</span> Lighthouse: <span class="t-hl">98</span> / 100
-<span class="t-p">$</span> vercel deploy --prod
+          <!-- Panel de seguimiento: js/main.js lo anima paso a paso -->
+          <div class="tracker reveal" id="tracker" aria-label="Seguimiento de ejemplo de un proyecto">
+            <div class="tracker__head">
+              <div>
+                <span class="tracker__label">Tu proyecto</span>
+                <b class="tracker__site">tunegocio.com</b>
+              </div>
+              <span class="tracker__status" id="trk-status" aria-live="polite"><i aria-hidden="true"></i><span>En línea</span></span>
+            </div>
+            <div class="tracker__progress">
+              <div class="tracker__bar"><i id="trk-bar" style="width: 100%"></i></div>
+              <span class="tracker__pct" id="trk-pct">100&nbsp;%</span>
+            </div>
+            <ol class="tracker__miles" id="trk-miles">
+              <li class="is-done">Idea</li><li class="is-done">Propuesta</li><li class="is-done">Diseño</li><li class="is-done">Código</li><li class="is-done">Lanzamiento</li>
+            </ol>
+            <div class="terminal">
+              <div class="terminal__bar"><i></i><i></i><i></i><span>noir@studio: ~/tu-proyecto</span></div>
+              <pre class="terminal__body" id="terminal"><code><span class="t-p">$</span> vercel deploy --prod
+<span class="t-ok">✓</span> Dominio conectado · HTTPS activo
+<span class="t-ok">✓</span> Lista para Google · Lighthouse <span class="t-hl">98</span>/100
 <span class="t-star">✦</span> Tu web está en línea → <span class="t-hl">tunegocio.com</span></code></pre>
+            </div>
           </div>
+        </div>
+
+        <ul class="promises reveal" aria-label="Lo que te garantizo">
+          <li><span aria-hidden="true">📄</span><div><b>Precio cerrado</b><small>Lo acordado por escrito es lo que pagas</small></div></li>
+          <li><span aria-hidden="true">💳</span><div><b>50&nbsp;% / 50&nbsp;%</b><small>El resto, solo cuando apruebas</small></div></li>
+          <li><span aria-hidden="true">💬</span><div><b>Avances por WhatsApp</b><small>Siempre sabes en qué va tu proyecto</small></div></li>
+          <li><span aria-hidden="true">🔑</span><div><b>Todo a tu nombre</b><small>Código, dominio y accesos son tuyos</small></div></li>
+        </ul>
+
+        <div class="process__cta reveal">
+          <p><b>¿Damos el paso 1?</b> La primera charla es gratis y sin compromiso.</p>
+          <a class="btn btn--chrome" href="https://wa.me/573135639329" data-wa="cotizar" target="_blank" rel="noopener">Hablemos de tu idea <span aria-hidden="true">✦</span></a>
         </div>
       </div>
     </section>
@@ -606,6 +661,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
   </a>
 
-  <script src="js/main.js?v=202610010029" defer></script>
+  <script src="js/main.js?v=202610011137" defer></script>
 </body>
 </html>

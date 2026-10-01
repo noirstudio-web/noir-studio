@@ -263,61 +263,115 @@ const WA_MESSAGES = {
     reducedMotion.addEventListener('change', start);
   }
 
-  /* ---------- Terminal que se escribe sola ---------- */
+  /* ---------- Proceso: pasos + panel de seguimiento ---------- */
+  const stepsEl = $('#steps');
   const term = $('#terminal');
-  if (term) {
+  if (stepsEl && term) {
+    // Lo que muestra el panel en cada paso. "$" = comando, "✓"/"✦" = resultado, [[texto]] = resaltado
+    const STAGES = [
+      { status: 'Conversando', lines: ['$ noir brief --negocio "tu-negocio"', '✓ Objetivo: más clientes por WhatsApp', '✓ Público y competencia analizados', '✓ Plan claro, sin tecnicismos'] },
+      { status: 'Propuesta enviada', lines: ['$ noir propuesta --enviar', '✓ Alcance: 5 secciones + formulario', '✓ Entrega: [[2 semanas]]', '✓ Precio cerrado · anticipo 50 %'] },
+      { status: 'Diseñando', lines: ['$ noir diseño --preview', '✓ Colores y estilo de tu marca', '✓ Versión celular y computador', '✓ Diseño [[aprobado]] por ti'] },
+      { status: 'Programando', lines: ['$ npm run build', '✓ Compilado en 2.1s · 0 errores', '✓ Avance → [[preview.tunegocio.com]]', '✓ Lighthouse [[98]]/100'] },
+      { status: 'En línea', lines: ['$ vercel deploy --prod', '✓ Dominio conectado · HTTPS activo', '✓ Lista para Google', '✦ Tu web está en línea → [[tunegocio.com]]'] },
+    ];
+    const steps = $$('.step', stepsEl);
+    const miles = $$('#trk-miles li');
+    const statusEl = $('#trk-status');
     const code = $('code', term);
-    const caret = document.createElement('span');
-    caret.className = 'caret';
+    const last = STAGES.length - 1;
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const animate = !reducedMotion.matches && 'IntersectionObserver' in window;
+
+    const caret = Object.assign(document.createElement('span'), { className: 'caret' });
     caret.setAttribute('aria-hidden', 'true');
-
-    if (reducedMotion.matches || !('IntersectionObserver' in window)) {
-      code.append('\n', Object.assign(document.createElement('span'), { className: 't-p', textContent: '$ ' }), caret);
-    } else {
-      // Divide el contenido original en líneas de segmentos {clase, texto}
-      const lines = [[]];
-      code.childNodes.forEach((n) => {
-        const cls = n.nodeType === 1 ? n.className : '';
-        n.textContent.split('\n').forEach((part, i) => {
-          if (i > 0) lines.push([]);
-          if (part) lines[lines.length - 1].push({ cls, text: part });
-        });
+    const span = (cls, text = '') => {
+      const el = document.createElement('span');
+      if (cls) el.className = cls;
+      el.textContent = text;
+      return el;
+    };
+    // Convierte "✓ Entrega: [[2 semanas]]" en nodos con sus colores
+    const outputNodes = (line) => {
+      const nodes = [span(line[0] === '✦' ? 't-star' : 't-ok', line[0])];
+      line.slice(1).split(/(\[\[.*?\]\])/).forEach((part) => {
+        if (part) nodes.push(part.startsWith('[[') ? span('t-hl', part.slice(2, -2)) : document.createTextNode(part));
       });
+      return nodes;
+    };
 
-      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-      const add = (cls, text = '') => {
-        const node = cls ? Object.assign(document.createElement('span'), { className: cls }) : document.createElement('span');
-        node.textContent = text;
-        code.insertBefore(node, caret);
-        return node;
-      };
-
-      const type = async () => {
-        code.textContent = '';
-        code.append(caret);
-        await sleep(400);
-        for (let li = 0; li < lines.length; li++) {
-          const line = lines[li];
-          const isCmd = line[0] && line[0].cls === 't-p';
-          for (const seg of line) {
-            if (isCmd && seg.cls !== 't-p') {
-              const node = add(seg.cls);
-              for (const ch of seg.text) { node.textContent += ch; await sleep(28 + Math.random() * 45); }
-            } else {
-              add(seg.cls, seg.text);
-            }
+    let run = 0;
+    const typeStage = async (i) => {
+      const id = ++run;
+      code.textContent = '';
+      code.append(caret);
+      for (const [n, line] of STAGES[i].lines.entries()) {
+        if (n) code.insertBefore(document.createTextNode('\n'), caret);
+        if (line.startsWith('$')) {
+          code.insertBefore(span('t-p', '$'), caret);
+          const cmd = code.insertBefore(span(''), caret);
+          if (!animate) { cmd.textContent = line.slice(1); continue; }
+          for (const ch of line.slice(1)) {
+            if (id !== run) return false;
+            cmd.textContent += ch;
+            await sleep(24 + Math.random() * 40);
           }
-          await sleep(isCmd ? 420 : 260);
-          if (li < lines.length - 1) add('', '\n');
+          await sleep(380);
+        } else {
+          outputNodes(line).forEach((node) => code.insertBefore(node, caret));
+          if (animate) await sleep(300);
         }
-        add('', '\n');
-        add('t-p', '$ ');
-      };
+        if (id !== run) return false;
+      }
+      return true;
+    };
 
-      const tio = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) { tio.disconnect(); type(); }
-      }, { threshold: 0.45 });
-      tio.observe(term);
+    let current = last;
+    const setStep = (i) => {
+      current = i;
+      steps.forEach((el, n) => {
+        el.classList.toggle('is-active', n === i);
+        el.classList.toggle('is-done', n < i || i === last);
+        el.querySelector('.step__btn').setAttribute('aria-pressed', String(n === i));
+      });
+      miles.forEach((el, n) => {
+        el.classList.toggle('is-active', n === i);
+        el.classList.toggle('is-done', n < i || i === last);
+      });
+      const pct = Math.round(((i + 1) / STAGES.length) * 100);
+      stepsEl.style.setProperty('--fill', String((i / last) * 100));
+      $('#trk-bar').style.width = `${pct}%`;
+      $('#trk-pct').textContent = `${pct} %`;
+      statusEl.lastElementChild.textContent = STAGES[i].status;
+      statusEl.classList.toggle('is-working', i < last);
+      return typeStage(i);
+    };
+
+    // Clic en un paso: lo muestra y detiene el recorrido automático
+    let manual = false;
+    steps.forEach((el, n) => el.addEventListener('click', () => { manual = true; setStep(n); }));
+
+    if (!animate) {
+      setStep(last);
+    } else {
+      // Recorrido automático mientras el panel está en pantalla
+      let visible = false, looping = false;
+      const loop = async () => {
+        if (looping) return;
+        looping = true;
+        let i = current === last ? 0 : current + 1;
+        while (visible && !manual) {
+          const done = await setStep(i);
+          if (!done) break;
+          await sleep(i === last ? 4200 : 2200);
+          i = i === last ? 0 : i + 1;
+        }
+        looping = false;
+      };
+      new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible && !manual) loop();
+      }, { threshold: 0.35 }).observe($('#tracker'));
     }
   }
 
