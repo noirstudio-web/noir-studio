@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <title>Noir Studio · Desarrollo web a medida — Código que construye tu visión</title>
+  <meta name="description" content="Noir Studio diseña y programa páginas web, landing pages, tiendas online y apps a medida. Sin plantillas, rápidas, listas para Google. Cotiza tu proyecto por WhatsApp.">
+  <meta name="theme-color" content="#07070A">
+  <meta name="color-scheme" content="dark">
+  <meta name="author" content="Noir Studio">
+  <!-- AL TENER DOMINIO: descomenta estas líneas y cambia "tudominio.com" por el tuyo.
+       Haz lo mismo en og:image y twitter:image (WhatsApp y Facebook necesitan la URL completa).
+  <link rel="canonical" href="https://tudominio.com/">
+  <meta property="og:url" content="https://tudominio.com/">
+  -->
+
+  <!-- Open Graph / redes -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:site_name" content="Noir Studio">
+  <meta property="og:title" content="Noir Studio — Código que construye tu visión">
+  <meta property="og:description" content="Páginas web, tiendas online y apps a medida. Ideas / Código / Resultados.">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logotipo de Noir Studio sobre fondo negro">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Noir Studio — Código que construye tu visión">
+  <meta name="twitter:description" content="Páginas web, tiendas online y apps a medida.">
+  <meta name="twitter:image" content="assets/og-image.png">
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="image" href="assets/noir-monograma.webp" type="image/webp">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Noir Studio",
+    "slogan": "Código que construye tu visión",
+    "description": "Estudio de desarrollo web a medida: páginas web, landing pages, tiendas online, apps y sistemas.",
+    "image": "assets/og-image.png",
+    "telephone": "+57 313 563 9329",
+    "areaServed": "Worldwide",
+    "address": { "@type": "PostalAddress", "addressCountry": "CO" },
+    "sameAs": ["https://discord.gg/fNWeKew86h"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Saltar al contenido</a>
+
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a class="nav__logo" href="#inicio" aria-label="Noir Studio, ir al inicio">
+        <img src="assets/logo-navbar-para-fondo-oscuro.png" width="420" height="123" alt="Noir Studio">
+      </a>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Principal">
+        <ul class="nav__links">
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#trabajos">Trabajos</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#preguntas">Preguntas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <a class="btn btn--chrome btn--sm nav__cta" href="#contacto">Cotizar proyecto</a>
+      </nav>
+
+      <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="inicio" tabindex="-1">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="badge reveal"><span class="badge__dot" aria-hidden="true"></span> Disponible para nuevos proyectos</p>
+
+          <h1 class="hero__title reveal">
+            <span class="shine">Código que construye tu&nbsp;visión.</span>
+          </h1>
+
+          <p class="hero__lead reveal">
+            Diseño y programo páginas web, tiendas online y apps a medida para negocios que quieren verse
+            premium y vender más. Sin plantillas, sin intermediarios: tu idea convertida en un producto
+            rápido, seguro y listo para crecer.
+          </p>
+
+          <div class="hero__actions reveal">
+            <a class="btn btn--chrome" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Quiero cotizar un proyecto web." target="_blank" rel="noopener">
+              Cotizar mi proyecto <span aria-hidden="true">✦</span>
+            </a>
+            <a class="btn btn--ghost" href="#trabajos">Ver trabajos</a>
+          </div>
+
+          <dl class="hero__stats reveal">
+            <div><dt>100&nbsp;%</dt><dd>a medida</dd></div>
+            <div><dt>0</dt><dd>plantillas</dd></div>
+            <div><dt>24/7</dt><dd>en línea</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero__art reveal" aria-hidden="true">
+          <div class="mono">
+            <div class="mono__halo"></div>
+            <div class="mono__ring"></div>
+            <div class="mono__ring mono__ring--inner"></div>
+            <picture>
+              <source srcset="assets/noir-monograma.webp" type="image/webp">
+              <img class="mono__img" src="assets/noir-monograma.png" width="634" height="760" alt="">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section class="marquee" aria-label="Tecnologías con las que trabajo">
+      <div class="marquee__track">
+        <ul class="marquee__list">
+          <li>Next.js</li><li>React</li><li>Tailwind</li><li>Node.js</li><li>Supabase</li>
+          <li>PostgreSQL</li><li>Stripe</li><li>Vercel</li><li>TypeScript</li><li>Figma</li>
+        </ul>
+        <ul class="marquee__list" aria-hidden="true">
+          <li>Next.js</li><li>React</li><li>Tailwind</li><li>Node.js</li><li>Supabase</li>
+          <li>PostgreSQL</li><li>Stripe</li><li>Vercel</li><li>TypeScript</li><li>Figma</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ SERVICIOS ============ -->
+    <section class="section" id="servicios" aria-labelledby="servicios-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 01 — Servicios</p>
+          <h2 class="section__title" id="servicios-title">Lo que construyo para tu negocio</h2>
+          <p class="section__lead">Cada proyecto se diseña desde cero alrededor de tus clientes, tu marca y tus objetivos.</p>
+        </header>
+
+        <div class="cards cards--3">
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg>
+            </div>
+            <h3>Páginas web</h3>
+            <p>Sitios corporativos y de marca personal que transmiten confianza y convierten visitas en clientes.</p>
+            <ul class="tags"><li>Corporativas</li><li>Portafolios</li><li>SEO</li></ul>
+          </article>
+
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            </div>
+            <h3>Landing pages</h3>
+            <p>Una página enfocada en una sola acción: vender, captar contactos o lanzar tu producto.</p>
+            <ul class="tags"><li>Campañas</li><li>Lanzamientos</li><li>Ads</li></ul>
+          </article>
+
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 11.1A2 2 0 0 1 15.8 20H8.2a2 2 0 0 1-2-1.9Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+            </div>
+            <h3>Tiendas online</h3>
+            <p>Catálogo, carrito, pagos en línea y panel para gestionar productos y pedidos sin depender de nadie.</p>
+            <ul class="tags"><li>E-commerce</li><li>Pagos</li><li>Inventario</li></ul>
+          </article>
+
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+            </div>
+            <h3>Apps</h3>
+            <p>Aplicaciones web progresivas que se instalan en el celular y funcionan rápido en cualquier dispositivo.</p>
+            <ul class="tags"><li>PWA</li><li>Mobile-first</li><li>Tiempo real</li></ul>
+          </article>
+
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.5"/><path d="M4.5 5.5v6c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-6M4.5 11.5v6c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-6"/></svg>
+            </div>
+            <h3>Sistemas</h3>
+            <p>Reservas, inventarios, dashboards y paneles administrativos hechos a la medida de tu operación.</p>
+            <ul class="tags"><li>Dashboards</li><li>Reservas</li><li>APIs</li></ul>
+          </article>
+
+          <article class="card glow reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2.5 14 10l7.5 2-7.5 2-2 7.5-2-7.5-7.5-2L10 10Z"/></svg>
+            </div>
+            <h3>Branding</h3>
+            <p>Logo, paleta, tipografías y piezas para redes: una identidad coherente para que tu marca se recuerde.</p>
+            <ul class="tags"><li>Logo</li><li>Identidad</li><li>Redes</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRABAJOS ============ -->
+    <!--
+      CÓMO REEMPLAZAR UN PROYECTO POR UNO REAL:
+      1. Dentro de <div class="project__media"> borra el mockup y pon tu captura:
+         <img class="project__shot" src="assets/proyectos/mi-proyecto.webp" width="1200" height="800" alt="Captura de Mi Proyecto" loading="lazy">
+      2. Cambia la etiqueta <span class="pill">Demo</span> por <span class="pill pill--live">En línea</span>
+      3. Descomenta el enlace "Ver proyecto" y pon la URL real.
+    -->
+    <section class="section" id="trabajos" aria-labelledby="trabajos-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 02 — Trabajos</p>
+          <h2 class="section__title" id="trabajos-title">Proyectos que hablan por mí</h2>
+          <p class="section__lead">Demos y conceptos que muestran lo que puedo construir para tu negocio.</p>
+        </header>
+
+        <div class="projects">
+
+          <!-- Proyecto 1 -->
+          <article class="project reveal">
+            <div class="project__media glow">
+              <div class="phone" aria-hidden="true">
+                <div class="phone__notch"></div>
+                <div class="phone__screen menu">
+                  <div class="menu__head">
+                    <span class="menu__brand">Noir Menu</span>
+                    <span class="menu__qr"></span>
+                  </div>
+                  <div class="menu__chips"><span class="is-on">Entradas</span><span>Fuertes</span><span>Bebidas</span></div>
+                  <ul class="menu__list">
+                    <li><i class="menu__thumb t1"></i><div><b>Burger Noir</b><small>Doble carne, cheddar</small></div><em>$28.000</em></li>
+                    <li><i class="menu__thumb t2"></i><div><b>Bowl Teriyaki</b><small>Salmón, arroz, sésamo</small></div><em>$32.000</em></li>
+                    <li><i class="menu__thumb t3"></i><div><b>Limonada coco</b><small>Natural, 16 oz</small></div><em>$9.000</em></li>
+                    <li><i class="menu__thumb t4"></i><div><b>Brownie Noir</b><small>Chocolate 70 %, helado</small></div><em>$14.000</em></li>
+                  </ul>
+                  <div class="menu__cta"><span>2 productos · $60.000</span><b>Pedir por WhatsApp</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="project__body">
+              <div class="project__meta"><span class="pill">Demo</span><span class="project__type">Restaurantes</span></div>
+              <h3 class="project__title">Noir Menu</h3>
+              <p>Menú digital con código QR: el cliente escanea, elige y envía su pedido directo a WhatsApp, sin apps ni comisiones.</p>
+              <ul class="project__list">
+                <li>Menú editable con fotos y precios</li>
+                <li>Carrito y pedido formateado a WhatsApp</li>
+                <li>QR por mesa o para domicilios</li>
+              </ul>
+              <ul class="tags"><li>Next.js</li><li>Supabase</li><li>PWA</li></ul>
+              <div class="project__links">
+                <a class="link-arrow" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Me interesa un menú digital como Noir Menu." target="_blank" rel="noopener">Quiero algo así <span aria-hidden="true">→</span></a>
+                <!-- <a class="link-arrow" href="https://URL-DEL-PROYECTO" target="_blank" rel="noopener">Ver proyecto <span aria-hidden="true">↗</span></a> -->
+              </div>
+            </div>
+          </article>
+
+          <!-- Proyecto 2 -->
+          <article class="project project--flip reveal">
+            <div class="project__media glow">
+              <div class="browser" aria-hidden="true">
+                <div class="browser__bar"><i></i><i></i><i></i><span>filobarber.club</span></div>
+                <div class="browser__screen barber">
+                  <div class="barber__hero">
+                    <span class="barber__logo">FILO</span>
+                    <b>Tu corte, a tu hora.</b>
+                    <small>Reserva en 30 segundos</small>
+                  </div>
+                  <div class="barber__booking">
+                    <span class="barber__label">Elige tu barbero</span>
+                    <div class="barber__pros"><i class="is-on"></i><i></i><i></i></div>
+                    <span class="barber__label">Horarios · Sáb 14</span>
+                    <div class="barber__slots"><span>10:00</span><span class="is-off">10:30</span><span class="is-on">11:00</span><span>11:30</span><span class="is-off">12:00</span><span>12:30</span></div>
+                    <span class="barber__btn">Confirmar reserva</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project__body">
+              <div class="project__meta"><span class="pill">Demo</span><span class="project__type">Barberías</span></div>
+              <h3 class="project__title">Filo Barber Club</h3>
+              <p>Web para barberías con reservas en línea: el cliente elige barbero, servicio y horario disponible en segundos.</p>
+              <ul class="project__list">
+                <li>Agenda por barbero sin cruces</li>
+                <li>Recordatorios y confirmación</li>
+                <li>Galería de cortes y precios</li>
+              </ul>
+              <ul class="tags"><li>React</li><li>Node.js</li><li>PostgreSQL</li></ul>
+              <div class="project__links">
+                <a class="link-arrow" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Me interesa una web con reservas como Filo Barber Club." target="_blank" rel="noopener">Quiero algo así <span aria-hidden="true">→</span></a>
+                <!-- <a class="link-arrow" href="https://URL-DEL-PROYECTO" target="_blank" rel="noopener">Ver proyecto <span aria-hidden="true">↗</span></a> -->
+              </div>
+            </div>
+          </article>
+
+          <!-- Proyecto 3 -->
+          <article class="project reveal">
+            <div class="project__media glow">
+              <div class="browser" aria-hidden="true">
+                <div class="browser__bar"><i></i><i></i><i></i><span>tutienda.com</span></div>
+                <div class="browser__screen shop">
+                  <div class="shop__nav"><b>ATELIER</b><span class="shop__cart">Carrito <em>3</em></span></div>
+                  <div class="shop__grid">
+                    <div class="shop__item"><i class="p1"></i><span>Chaqueta Onyx</span><b>$189.000</b></div>
+                    <div class="shop__item"><i class="p2"></i><span>Reloj Steel</span><b>$245.000</b></div>
+                    <div class="shop__item"><i class="p3"></i><span>Tenis Carbon</span><b>$210.000</b></div>
+                  </div>
+                  <div class="shop__panel">
+                    <span>Ventas hoy</span><b>$1.284.000</b>
+                    <div class="shop__bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:70%"></i><i style="--h:95%"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project__body">
+              <div class="project__meta"><span class="pill pill--alt">Concepto</span><span class="project__type">E-commerce</span></div>
+              <h3 class="project__title">Tienda online</h3>
+              <p>Tienda completa con catálogo, carrito, pagos en línea y un panel para ver ventas y gestionar inventario.</p>
+              <ul class="project__list">
+                <li>Pagos con tarjeta y métodos locales</li>
+                <li>Panel de pedidos e inventario</li>
+                <li>Cupones, envíos y correos automáticos</li>
+              </ul>
+              <ul class="tags"><li>Next.js</li><li>Stripe</li><li>Supabase</li></ul>
+              <div class="project__links">
+                <a class="link-arrow" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Quiero una tienda online para mi negocio." target="_blank" rel="noopener">Quiero algo así <span aria-hidden="true">→</span></a>
+                <!-- <a class="link-arrow" href="https://URL-DEL-PROYECTO" target="_blank" rel="noopener">Ver proyecto <span aria-hidden="true">↗</span></a> -->
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESO ============ -->
+    <section class="section" id="proceso" aria-labelledby="proceso-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 03 — Proceso</p>
+          <h2 class="section__title" id="proceso-title">De la idea al lanzamiento</h2>
+          <p class="section__lead">Un proceso claro, sin sorpresas. Sabes en qué punto va tu proyecto en todo momento.</p>
+        </header>
+
+        <div class="process">
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step__num">01</span>
+              <div><h3>Idea</h3><p>Hablamos de tu negocio, tus clientes y lo que quieres lograr. Sin tecnicismos.</p></div>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">02</span>
+              <div><h3>Propuesta</h3><p>Recibes alcance, tiempos y precio cerrado por escrito. Sin costos ocultos.</p></div>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">03</span>
+              <div><h3>Diseño</h3><p>Diseño la interfaz a medida y la ajustamos juntos antes de escribir código.</p></div>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">04</span>
+              <div><h3>Código</h3><p>Programo con tecnologías modernas; ves avances reales durante el desarrollo.</p></div>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">05</span>
+              <div><h3>Lanzamiento</h3><p>Publico tu proyecto, lo conecto a tu dominio y te enseño a usarlo.</p></div>
+            </li>
+          </ol>
+
+          <div class="terminal reveal" aria-label="Terminal de ejemplo del proceso de desarrollo">
+            <div class="terminal__bar"><i></i><i></i><i></i><span>noir@studio: ~/tu-proyecto</span></div>
+            <pre class="terminal__body" id="terminal"><code><span class="t-p">$</span> npx create-noir-app tu-negocio
+<span class="t-ok">✓</span> Brief y objetivos definidos
+<span class="t-ok">✓</span> Diseño a medida aprobado
+<span class="t-p">$</span> npm run build
+<span class="t-ok">✓</span> Compilado en 2.1s · 0 errores
+<span class="t-ok">✓</span> Lighthouse: <span class="t-hl">98</span> / 100
+<span class="t-p">$</span> vercel deploy --prod
+<span class="t-star">✦</span> Tu web está en línea → <span class="t-hl">tunegocio.com</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ POR QUÉ NOIR ============ -->
+    <section class="section" id="por-que" aria-labelledby="porque-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 04 — Por qué Noir</p>
+          <h2 class="section__title" id="porque-title">Más que una web bonita</h2>
+          <p class="section__lead">Trabajas directamente con quien diseña y programa tu proyecto.</p>
+        </header>
+
+        <ul class="perks">
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg>
+            <h3>Entrega rápida</h3><p>Plazos claros y cumplidos. Una landing puede estar lista en días.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 14 10l7.5 2-7.5 2-2 7.5-2-7.5-7.5-2L10 10Z"/></svg>
+            <h3>100 % a medida</h3><p>Nada de plantillas: cada pixel pensado para tu marca.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+            <h3>Mobile-first</h3><p>Diseñado primero para el celular, donde están tus clientes.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <h3>Listo para Google</h3><p>SEO técnico, velocidad y metadatos para que te encuentren.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 4 6v6c0 4.5 3.4 8.3 8 9.5 4.6-1.2 8-5 8-9.5V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+            <h3>Seguro</h3><p>HTTPS, buenas prácticas y datos protegidos desde el primer día.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12Z"/></svg>
+            <h3>Trato directo</h3><p>Hablas conmigo, no con un call center ni con intermediarios.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4.5"/><path d="m11.2 11.8 8.3-8.3M16.5 6.5l2.5 2.5M14 9l2 2"/></svg>
+            <h3>El proyecto es tuyo</h3><p>Código, dominio y accesos quedan a tu nombre. Sin ataduras.</p>
+          </li>
+          <li class="perk glow reveal">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>
+            <h3>Soporte real</h3><p>Acompañamiento después del lanzamiento, no desaparezco.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="preguntas" aria-labelledby="faq-title">
+      <div class="container faq">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 05 — Preguntas</p>
+          <h2 class="section__title" id="faq-title">Preguntas frecuentes</h2>
+          <p class="section__lead">¿No ves tu duda? Escríbeme y te respondo personalmente.</p>
+        </header>
+
+        <div class="accordion reveal">
+          <details class="qa" name="faq">
+            <summary>¿Cuánto tiempo tarda mi proyecto?</summary>
+            <div class="qa__body"><p>Depende del alcance. Una landing page suele estar lista en 5 a 7 días, una web corporativa en 2 a 3 semanas y una tienda online o app en 3 a 6 semanas. En la propuesta recibes la fecha de entrega por escrito.</p></div>
+          </details>
+          <details class="qa" name="faq">
+            <summary>¿Cómo es la forma de pago?</summary>
+            <div class="qa__body"><p>Trabajo con 50&nbsp;% de anticipo para iniciar y el 50&nbsp;% restante al entregar el proyecto terminado y aprobado por ti. Así ambos tenemos tranquilidad.</p></div>
+          </details>
+          <details class="qa" name="faq">
+            <summary>¿Puedo pedir cambios?</summary>
+            <div class="qa__body"><p>Sí. El diseño se ajusta contigo antes de programar y hay una revisión final antes de publicar. Los cambios dentro del alcance acordado están incluidos; si surge algo nuevo, lo cotizamos aparte con total transparencia.</p></div>
+          </details>
+          <details class="qa" name="faq">
+            <summary>No tengo logo ni textos, ¿es un problema?</summary>
+            <div class="qa__body"><p>Para nada. Puedo crear tu identidad de marca (logo, colores, tipografías) y ayudarte a redactar los textos para que comuniquen y vendan.</p></div>
+          </details>
+          <details class="qa" name="faq">
+            <summary>¿Qué pasa con el dominio y el hosting?</summary>
+            <div class="qa__body"><p>Te asesoro para elegir y comprar tu dominio (por ejemplo tunegocio.com) y me encargo de la configuración. Todo queda registrado a tu nombre. Para muchos proyectos el hosting puede ser gratuito o de muy bajo costo.</p></div>
+          </details>
+          <details class="qa" name="faq">
+            <summary>¿Trabajas con clientes de otros países?</summary>
+            <div class="qa__body"><p>Sí. Trabajo 100&nbsp;% remoto con clientes de Colombia y de cualquier país de habla hispana. Coordinamos por WhatsApp, Discord o videollamada y acordamos un método de pago internacional.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section section--contact" id="contacto" aria-labelledby="contacto-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow"><span aria-hidden="true">✦</span> 06 — Contacto</p>
+          <h2 class="section__title" id="contacto-title">Construyamos tu visión</h2>
+          <p class="section__lead">Cuéntame tu idea y te respondo con una propuesta. La cotización es gratis y sin compromiso.</p>
+        </header>
+
+        <div class="contact">
+          <div class="contact__channels">
+            <a class="channel glow reveal" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Quiero cotizar un proyecto web." target="_blank" rel="noopener">
+              <span class="channel__icon channel__icon--wa" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+              </span>
+              <span class="channel__text">
+                <span class="channel__label">WhatsApp</span>
+                <span class="channel__value" data-wa-display>+57 313 563 9329</span>
+                <span class="channel__hint">Respuesta rápida · Cotización gratis</span>
+              </span>
+              <span class="channel__arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="channel channel--discord glow reveal" href="https://discord.gg/fNWeKew86h" data-discord target="_blank" rel="noopener">
+              <picture class="channel__banner">
+                <source srcset="assets/discord-banner.webp" type="image/webp">
+                <img src="assets/discord-banner.jpg" width="960" height="540" alt="Banner del servidor de Discord de Noir Studio" loading="lazy">
+              </picture>
+              <img class="channel__icon channel__icon--dc" src="assets/discord-icono.png" width="128" height="128" alt="" loading="lazy">
+              <span class="channel__text">
+                <span class="channel__label">Comunidad en Discord</span>
+                <span class="channel__value">discord.gg/fNWeKew86h</span>
+                <span class="channel__hint">Únete, pregunta y cotiza</span>
+              </span>
+              <span class="channel__arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <p class="contact__note reveal"><span aria-hidden="true">✦</span> Ideas / Código / Resultados</p>
+          </div>
+
+          <form class="form reveal" id="quote-form" novalidate>
+            <h3 class="form__title">Cotiza tu proyecto</h3>
+            <p class="form__sub">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+
+            <div class="form__row">
+              <div class="field">
+                <label for="f-name">Nombre <span class="req" aria-hidden="true">*</span></label>
+                <input id="f-name" name="nombre" type="text" autocomplete="name" required minlength="2" maxlength="60" aria-describedby="f-name-err" placeholder="Tu nombre">
+                <p class="field__error" id="f-name-err" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="f-biz">Negocio</label>
+                <input id="f-biz" name="negocio" type="text" autocomplete="organization" maxlength="80" aria-describedby="f-biz-err" placeholder="Tu negocio o marca (opcional)">
+                <p class="field__error" id="f-biz-err" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label for="f-need">¿Qué necesitas? <span class="req" aria-hidden="true">*</span></label>
+                <select id="f-need" name="necesidad" required aria-describedby="f-need-err">
+                  <option value="">Selecciona una opción</option>
+                  <option>Página web</option>
+                  <option>Landing page</option>
+                  <option>Tienda online</option>
+                  <option>App</option>
+                  <option>Sistema a medida</option>
+                  <option>Branding</option>
+                  <option>Otro / no estoy seguro</option>
+                </select>
+                <p class="field__error" id="f-need-err" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="f-budget">Presupuesto <span class="req" aria-hidden="true">*</span></label>
+                <select id="f-budget" name="presupuesto" required aria-describedby="f-budget-err">
+                  <option value="">Selecciona un rango</option>
+                  <option>Menos de $1.000.000 COP</option>
+                  <option>$1.000.000 – $3.000.000 COP</option>
+                  <option>$3.000.000 – $6.000.000 COP</option>
+                  <option>Más de $6.000.000 COP</option>
+                  <option>Aún no lo tengo claro</option>
+                </select>
+                <p class="field__error" id="f-budget-err" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-msg">Mensaje <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="f-msg" name="mensaje" rows="5" required minlength="10" maxlength="1200" aria-describedby="f-msg-err" placeholder="Cuéntame tu idea, qué te gustaría lograr y para cuándo lo necesitas."></textarea>
+              <p class="field__error" id="f-msg-err" aria-live="polite"></p>
+            </div>
+
+            <button class="btn btn--chrome btn--block" type="submit">
+              Enviar por WhatsApp <span aria-hidden="true">✦</span>
+            </button>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+            <p class="form__legal">Los campos con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios. Tus datos solo se usan para responderte.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/noir-wordmark-blanco.png" width="640" height="178" alt="Noir" loading="lazy">
+        <p class="footer__motto">Ideas <span>/</span> Código <span>/</span> Resultados</p>
+        <p class="footer__slogan">Código que construye tu visión.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#trabajos">Trabajos</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#preguntas">Preguntas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="footer__contact">
+        <a href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://discord.gg/fNWeKew86h" data-discord target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year">2026</span> Noir Studio. Todos los derechos reservados.</p>
+      <p class="mono-text">Hecho a mano con código <span aria-hidden="true">✦</span></p>
+    </div>
+  </footer>
+
+  <!-- ============ WHATSAPP FLOTANTE ============ -->
+  <a class="wa-float" href="https://wa.me/573135639329" data-wa="Hola Noir Studio ✦ Quiero cotizar un proyecto web." target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+  </a>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
