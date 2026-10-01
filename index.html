@@ -534,33 +534,44 @@
               </div>
             </div>
 
-            <div class="form__row">
+            <div class="field">
+              <label for="f-need">¿Qué necesitas? <span class="req" aria-hidden="true">*</span></label>
+              <select id="f-need" name="necesidad" required aria-describedby="f-need-err">
+                <option value="">Selecciona una opción</option>
+                <option>Página web</option>
+                <option>Landing page</option>
+                <option>Tienda online</option>
+                <option>App</option>
+                <option>Sistema a medida</option>
+                <option>Branding</option>
+                <option>Otro / no estoy seguro</option>
+              </select>
+              <p class="field__error" id="f-need-err" aria-live="polite"></p>
+            </div>
+
+            <div class="form__row form__row--budget">
               <div class="field">
-                <label for="f-need">¿Qué necesitas? <span class="req" aria-hidden="true">*</span></label>
-                <select id="f-need" name="necesidad" required aria-describedby="f-need-err">
-                  <option value="">Selecciona una opción</option>
-                  <option>Página web</option>
-                  <option>Landing page</option>
-                  <option>Tienda online</option>
-                  <option>App</option>
-                  <option>Sistema a medida</option>
-                  <option>Branding</option>
-                  <option>Otro / no estoy seguro</option>
+                <label for="f-currency">Moneda</label>
+                <!-- Las opciones (todas las monedas del mundo) las llena js/main.js -->
+                <select id="f-currency" name="moneda" aria-describedby="f-currency-hint">
+                  <option value="COP" selected>COP · Peso colombiano</option>
+                  <option value="USD">USD · Dólar estadounidense</option>
                 </select>
-                <p class="field__error" id="f-need-err" aria-live="polite"></p>
+                <p class="field__hint" id="f-currency-hint">Elige la de tu país</p>
               </div>
               <div class="field">
                 <label for="f-budget">Presupuesto <span class="req" aria-hidden="true">*</span></label>
                 <select id="f-budget" name="presupuesto" required aria-describedby="f-budget-err">
                   <option value="">Selecciona un rango</option>
-                  <option>Menos de $1.000.000 COP</option>
-                  <option>$1.000.000 – $3.000.000 COP</option>
-                  <option>$3.000.000 – $6.000.000 COP</option>
-                  <option>Más de $6.000.000 COP</option>
+                  <option>Menos de 1.000.000 COP</option>
+                  <option>1.000.000 – 3.000.000 COP</option>
+                  <option>3.000.000 – 6.000.000 COP</option>
+                  <option>Más de 6.000.000 COP</option>
                   <option>Aún no lo tengo claro</option>
                 </select>
                 <p class="field__error" id="f-budget-err" aria-live="polite"></p>
               </div>
+            </div>
             </div>
 
             <div class="field">

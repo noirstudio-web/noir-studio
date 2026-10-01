@@ -891,7 +891,7 @@ main:focus { outline: none; }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 
 .field { display: grid; gap: 8px; margin-bottom: 8px; }
-.field label { font-size: .88rem; font-weight: 600; color: var(--text); }
+.field label { font-size: .88rem; font-weight: 600; line-height: 1.5; color: var(--text); }
 .req { color: var(--muted); }
 
 .field input,
@@ -931,6 +931,9 @@ main:focus { outline: none; }
 .field [aria-invalid="true"] { border-color: var(--error); }
 .field [aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(255, 138, 138, .15); }
 .field__error { min-height: 1.3em; font-size: .82rem; color: var(--error); }
+.field__hint { min-height: 1.3em; font-size: .82rem; color: var(--muted); }
+.form__row--budget { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.field select { text-overflow: ellipsis; }
 
 .form .btn { margin-top: 10px; }
 .form__status { margin-top: 14px; font-size: .9rem; color: var(--text); text-align: center; }
@@ -1037,7 +1040,7 @@ main:focus { outline: none; }
   .perk { padding: 20px 16px; }
   .perk h3 { margin-top: 14px; font-size: .95rem; }
   .perk p { font-size: .85rem; }
-  .form__row { grid-template-columns: 1fr; gap: 0; }
+  .form__row, .form__row--budget { grid-template-columns: 1fr; gap: 0; }
   .hero__actions .btn { flex: 1 1 100%; }
   .hero__stats dd { font-size: .8rem; }
   .barber { grid-template-columns: 1fr; }

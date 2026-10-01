@@ -255,6 +255,123 @@ const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
     }
   }
 
+  /* ---------- Presupuesto en cualquier moneda ---------- */
+  const currencySel = $('#f-currency');
+  const budgetSel = $('#f-budget');
+  if (currencySel && budgetSel) {
+    // Rangos base en pesos colombianos (cámbialos aquí si ajustas tus precios)
+    const BUDGET_COP = [
+      { max: 1000000 },
+      { min: 1000000, max: 3000000 },
+      { min: 3000000, max: 6000000 },
+      { min: 6000000 },
+    ];
+    const UNSURE = 'Aún no lo tengo claro';
+    const RATES_URL = 'https://open.er-api.com/v6/latest/USD';   // gratis, sin clave, se actualiza a diario
+    const CACHE_KEY = 'noir-rates';
+    // Respaldo aproximado (USD = 1) por si no hay conexión con el servicio de tasas
+    const FALLBACK = { USD: 1, COP: 3334, MXN: 18.1, EUR: 0.88, ARS: 1518, PEN: 3.44, CLP: 973, BRL: 5.2 };
+    // Monedas que aparecen primero en la lista
+    const FEATURED = ['COP', 'USD', 'MXN', 'EUR', 'ARS', 'CLP', 'PEN', 'BRL', 'UYU', 'BOB', 'PYG', 'VES', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'PAB', 'CAD', 'GBP'];
+    // Zona horaria del visitante → moneda sugerida
+    const TZ_CURRENCY = {
+      'America/Bogota': 'COP', 'America/Mexico_City': 'MXN', 'America/Monterrey': 'MXN', 'America/Cancun': 'MXN',
+      'America/Merida': 'MXN', 'America/Chihuahua': 'MXN', 'America/Hermosillo': 'MXN', 'America/Mazatlan': 'MXN',
+      'America/Tijuana': 'MXN', 'America/Argentina/Buenos_Aires': 'ARS', 'America/Buenos_Aires': 'ARS',
+      'America/Argentina/Cordoba': 'ARS', 'America/Argentina/Mendoza': 'ARS', 'America/Santiago': 'CLP',
+      'America/Lima': 'PEN', 'America/Guayaquil': 'USD', 'America/Caracas': 'VES', 'America/La_Paz': 'BOB',
+      'America/Asuncion': 'PYG', 'America/Montevideo': 'UYU', 'America/Sao_Paulo': 'BRL', 'America/Guatemala': 'GTQ',
+      'America/Costa_Rica': 'CRC', 'America/Santo_Domingo': 'DOP', 'America/Tegucigalpa': 'HNL', 'America/Managua': 'NIO',
+      'America/Panama': 'USD', 'America/El_Salvador': 'USD', 'America/Puerto_Rico': 'USD', 'America/New_York': 'USD',
+      'America/Chicago': 'USD', 'America/Denver': 'USD', 'America/Los_Angeles': 'USD', 'America/Phoenix': 'USD',
+      'America/Toronto': 'CAD', 'America/Vancouver': 'CAD', 'Europe/Madrid': 'EUR', 'Atlantic/Canary': 'EUR', 'Europe/London': 'GBP',
+    };
+
+    const store = {
+      get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* sin almacenamiento */ } },
+    };
+
+    let rates = FALLBACK;
+    let names;
+    try { names = new Intl.DisplayNames(['es'], { type: 'currency' }); } catch { names = null; }
+    const nameOf = (code) => {
+      const n = names && names.of(code);
+      return n && n !== code ? n.charAt(0).toUpperCase() + n.slice(1) : code;
+    };
+
+    // Redondeo "bonito": 2 cifras significativas (4.312 → 4.300; 1.517.520 → 1.500.000)
+    const nice = (x) => {
+      if (x < 10) return Math.max(1, Math.round(x));
+      const mag = Math.pow(10, Math.floor(Math.log10(x)) - 1);
+      return Math.round(x / mag) * mag;
+    };
+    const num = (n) => new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(n);
+
+    const convert = (cop, code) => (code === 'COP' ? cop : nice((cop / rates.COP) * rates[code]));
+
+    const renderBudget = () => {
+      const code = currencySel.value;
+      if (!rates[code] || !rates.COP) return;
+      const prevIndex = budgetSel.selectedIndex;
+      const labels = BUDGET_COP.map((r) => {
+        if (r.min == null) return `Menos de ${num(convert(r.max, code))} ${code}`;
+        if (r.max == null) return `Más de ${num(convert(r.min, code))} ${code}`;
+        return `${num(convert(r.min, code))} – ${num(convert(r.max, code))} ${code}`;
+      });
+      budgetSel.innerHTML = '';
+      budgetSel.append(new Option('Selecciona un rango', ''));
+      labels.concat(UNSURE).forEach((l) => budgetSel.append(new Option(l, l)));
+      budgetSel.selectedIndex = prevIndex;
+      const approx = code !== 'COP';
+      $('#f-currency-hint').textContent = approx ? 'Valores aproximados según la tasa del día' : 'Elige la de tu país';
+    };
+
+    const renderCurrencies = (selected) => {
+      const codes = Object.keys(rates).sort((a, b) => nameOf(a).localeCompare(nameOf(b), 'es'));
+      const featured = FEATURED.filter((c) => rates[c]);
+      currencySel.innerHTML = '';
+      const g1 = Object.assign(document.createElement('optgroup'), { label: 'Más usadas' });
+      featured.forEach((c) => g1.append(new Option(`${c} · ${nameOf(c)}`, c)));
+      const g2 = Object.assign(document.createElement('optgroup'), { label: 'Todas las monedas' });
+      codes.filter((c) => !featured.includes(c)).forEach((c) => g2.append(new Option(`${c} · ${nameOf(c)}`, c)));
+      currencySel.append(g1, g2);
+      currencySel.value = rates[selected] ? selected : 'COP';
+    };
+
+    const guessCurrency = () => {
+      const saved = store.get('noir-currency');
+      if (saved) return saved;
+      let tz = '';
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch { /* sin zona */ }
+      if (TZ_CURRENCY[tz]) return TZ_CURRENCY[tz];
+      if (/^Europe\//.test(tz)) return 'EUR';
+      return 'COP';
+    };
+
+    const init = (selected) => { renderCurrencies(selected); renderBudget(); };
+
+    currencySel.addEventListener('change', () => { store.set('noir-currency', currencySel.value); renderBudget(); });
+
+    const cached = store.get(CACHE_KEY);
+    const wanted = guessCurrency();
+    if (cached && cached.rates && Date.now() - cached.t < 12 * 3600e3) {
+      rates = cached.rates;
+      init(wanted);
+    } else {
+      init(wanted); // primero con el respaldo, luego con tasas reales
+      fetch(RATES_URL)
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.result !== 'success' || !d.rates || !d.rates.COP) return;
+          rates = d.rates;
+          store.set(CACHE_KEY, { t: Date.now(), rates });
+          init(currencySel.value || wanted);
+        })
+        .catch(() => { /* se queda con el respaldo */ });
+    }
+  }
+
   /* ---------- Formulario → WhatsApp ---------- */
   const form = $('#quote-form');
   if (form) {
@@ -297,7 +414,7 @@ const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
         `👤 *Nombre:* ${v('nombre')}`,
         `🏢 *Negocio:* ${v('negocio') || 'No especificado'}`,
         `🧩 *Necesito:* ${v('necesidad')}`,
-        `💰 *Presupuesto:* ${v('presupuesto')}`,
+        `💰 *Presupuesto:* ${v('presupuesto')}${form.elements.moneda && !/[A-Z]{3}$/.test(v('presupuesto')) ? ` (moneda: ${v('moneda')})` : ''}`,
         '',
         '📝 *Mensaje:*',
         v('mensaje'),
