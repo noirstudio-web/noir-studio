@@ -389,7 +389,9 @@ const WA_MESSAGES = {
     };
 
     resize();
-    start();
+    // Las estrellas arrancan cuando la página terminó de cargar (no compiten con el primer pintado)
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
     let rt;
     window.addEventListener('resize', () => {
       clearTimeout(rt);
