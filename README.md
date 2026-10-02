@@ -41,7 +41,7 @@ Casi todo está en **`apps/web/src/lib/site.ts`**:
 | Número de WhatsApp | `WHATSAPP_PARTS` |
 | Mensajes que llegan por WhatsApp | `WA_MESSAGES` |
 | Rangos de presupuesto (en COP) | `BUDGET_COP` |
-| Tecnologías de la cinta | `TECH` |
+| Frases de la cinta | `MARQUEE` |
 | Servicios, proyectos, pasos, ventajas, preguntas | `SERVICES`, `PROJECTS`, `STEPS`, `PERKS`, `FAQ` |
 
 Para agregar un proyecto real: copia el primer elemento de `PROJECTS`, cambia los datos y pon su captura en `apps/web/public/assets/proyectos/`.

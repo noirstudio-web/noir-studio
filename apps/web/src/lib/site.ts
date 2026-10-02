@@ -84,11 +84,11 @@ export const BUDGET_COP: { min?: number; max?: number }[] = [
   { min: 6_000_000 },
 ];
 
-// ✦ Tecnologías de la cinta
-export const TECH = [
-  'HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Astro', 'Vite', 'Tailwind CSS',
-  'Node.js', 'Express', 'Python', 'PostgreSQL', 'MySQL', 'MongoDB', 'Supabase', 'Firebase', 'Prisma',
-  'Git', 'GitHub', 'Docker',
+// ✦ Frases de la cinta que se mueve debajo del hero
+export const MARQUEE = [
+  'Páginas web', 'Tiendas online', 'Landing pages', 'Apps', 'Sistemas a medida', 'Branding',
+  'Ideas / Código / Resultados', '100 % a medida', 'Cero plantillas', 'Listo para Google',
+  'Precio cerrado', 'Trato directo', 'Soporte real', 'Tu proyecto es tuyo',
 ];
 
 export const NAV_LINKS = [

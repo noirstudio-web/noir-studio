@@ -1,13 +1,13 @@
-import { asset, FAQ, PERKS, PROJECTS, SERVICES, TECH, type Project } from '@/lib/site';
+import { asset, FAQ, MARQUEE, PERKS, PROJECTS, SERVICES, type Project } from '@/lib/site';
 import { Icon } from './Icon';
 import { SectionHead } from './SectionHead';
 import { WaLink } from './WaLink';
 
-/* ---------- Cinta de tecnologías ---------- */
+/* ---------- Cinta: servicios y beneficios ---------- */
 export function Marquee() {
-  const items = TECH.map((t) => <li key={t}>{t}</li>);
+  const items = MARQUEE.map((t) => <li key={t}>{t.replace(' %', ' %')}</li>);
   return (
-    <section className="marquee" aria-label="Tecnologías con las que trabajo">
+    <section className="marquee" aria-label="Lo que hacemos en Noir Studio">
       <div className="marquee__row">
         <div className="marquee__track">
           <ul className="marquee__list">{items}</ul>
