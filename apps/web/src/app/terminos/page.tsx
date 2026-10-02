@@ -27,7 +27,7 @@ export default function Terminos() {
         <p className="eyebrow"><span aria-hidden="true">✦</span> Legal</p>
         <h1 className="section__title legal-hero__title">Términos y condiciones</h1>
         <p className="section__lead">Reglas claras para trabajar juntos. Están escritas en lenguaje sencillo: si algo no queda claro, escríbeme y lo hablamos antes de empezar.</p>
-        <p className="legal-hero__date">Última actualización: 1 de octubre de 2026</p>
+        <p className="legal-hero__date">Última actualización: 2 de octubre de 2026</p>
       </header>
 
       <div className="legal">
@@ -42,6 +42,8 @@ export default function Terminos() {
             <li><a href="#cliente">Tus responsabilidades</a></li>
             <li><a href="#terceros">Servicios de terceros</a></li>
             <li><a href="#propiedad">Propiedad del proyecto</a></li>
+            <li><a href="#confidencialidad">Confidencialidad</a></li>
+            <li><a href="#contrato">Contrato de entrega</a></li>
             <li><a href="#garantia">Garantía y soporte</a></li>
             <li><a href="#cancelacion">Cancelación</a></li>
             <li><a href="#suscripciones">Planes mensuales</a></li>
@@ -124,12 +126,34 @@ export default function Terminos() {
             <ul>
               <li>Cuando el proyecto está <strong>pagado al 100&nbsp;%</strong>, eres dueño del diseño y del código desarrollados para ti, y recibes todos los accesos.</li>
               <li>Noir Studio conserva el derecho sobre sus herramientas, componentes y conocimientos genéricos, que puede seguir usando en otros proyectos. Las librerías de código abierto se rigen por sus propias licencias.</li>
-              <li>Podemos mostrar tu proyecto en nuestro portafolio y redes. Si prefieres que no, solo pídelo por escrito.</li>
+              <li>Tu proyecto es confidencial: solo lo mostramos en nuestro portafolio o redes si nos das tu <strong>autorización por escrito</strong>.</li>
+            </ul>
+          </section>
+
+          <section id="confidencialidad" className="reveal">
+            <h2><span>09</span> Confidencialidad</h2>
+            <p><strong>Todo lo que compartes con Noir Studio es confidencial.</strong> Esto incluye tus ideas, la información de tu negocio y de tus clientes, contraseñas y accesos, archivos, precios y estrategias.</p>
+            <ul>
+              <li>No compartimos, vendemos ni usamos tu información para nada distinto a tu proyecto.</li>
+              <li>Los accesos y contraseñas se usan solo para trabajar en tu proyecto. Al entregarlo, te recomendamos cambiarlos.</li>
+              <li>La confidencialidad se mantiene <strong>durante y después</strong> del proyecto, incluso si se cancela.</li>
+              <li>Si tu proyecto lo requiere, podemos firmar un acuerdo de confidencialidad antes de empezar.</li>
+            </ul>
+          </section>
+
+          <section id="contrato" className="reveal">
+            <h2><span>10</span> Contrato de entrega</h2>
+            <p>Cuando terminamos tu proyecto, <strong>recibes un contrato</strong> que formaliza la entrega. En él queda por escrito:</p>
+            <ul>
+              <li>Lo que se desarrolló y se entregó, y los accesos que recibes.</li>
+              <li>Que el diseño y el código desarrollados para ti quedan <strong>a tu nombre</strong>, una vez pagado el 100&nbsp;%.</li>
+              <li>La garantía y el soporte incluidos.</li>
+              <li>El compromiso de confidencialidad sobre tu información y tu proyecto.</li>
             </ul>
           </section>
 
           <section id="garantia" className="reveal">
-            <h2><span>09</span> Garantía y soporte</h2>
+            <h2><span>11</span> Garantía y soporte</h2>
             <ul>
               <li>Corregimos <strong>sin costo</strong> los errores de programación de lo entregado que se reporten dentro del periodo de garantía indicado en la propuesta.</li>
               <li>La garantía no cubre cambios hechos por ti o por terceros, funciones nuevas, contenido nuevo ni fallas de proveedores externos.</li>
@@ -138,7 +162,7 @@ export default function Terminos() {
           </section>
 
           <section id="cancelacion" className="reveal">
-            <h2><span>10</span> Cancelación</h2>
+            <h2><span>12</span> Cancelación</h2>
             <ul>
               <li>Puedes cancelar el proyecto en cualquier momento avisando por escrito.</li>
               <li>El anticipo cubre la reserva de agenda y el trabajo ya realizado, por eso <strong>no es reembolsable una vez iniciado el trabajo</strong>.</li>
@@ -147,17 +171,17 @@ export default function Terminos() {
           </section>
 
           <section id="suscripciones" className="reveal">
-            <h2><span>11</span> Planes mensuales</h2>
+            <h2><span>13</span> Planes mensuales</h2>
             <p>Los servicios por suscripción (por ejemplo, la plataforma de reservas para barberías) se pagan mes a mes, sin contrato de permanencia, y puedes cancelarlos cuando quieras. Si un mes no se renueva, el servicio se suspende. Las condiciones de cada plan (precio, límites y funciones) son las publicadas para ese plan al momento de contratarlo.</p>
           </section>
 
           <section id="demos" className="reveal">
-            <h2><span>12</span> Demos de esta web</h2>
+            <h2><span>14</span> Demos de esta web</h2>
             <p>Los proyectos marcados como <strong>“Demo”</strong> son ejemplos para mostrar lo que podemos construir: los negocios, productos, precios, pedidos y estadísticas son ficticios y los pagos son simulados (no se cobra nada). Las fotos de las demos provienen de Unsplash, bajo su licencia de uso libre.</p>
           </section>
 
           <section id="responsabilidad" className="reveal">
-            <h2><span>13</span> Límite de responsabilidad</h2>
+            <h2><span>15</span> Límite de responsabilidad</h2>
             <ul>
               <li>Ponemos todo nuestro esfuerzo en que tu proyecto funcione y te ayude a crecer, pero no podemos garantizar resultados comerciales específicos (ventas, clientes o posiciones en Google), porque dependen de factores externos.</li>
               <li>La responsabilidad total de Noir Studio frente a un proyecto se limita al valor pagado por ese proyecto.</li>
@@ -165,7 +189,7 @@ export default function Terminos() {
           </section>
 
           <section id="ley" className="reveal">
-            <h2><span>14</span> Ley aplicable y cambios</h2>
+            <h2><span>16</span> Ley aplicable y cambios</h2>
             <ul>
               <li>Estos términos se rigen por las leyes de la República de Colombia.</li>
               <li>Cualquier diferencia la resolvemos primero de forma directa y amistosa.</li>
@@ -174,7 +198,7 @@ export default function Terminos() {
           </section>
 
           <section id="privacidad" className="legal__privacy reveal">
-            <h2><span>15</span> Política de privacidad y tratamiento de datos</h2>
+            <h2><span>17</span> Política de privacidad y tratamiento de datos</h2>
             <p>Cumplimos la Ley 1581 de 2012 de Colombia sobre protección de datos personales. Así tratamos tu información:</p>
 
             <h3>Qué datos recibimos</h3>

@@ -161,7 +161,7 @@ export const STEPS = [
   { time: 'En 24–48 h', title: 'Propuesta', tagline: 'Precio cerrado, por escrito', text: 'Te envío el alcance, la fecha de entrega y un precio fijo. Si te convence, arrancamos con el 50 % de anticipo.', get: 'una propuesta clara, sin letra pequeña.' },
   { time: '2–5 días', title: 'Diseño', tagline: 'Lo ves antes de programarlo', text: 'Diseño tu web a medida, con tu marca, para celular y computador. La ajustamos juntos hasta que te encante.', get: 'el diseño completo para aprobar.' },
   { time: '1–3 semanas', title: 'Código', tagline: 'Avances reales, no promesas', text: 'Programo con tecnologías modernas y te comparto un link de prueba para que veas el progreso en vivo, desde tu celular.', get: 'un link de avance siempre actualizado.' },
-  { time: 'Día de entrega', title: 'Lanzamiento', tagline: 'Tu web, en línea y a tu nombre', text: 'La publico en tu dominio, la dejo lista para Google y te enseño a usarla. Pagas el 50 % restante solo cuando la apruebas.', get: 'tu web publicada, todos los accesos y soporte.' },
+  { time: 'Día de entrega', title: 'Lanzamiento', tagline: 'Tu web, en línea y a tu nombre', text: 'La publico en tu dominio, la dejo lista para Google y te enseño a usarla. Pagas el 50 % restante solo cuando la apruebas.', get: 'tu web publicada, todos los accesos, soporte y tu contrato de entrega.' },
 ];
 
 // Lo que escribe la terminal del panel en cada paso. "$" = comando, "✓"/"✦" = resultado, [[texto]] = resaltado
@@ -178,6 +178,8 @@ export const PROMISES = [
   { icon: '💳', title: '50 % / 50 %', text: 'El resto, solo cuando apruebas' },
   { icon: '💬', title: 'Avances por WhatsApp', text: 'Siempre sabes en qué va tu proyecto' },
   { icon: '🔑', title: 'Todo a tu nombre', text: 'Código, dominio y accesos son tuyos' },
+  { icon: '🔒', title: 'Confidencialidad total', text: 'Tu información y tu proyecto no se comparten' },
+  { icon: '📝', title: 'Contrato al entregar', text: 'Formaliza la entrega y que todo es tuyo' },
 ];
 
 export const PERKS: { icon: IconName; title: string; text: string }[] = [
@@ -185,9 +187,9 @@ export const PERKS: { icon: IconName; title: string; text: string }[] = [
   { icon: 'star', title: '100 % a medida', text: 'Nada de plantillas: cada pixel pensado para tu marca.' },
   { icon: 'phone', title: 'Mobile-first', text: 'Diseñado primero para el celular, donde están tus clientes.' },
   { icon: 'search', title: 'Listo para Google', text: 'SEO técnico, velocidad y metadatos para que te encuentren.' },
-  { icon: 'shield', title: 'Seguro', text: 'HTTPS, buenas prácticas y datos protegidos desde el primer día.' },
+  { icon: 'shield', title: 'Confidencial y seguro', text: 'Tu información es confidencial y tus datos están protegidos.' },
   { icon: 'chat', title: 'Trato directo', text: 'Hablas conmigo, no con un call center ni con intermediarios.' },
-  { icon: 'key', title: 'El proyecto es tuyo', text: 'Código, dominio y accesos quedan a tu nombre. Sin ataduras.' },
+  { icon: 'key', title: 'El proyecto es tuyo', text: 'Código, dominio y accesos a tu nombre, con contrato de entrega.' },
   { icon: 'support', title: 'Soporte real', text: 'Acompañamiento después del lanzamiento, no desaparezco.' },
 ];
 
@@ -197,6 +199,8 @@ export const FAQ = [
   { q: '¿Puedo pedir cambios?', a: 'Sí. El diseño se ajusta contigo antes de programar y hay una revisión final antes de publicar. Los cambios dentro del alcance acordado están incluidos; si surge algo nuevo, lo cotizamos aparte con total transparencia.' },
   { q: 'No tengo logo ni textos, ¿es un problema?', a: 'Para nada. Puedo crear tu identidad de marca (logo, colores, tipografías) y ayudarte a redactar los textos para que comuniquen y vendan.' },
   { q: '¿Qué pasa con el dominio y el hosting?', a: 'Te asesoro para elegir y comprar tu dominio (por ejemplo tunegocio.com) y me encargo de la configuración. Todo queda registrado a tu nombre. Para muchos proyectos el hosting puede ser gratuito o de muy bajo costo.' },
+  { q: '¿Mi información y mi proyecto son confidenciales?', a: 'Sí. Todo lo que me compartes (ideas, datos de tu negocio, accesos y archivos) es confidencial y no se comparte con nadie, ni durante ni después del proyecto. Solo muestro un trabajo en mi portafolio si me das tu autorización por escrito.' },
+  { q: '¿Recibo algún contrato?', a: 'Sí. Al terminar tu proyecto te entrego un contrato que formaliza la entrega: lo que se hizo, los accesos, que el diseño y el código quedan a tu nombre, la garantía y el compromiso de confidencialidad.' },
   { q: '¿Trabajas con clientes de otros países?', a: 'Sí. Trabajo 100 % remoto con clientes de Colombia y de cualquier país de habla hispana. Coordinamos por WhatsApp, Discord o videollamada y acordamos un método de pago internacional.' },
 ];
 
