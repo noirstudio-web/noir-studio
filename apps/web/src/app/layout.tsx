@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { JetBrains_Mono, Manrope, Michroma } from 'next/font/google';
+import { Analytics } from '@/components/Analytics';
+import { CookieNotice } from '@/components/CookieNotice';
 import { asset, SITE_URL } from '@/lib/site';
 import './globals.css';
 
@@ -53,6 +55,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a className="skip-link" href="#inicio">Saltar al contenido</a>
         {children}
+        <CookieNotice />
+        <Analytics />
       </body>
     </html>
   );

@@ -95,7 +95,7 @@ export function Projects() {
                     <a className="link-arrow" href={url} target="_blank" rel="noopener">
                       {p.status === 'live' ? 'Ver proyecto' : 'Ver demo'} <span aria-hidden="true">↗</span>
                     </a>
-                    <WaLink wa={p.wa} className="link-arrow">Quiero algo así <span aria-hidden="true">→</span></WaLink>
+                    <WaLink wa={p.wa} className="link-arrow">Cotizar algo así <span aria-hidden="true">→</span></WaLink>
                   </div>
                 </div>
               </article>

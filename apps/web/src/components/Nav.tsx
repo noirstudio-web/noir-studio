@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { asset, BASE_PATH, NAV_LINKS } from '@/lib/site';
+import { WaLink } from './WaLink';
 
 /** Barra fija: blur al hacer scroll, menú móvil y enlace activo según la sección visible. */
 export function Nav({ onHome = true }: { onHome?: boolean }) {
@@ -57,7 +58,7 @@ export function Nav({ onHome = true }: { onHome?: boolean }) {
               </li>
             ))}
           </ul>
-          <a className="btn btn--chrome btn--sm nav__cta" href={`${home}#contacto`}>Cotizar proyecto</a>
+          <WaLink wa="cotizar" className="btn btn--chrome btn--sm nav__cta">Cotizar mi proyecto</WaLink>
         </nav>
 
         <button

@@ -3,10 +3,11 @@ import { Effects } from '@/components/Effects';
 import { Footer } from '@/components/Footer';
 import { Nav } from '@/components/Nav';
 import { PhoneText, WaLink } from '@/components/WaLink';
+import { BASE_PATH, LEGAL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Términos y condiciones · Noir Studio',
-  description: 'Términos y condiciones de servicio y política de privacidad de Noir Studio, estudio de desarrollo web a medida.',
+  description: 'Términos y condiciones de servicio de Noir Studio: propuesta, pagos, plazos, confidencialidad, contrato de entrega y garantía.',
   alternates: { canonical: 'terminos/' },
   openGraph: {
     type: 'website', locale: 'es_CO', siteName: 'Noir Studio', url: 'terminos/',
@@ -27,7 +28,7 @@ export default function Terminos() {
         <p className="eyebrow"><span aria-hidden="true">✦</span> Legal</p>
         <h1 className="section__title legal-hero__title">Términos y condiciones</h1>
         <p className="section__lead">Reglas claras para trabajar juntos. Están escritas en lenguaje sencillo: si algo no queda claro, escríbeme y lo hablamos antes de empezar.</p>
-        <p className="legal-hero__date">Última actualización: 2 de octubre de 2026</p>
+        <p className="legal-hero__date">Última actualización: {LEGAL.actualizado}</p>
       </header>
 
       <div className="legal">
@@ -50,7 +51,7 @@ export default function Terminos() {
             <li><a href="#demos">Demos de esta web</a></li>
             <li><a href="#responsabilidad">Límite de responsabilidad</a></li>
             <li><a href="#ley">Ley aplicable</a></li>
-            <li><a href="#privacidad">Política de privacidad</a></li>
+            <li><a href="#privacidad">Privacidad y cookies</a></li>
           </ol>
         </nav>
 
@@ -197,33 +198,9 @@ export default function Terminos() {
             </ul>
           </section>
 
-          <section id="privacidad" className="legal__privacy reveal">
-            <h2><span>17</span> Política de privacidad y tratamiento de datos</h2>
-            <p>Cumplimos la Ley 1581 de 2012 de Colombia sobre protección de datos personales. Así tratamos tu información:</p>
-
-            <h3>Qué datos recibimos</h3>
-            <ul>
-              <li>Los que tú decides enviarnos: nombre, nombre de tu negocio, lo que necesitas, presupuesto, mensaje y tu número de WhatsApp.</li>
-              <li><strong>El formulario de cotización no guarda tus datos en ningún servidor:</strong> solo arma un mensaje que tú mismo envías por WhatsApp.</li>
-            </ul>
-
-            <h3>Para qué los usamos</h3>
-            <ul>
-              <li>Responderte, prepararte una cotización, ejecutar tu proyecto y comunicarnos contigo sobre él.</li>
-              <li><strong>No vendemos ni compartimos tus datos</strong> con terceros para publicidad.</li>
-            </ul>
-
-            <h3>Datos guardados en tu navegador</h3>
-            <p>Esta web guarda en tu propio navegador (almacenamiento local) la moneda que elegiste, las tasas de cambio del día, la hora de tus envíos del formulario (solo para evitar spam) y, en las demos, el carrito de prueba. No usamos cookies de rastreo ni de publicidad.</p>
-
-            <h3>Servicios externos que usa esta web</h3>
-            <p>open.er-api.com (tasas de cambio), GitHub Pages (alojamiento), y WhatsApp y Discord cuando decides escribirnos. Estos servicios pueden recibir datos técnicos como tu dirección IP y se rigen por sus propias políticas de privacidad.</p>
-
-            <h3>Tus derechos</h3>
-            <p>Puedes <strong>conocer, actualizar, corregir o pedir que eliminemos</strong> tus datos, y revocar tu autorización en cualquier momento. Solo escríbenos por WhatsApp al <WaLink wa="cotizar"><PhoneText fallback="nuestro WhatsApp" /></WaLink>. Respondemos consultas en máximo 10 días hábiles y reclamos en máximo 15 días hábiles, como indica la ley.</p>
-
-            <h3>Cuánto tiempo los guardamos</h3>
-            <p>Mientras dure nuestra relación comercial y el tiempo que exijan las obligaciones legales o contables. Nuestros servicios están dirigidos a personas mayores de edad.</p>
+          <section id="privacidad" className="reveal">
+            <h2><span>17</span> Privacidad, cookies y aviso legal</h2>
+            <p>Tu información es confidencial. Cómo tratamos tus datos está en la <a href={`${BASE_PATH}/privacidad/`}>Política de privacidad</a>, lo que se guarda en tu navegador en el <a href={`${BASE_PATH}/cookies/`}>Aviso de cookies</a> y los datos del titular de la web en el <a href={`${BASE_PATH}/aviso-legal/`}>Aviso legal</a>.</p>
           </section>
 
           <div className="legal__cta reveal">

@@ -31,11 +31,11 @@ for await (const file of htmlFiles(OUT)) {
 
   const csp = [
     "default-src 'self'",
-    `script-src 'self' ${[...hashes].join(' ')}`,
+    `script-src 'self' https://gc.zgo.at ${[...hashes].join(' ')}`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
-    "img-src 'self' data:",
-    "connect-src 'self' https://open.er-api.com",
+    "img-src 'self' data: https://*.goatcounter.com",
+    "connect-src 'self' https://open.er-api.com https://*.goatcounter.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

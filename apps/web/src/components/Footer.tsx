@@ -33,7 +33,7 @@ export function Footer({ onHome = true }: { onHome?: boolean }) {
         <div className="container footer__bottom">
           <p>© {year} Noir Studio. Todos los derechos reservados.</p>
           <p className="footer__legal">
-            <a href={`${BASE_PATH}/terminos/`}>Términos y condiciones</a> · <a href={`${BASE_PATH}/terminos/#privacidad`}>Privacidad</a>
+            <a href={`${BASE_PATH}/terminos/`}>Términos</a> · <a href={`${BASE_PATH}/privacidad/`}>Privacidad</a> · <a href={`${BASE_PATH}/cookies/`}>Cookies</a> · <a href={`${BASE_PATH}/aviso-legal/`}>Aviso legal</a>
           </p>
         </div>
       </footer>

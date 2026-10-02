@@ -144,7 +144,7 @@ export function Process() {
 
         <div className="process__cta reveal">
           <p><b>¿Damos el paso 1?</b> La primera charla es gratis y sin compromiso.</p>
-          <WaLink wa="cotizar" className="btn btn--chrome">Hablemos de tu idea <span aria-hidden="true">✦</span></WaLink>
+          <WaLink wa="cotizar" className="btn btn--chrome">Cotizar mi proyecto <span aria-hidden="true">✦</span></WaLink>
         </div>
       </div>
     </section>

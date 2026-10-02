@@ -16,6 +16,21 @@ export const asset = (path: string) => `${BASE_PATH}${path.startsWith('/') ? pat
 export const WHATSAPP_PARTS = ['57', '313', '563', '9329'] as const;
 export const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
 
+// ✦ Datos legales del titular (aparecen en el Aviso legal y la Política de privacidad).
+//   Déjalos vacíos ('') para no mostrarlos; complétalos cuando los tengas.
+export const LEGAL = {
+  titular: '',        // nombre completo o razón social, ej. 'Juan Pérez' o 'Noir Studio S.A.S.'
+  documento: '',      // NIT o cédula, ej. 'NIT 900.123.456-7'
+  ciudad: '',         // ej. 'Bogotá, Colombia'
+  correo: '',         // ej. 'hola@noirstudio.co'
+  actualizado: '2 de octubre de 2026',
+};
+
+// ✦ Analítica sin cookies (GoatCounter, gratis). Crea tu cuenta en https://www.goatcounter.com
+//   y escribe aquí el código que elegiste (ej. 'noirstudio' → noirstudio.goatcounter.com).
+//   Vacío = la analítica está apagada.
+export const GOATCOUNTER_CODE = '';
+
 export type WaKey = 'cotizar' | 'barberia' | 'menu' | 'tienda' | 'flotante' | 'terminos';
 
 // ✦ Mensajes que llegan a tu WhatsApp desde cada botón. El cliente completa los espacios.

@@ -342,12 +342,12 @@ export function QuoteForm() {
       </div>
 
       <button className="btn btn--chrome btn--block" type="submit">
-        Enviar por WhatsApp <span aria-hidden="true">✦</span>
+        Cotizar mi proyecto <span aria-hidden="true">✦</span>
       </button>
       <p className="form__status" id="form-status" role="status" aria-live="polite">{status}</p>
       <p className="form__legal">
         Los campos con <span aria-hidden="true">*</span><span className="sr-only">asterisco</span> son obligatorios.
-        Tu información es confidencial. Al enviar aceptas los <a href="terminos/">términos y condiciones</a> y la <a href="terminos/#privacidad">política de privacidad</a>.
+        Tu información es confidencial. Al enviar aceptas los <a href="terminos/">términos y condiciones</a> y la <a href="privacidad/">política de privacidad</a>.
       </p>
     </form>
   );

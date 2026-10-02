@@ -6,11 +6,11 @@ import { Hero } from '@/components/Hero';
 import { Nav } from '@/components/Nav';
 import { Process } from '@/components/Process';
 import { Faq, Marquee, Perks, Projects, Services } from '@/components/Sections';
-import { asset, DISCORD_URL, SITE_URL } from '@/lib/site';
+import { asset, DISCORD_URL, FAQ, SITE_URL } from '@/lib/site';
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+const business = {
   '@type': 'ProfessionalService',
+  '@id': `${SITE_URL}/#negocio`,
   name: 'Noir Studio',
   slogan: 'Código que construye tu visión',
   url: `${SITE_URL}/`,
@@ -20,6 +20,18 @@ const jsonLd = {
   areaServed: 'Worldwide',
   address: { '@type': 'PostalAddress', addressCountry: 'CO' },
   sameAs: [DISCORD_URL],
+  knowsLanguage: 'es',
+  priceRange: '$$',
+  makesOffer: ['Páginas web', 'Landing pages', 'Tiendas online', 'Apps', 'Sistemas a medida', 'Branding']
+    .map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    business,
+    { '@type': 'WebSite', '@id': `${SITE_URL}/#web`, url: `${SITE_URL}/`, name: 'Noir Studio', inLanguage: 'es', publisher: { '@id': `${SITE_URL}/#negocio` } },
+    { '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
 };
 
 export default function Home() {

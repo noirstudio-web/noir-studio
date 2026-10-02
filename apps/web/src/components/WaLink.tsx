@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { WaKey } from '@/lib/site';
+import { BASE_PATH, type WaKey } from '@/lib/site';
 import { formatPhone, waLinkFor } from '@/lib/whatsapp';
 
 type Props = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { wa: WaKey; fallback?: string };
@@ -10,7 +10,7 @@ type Props = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { wa:
  * Enlace a WhatsApp con mensaje listo. En el HTML estático apunta a #contacto;
  * el número real se arma en el navegador, así los robots que leen el código no lo ven.
  */
-export function WaLink({ wa, fallback = '#contacto', children, ...rest }: Props) {
+export function WaLink({ wa, fallback = `${BASE_PATH}/#contacto`, children, ...rest }: Props) {
   const [href, setHref] = useState(fallback);
   useEffect(() => setHref(waLinkFor(wa)), [wa]);
   return (

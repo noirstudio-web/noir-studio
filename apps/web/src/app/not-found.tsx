@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Página no encontrada · Noir Studio
 /** Página 404 (hecha con utilidades de Tailwind CSS). */
 export default function NotFound() {
   return (
-    <main className="grid min-h-screen place-items-center bg-[radial-gradient(60%_50%_at_50%_0%,rgba(212,216,222,.08),transparent_70%)] px-4 py-8 text-center">
+    <main id="inicio" tabIndex={-1} className="grid min-h-screen place-items-center bg-[radial-gradient(60%_50%_at_50%_0%,rgba(212,216,222,.08),transparent_70%)] px-4 py-8 text-center">
       <div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={asset('/assets/noir-monograma-320.webp')} width={320} height={384} alt=""

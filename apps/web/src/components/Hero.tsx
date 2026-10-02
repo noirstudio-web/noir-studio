@@ -31,7 +31,7 @@ export function Hero() {
             <WaLink wa="cotizar" className="btn btn--chrome">
               Cotizar mi proyecto <span aria-hidden="true">✦</span>
             </WaLink>
-            <a className="btn btn--ghost" href="#trabajos">Ver trabajos</a>
+            <a className="link-arrow hero__more" href="#trabajos">Ver trabajos <span aria-hidden="true">↓</span></a>
           </div>
 
           <dl className="hero__stats intro" style={{ '--i': '.32s' } as React.CSSProperties}>
