@@ -36,6 +36,17 @@ https://noirstudio-web.github.io/noir-studio/
 **Después de cada cambio en CSS o JS**, sube el número `?v=` en `index.html` y `terminos.html`
 (por ejemplo `styles.css?v=2` → `styles.css?v=3`) para que los visitantes vean la versión nueva.
 
+## Seguridad
+
+- **Política de seguridad (CSP)** en cada página: el navegador solo ejecuta el código de esta web.
+  Si editas un `<script>` escrito dentro del HTML (no los archivos `.js`), hay que actualizar su hash en la etiqueta
+  `Content-Security-Policy` o el script dejará de funcionar.
+- **Anti-clickjacking**: si otra web intenta mostrar esta dentro de un marco, la página se oculta.
+- **Formulario anti-robots**: verificación humana deslizable, trampa invisible (honeypot), detección de acciones
+  automáticas, tiempo mínimo en la página y máximo 3 envíos cada 10 minutos.
+- **Número de WhatsApp oculto** para robots que recolectan teléfonos (se arma con JavaScript).
+- **robots.txt** bloquea robots de IA y de herramientas SEO (solo funciona con dominio propio).
+
 ## Publicación
 
 La web se publica sola con **GitHub Pages** cada vez que se suben cambios a la rama `main` (tarda 1–2 minutos).

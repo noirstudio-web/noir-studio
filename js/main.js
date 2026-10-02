@@ -2,8 +2,15 @@
    NOIR STUDIO — interacciones
    ========================================================= */
 
-// ✦ Cambia aquí tu número de WhatsApp (código de país + número, sin "+" ni espacios)
-const WHATSAPP_NUMBER = '573135639329';
+// ✦ Seguridad: impide que otra web muestre esta página dentro de un marco (clickjacking)
+if (window.top !== window.self) {
+  document.documentElement.style.display = 'none';
+  try { window.top.location.replace(window.self.location.href); } catch (e) { /* el navegador lo bloqueó: la página queda oculta */ }
+}
+
+// ✦ Tu número de WhatsApp: código de país + número, partido en trozos para que los robots
+//   que recolectan teléfonos no lo encuentren. Para cambiarlo, edita los trozos.
+const WHATSAPP_NUMBER = ['57', '313', '563', '9329'].join('');
 // ✦ Invitación a la comunidad de Discord
 const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
 
@@ -82,7 +89,7 @@ const WA_MESSAGES = {
     `https://wa.me/${WHATSAPP_NUMBER}${msg ? `?text=${encodeURIComponent(msg)}` : ''}`;
 
   const formatPhone = (n) => {
-    // +57 313 563 9329 para números colombianos; para otros, solo antepone "+"
+    // Formato +57 XXX XXX XXXX para números colombianos; para otros, solo antepone "+"
     const m = /^57(\d{3})(\d{3})(\d{4})$/.exec(n);
     return m ? `+57 ${m[1]} ${m[2]} ${m[3]}` : `+${n}`;
   };
@@ -645,6 +652,90 @@ const WA_MESSAGES = {
     };
     let tried = false;
 
+    /* --- Protección anti-robots ---
+       1. Trampa invisible (honeypot): las personas no la ven; los robots la llenan.
+       2. Verificación humana: deslizar con el mouse, el dedo o el teclado (los clics simulados por código no cuentan).
+       3. Señales de comportamiento: interacciones reales y tiempo mínimo en la página.
+       4. Límite de envíos: máximo 3 cada 10 minutos desde el mismo navegador. */
+    const loadedAt = performance.now();
+    const MIN_TIME_MS = 4000;
+    const RATE_KEY = 'noir-form-sends';
+    const RATE_MAX = 3, RATE_WINDOW = 10 * 60 * 1000;
+    let humanEvents = 0;
+    ['pointerdown', 'keydown', 'input'].forEach((type) =>
+      form.addEventListener(type, (e) => { if (e.isTrusted) humanEvents++; }, { passive: true }));
+
+    const verifyBox = $('#verify');
+    const range = $('#f-human');
+    const track = $('.verify__track', verifyBox);
+    const vText = $('.verify__text', verifyBox);
+    const vErr = $('#f-human-err');
+    let verified = false, dragging = false, dragStart = 0, moves = 0, lastVal = 0, backRaf = 0;
+
+    const paint = (v) => track.style.setProperty('--v', v);
+    const resetVerify = (msg = '') => {
+      verified = false;
+      range.disabled = false;
+      verifyBox.classList.remove('is-ok');
+      verifyBox.classList.toggle('is-error', Boolean(msg));
+      vErr.textContent = msg;
+      vText.textContent = 'Desliza para verificar';
+      range.setAttribute('aria-valuetext', 'Sin verificar');
+      // vuelve suavemente al inicio
+      cancelAnimationFrame(backRaf);
+      const back = () => {
+        const v = Math.max(0, +range.value - 8);
+        range.value = v; paint(v);
+        if (v > 0) backRaf = requestAnimationFrame(back);
+      };
+      back();
+      moves = 0; dragStart = 0; lastVal = 0;
+    };
+    const setVerified = () => {
+      verified = true;
+      range.value = 100; paint(100);
+      verifyBox.classList.remove('is-error');
+      verifyBox.classList.add('is-ok');
+      vErr.textContent = '';
+      vText.textContent = '✓ Verificado';
+      range.setAttribute('aria-valuetext', 'Verificado');
+      range.disabled = true;
+    };
+
+    if (range) {
+      range.addEventListener('pointerdown', () => { dragging = true; });
+      range.addEventListener('input', (e) => {
+        if (verified) return;
+        cancelAnimationFrame(backRaf);
+        if (!e.isTrusted) { range.value = 0; paint(0); return; }   // movido por código → no cuenta
+        if (!dragStart) dragStart = performance.now();
+        if (+range.value !== lastVal) { moves++; lastVal = +range.value; }
+        paint(range.value);
+        range.setAttribute('aria-valuetext', `${range.value} %`);
+      });
+      range.addEventListener('change', (e) => {
+        if (verified) return;
+        if (+range.value < 97) { if (dragging) resetVerify(); dragging = false; return; }   // con teclado no se reinicia
+        dragging = false;
+        const human = e.isTrusted
+          && performance.now() - dragStart > 150          // nadie arrastra en 0 ms
+          && moves >= 3                                    // movimiento progresivo, no un salto
+          && performance.now() - loadedAt > 1500;          // no recién cargada la página
+        if (human) setVerified();
+        else resetVerify('No pudimos verificarte. Desliza de nuevo, un poco más despacio.');
+      });
+    }
+
+    const recentSends = () => {
+      try {
+        const now = Date.now();
+        return (JSON.parse(localStorage.getItem(RATE_KEY)) || []).filter((t) => now - t < RATE_WINDOW);
+      } catch { return []; }
+    };
+    const logSend = () => {
+      try { localStorage.setItem(RATE_KEY, JSON.stringify(recentSends().concat(Date.now()))); } catch { /* sin almacenamiento */ }
+    };
+
     const check = (field) => {
       const msg = rules[field.name](field.value.trim());
       const err = document.getElementById(field.getAttribute('aria-describedby'));
@@ -664,6 +755,28 @@ const WA_MESSAGES = {
       if (invalid.length) {
         invalid[0].focus();
         if (status) status.textContent = 'Revisa los campos marcados.';
+        return;
+      }
+
+      // Robot que llenó la trampa: se descarta en silencio (no le damos pistas)
+      if (form.elements.sitio_web && form.elements.sitio_web.value) {
+        form.reset();
+        if (status) status.textContent = '✦ ¡Gracias! Te responderé pronto.';
+        return;
+      }
+      if (range && !verified) {
+        verifyBox.classList.add('is-error');
+        vErr.textContent = 'Desliza el círculo para confirmar que eres humano.';
+        range.focus();
+        if (status) status.textContent = 'Falta la verificación humana.';
+        return;
+      }
+      if (!e.isTrusted || humanEvents < 3 || performance.now() - loadedAt < MIN_TIME_MS) {
+        resetVerify('No pudimos confirmar que eres humano. Inténtalo de nuevo.');
+        return;
+      }
+      if (recentSends().length >= RATE_MAX) {
+        if (status) status.textContent = 'Ya enviaste varias solicitudes. Espera unos minutos o escríbeme directo por WhatsApp.';
         return;
       }
 
@@ -688,6 +801,8 @@ const WA_MESSAGES = {
       document.body.append(a);
       a.click();
       a.remove();
+      logSend();
+      resetVerify();          // cada envío necesita una verificación nueva
 
       if (status) {
         status.innerHTML = '';

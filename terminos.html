@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <!-- Seguridad: solo se ejecuta el código de esta web. Si editas un <script> en línea, actualiza su hash. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' 'unsafe-hashes' 'sha256-1jAmyYXcRq6zFldLe/GCgIDJBiOONdXjTLgEFMDnDSM='; connect-src 'self' https://open.er-api.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>document.documentElement.classList.add('js')</script>
 
@@ -29,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=202610011208">
+  <link rel="stylesheet" href="css/styles.css?v=202610012114">
 </head>
 <body>
   <a class="skip-link" href="#inicio">Saltar al contenido</a>
@@ -94,7 +97,7 @@
           <section id="quienes" class="reveal">
             <h2><span>01</span> Quiénes somos</h2>
             <p><strong>Noir Studio</strong> es un estudio de desarrollo web que diseña y programa páginas web, landing pages, tiendas online, aplicaciones, sistemas a medida y piezas de branding.</p>
-            <p>Puedes contactarnos por WhatsApp al <a href="https://wa.me/573135639329">+57 313 563 9329</a> o en nuestra <a href="https://discord.gg/fNWeKew86h" target="_blank" rel="noopener">comunidad de Discord</a>.</p>
+            <p>Puedes contactarnos por WhatsApp al <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener"><span data-wa-display>nuestro WhatsApp</span></a> o en nuestra <a href="https://discord.gg/fNWeKew86h" target="_blank" rel="noopener">comunidad de Discord</a>.</p>
             <p>Al aceptar una propuesta o pagar el anticipo de un proyecto, aceptas estos términos. Si la propuesta escrita dice algo distinto, manda lo que diga la propuesta.</p>
           </section>
 
@@ -228,13 +231,13 @@
             </ul>
 
             <h3>Datos guardados en tu navegador</h3>
-            <p>Esta web guarda en tu propio navegador (almacenamiento local) la moneda que elegiste, las tasas de cambio del día y, en las demos, el carrito de prueba. No usamos cookies de rastreo ni de publicidad.</p>
+            <p>Esta web guarda en tu propio navegador (almacenamiento local) la moneda que elegiste, las tasas de cambio del día, la hora de tus envíos del formulario (solo para evitar spam) y, en las demos, el carrito de prueba. No usamos cookies de rastreo ni de publicidad.</p>
 
             <h3>Servicios externos que usa esta web</h3>
             <p>Google Fonts (tipografías), open.er-api.com (tasas de cambio), GitHub Pages (alojamiento), y WhatsApp y Discord cuando decides escribirnos. Estos servicios pueden recibir datos técnicos como tu dirección IP y se rigen por sus propias políticas de privacidad.</p>
 
             <h3>Tus derechos</h3>
-            <p>Puedes <strong>conocer, actualizar, corregir o pedir que eliminemos</strong> tus datos, y revocar tu autorización en cualquier momento. Solo escríbenos por WhatsApp al <a href="https://wa.me/573135639329">+57 313 563 9329</a>. Respondemos consultas en máximo 10 días hábiles y reclamos en máximo 15 días hábiles, como indica la ley.</p>
+            <p>Puedes <strong>conocer, actualizar, corregir o pedir que eliminemos</strong> tus datos, y revocar tu autorización en cualquier momento. Solo escríbenos por WhatsApp al <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener"><span data-wa-display>nuestro WhatsApp</span></a>. Respondemos consultas en máximo 10 días hábiles y reclamos en máximo 15 días hábiles, como indica la ley.</p>
 
             <h3>Cuánto tiempo los guardamos</h3>
             <p>Mientras dure nuestra relación comercial y el tiempo que exijan las obligaciones legales o contables. Nuestros servicios están dirigidos a personas mayores de edad.</p>
@@ -242,7 +245,7 @@
 
           <div class="legal__cta reveal">
             <p><b>¿Tienes dudas sobre estos términos?</b> Pregúntame antes de empezar, sin compromiso.</p>
-            <a class="btn btn--chrome" href="https://wa.me/573135639329" data-wa="Hola, Noir Studio 👋 Leí los términos y condiciones y tengo una pregunta:" target="_blank" rel="noopener">Escribir por WhatsApp <span aria-hidden="true">✦</span></a>
+            <a class="btn btn--chrome" href="index.html#contacto" data-wa="Hola, Noir Studio 👋 Leí los términos y condiciones y tengo una pregunta:" target="_blank" rel="noopener">Escribir por WhatsApp <span aria-hidden="true">✦</span></a>
           </div>
         </article>
       </div>
@@ -265,7 +268,7 @@
         <a href="index.html#contacto">Contacto</a>
       </nav>
       <div class="footer__contact">
-        <a href="https://wa.me/573135639329" data-wa="cotizar" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://discord.gg/fNWeKew86h" data-discord target="_blank" rel="noopener">Discord</a>
       </div>
     </div>
@@ -275,10 +278,10 @@
     </div>
   </footer>
 
-  <a class="wa-float" href="https://wa.me/573135639329" data-wa="flotante" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+  <a class="wa-float" href="index.html#contacto" data-wa="flotante" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
   </a>
 
-  <script src="js/main.js?v=202610011208" defer></script>
+  <script src="js/main.js?v=202610012114" defer></script>
 </body>
 </html>

@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <!-- Seguridad: solo se ejecuta el código de esta web. Si editas un <script> en línea, actualiza su hash. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-CO0iHdc7IUrktx082kfpJJtlyhjhj8c0QaspJt/0TIo='; connect-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Funciona igual en github.io/noir-studio/ y en un dominio propio -->
   <script>document.write('<base href="' + (location.pathname.indexOf('/noir-studio/') === 0 ? '/noir-studio/' : '/') + '">');</script>
@@ -42,7 +45,7 @@
     <p>El enlace que abriste no existe o cambió de lugar. Vuelve al inicio o escríbeme y te ayudo.</p>
     <div class="btns">
       <a class="primary" href="./">Volver al inicio ✦</a>
-      <a class="ghost" href="https://wa.me/573135639329" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <a class="ghost" href="./#contacto">Escribir por WhatsApp</a>
     </div>
     <p class="tag">✦ Noir Studio · Código que construye tu visión</p>
   </main>
