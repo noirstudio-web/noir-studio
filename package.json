@@ -1,0 +1,13 @@
+{
+  "name": "noir-studio",
+  "private": true,
+  "description": "Web oficial de Noir Studio — Código que construye tu visión",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "dev:demos": "npm run dev -w apps/demos",
+    "build": "npm run build -w apps/web && npm run build -w apps/demos && node scripts/merge.mjs",
+    "typecheck": "npm run typecheck -w apps/web && npm run typecheck -w apps/demos"
+  },
+  "engines": { "node": ">=20" }
+}

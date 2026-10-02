@@ -1,79 +1,38 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <!-- Seguridad: solo se ejecuta el código de esta web. Si editas un <script> en línea, actualiza su hash. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' 'unsafe-hashes' 'sha256-1jAmyYXcRq6zFldLe/GCgIDJBiOONdXjTLgEFMDnDSM='; connect-src 'self' https://open.er-api.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>document.documentElement.classList.add('js')</script>
+import type { Metadata } from 'next';
+import { Effects } from '@/components/Effects';
+import { Footer } from '@/components/Footer';
+import { Nav } from '@/components/Nav';
+import { PhoneText, WaLink } from '@/components/WaLink';
 
-  <title>Términos y condiciones · Noir Studio</title>
-  <meta name="description" content="Términos y condiciones de servicio y política de privacidad de Noir Studio, estudio de desarrollo web a medida.">
-  <meta name="theme-color" content="#07070A">
-  <meta name="color-scheme" content="dark">
-  <link rel="canonical" href="https://noirstudio-web.github.io/noir-studio/terminos.html">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_CO">
-  <meta property="og:site_name" content="Noir Studio">
-  <meta property="og:title" content="Términos y condiciones · Noir Studio">
-  <meta property="og:description" content="Cómo trabajamos: propuesta escrita, precio cerrado, pagos 50 % / 50 % y privacidad de tus datos.">
-  <meta property="og:url" content="https://noirstudio-web.github.io/noir-studio/terminos.html">
-  <meta property="og:image" content="https://noirstudio-web.github.io/noir-studio/assets/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
+export const metadata: Metadata = {
+  title: 'Términos y condiciones · Noir Studio',
+  description: 'Términos y condiciones de servicio y política de privacidad de Noir Studio, estudio de desarrollo web a medida.',
+  alternates: { canonical: 'terminos/' },
+  openGraph: {
+    type: 'website', locale: 'es_CO', siteName: 'Noir Studio', url: 'terminos/',
+    title: 'Términos y condiciones · Noir Studio',
+    description: 'Cómo trabajamos: propuesta escrita, precio cerrado, pagos 50 % / 50 % y privacidad de tus datos.',
+    images: [{ url: 'assets/og-image.png', width: 1200, height: 630 }],
+  },
+};
 
-  <link rel="icon" href="favicon.ico" sizes="48x48">
-  <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Michroma&display=swap"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=202610012114">
-</head>
-<body>
-  <a class="skip-link" href="#inicio">Saltar al contenido</a>
-
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="bg-glow" aria-hidden="true"></div>
-
-  <!-- ============ NAVBAR ============ -->
-  <header class="nav" id="nav">
-    <div class="nav__inner container">
-      <a class="nav__logo" href="index.html" aria-label="Noir Studio, ir al inicio">
-        <img src="assets/logo-navbar-para-fondo-oscuro.png" srcset="assets/logo-navbar-240.png 240w, assets/logo-navbar-para-fondo-oscuro.png 420w" sizes="120px" width="420" height="123" alt="Noir Studio">
-      </a>
-      <nav class="nav__menu" id="nav-menu" aria-label="Principal">
-        <ul class="nav__links">
-          <li><a href="index.html#servicios">Servicios</a></li>
-          <li><a href="index.html#trabajos">Trabajos</a></li>
-          <li><a href="index.html#proceso">Proceso</a></li>
-          <li><a href="index.html#preguntas">Preguntas</a></li>
-          <li><a href="index.html#contacto">Contacto</a></li>
-        </ul>
-        <a class="btn btn--chrome btn--sm nav__cta" href="index.html#contacto">Cotizar proyecto</a>
-      </nav>
-      <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <main id="inicio" tabindex="-1" class="legal-page">
-    <div class="container">
-      <header class="legal-hero reveal">
-        <p class="eyebrow"><span aria-hidden="true">✦</span> Legal</p>
-        <h1 class="section__title legal-hero__title">Términos y condiciones</h1>
-        <p class="section__lead">Reglas claras para trabajar juntos. Están escritas en lenguaje sencillo: si algo no queda claro, escríbeme y lo hablamos antes de empezar.</p>
-        <p class="legal-hero__date">Última actualización: 1 de octubre de 2026</p>
+export default function Terminos() {
+  return (
+    <>
+      <Effects />
+      <Nav onHome={false} />
+      <main id="inicio" tabIndex={-1} className="legal-page">
+        <div className="container">
+      <header className="legal-hero reveal">
+        <p className="eyebrow"><span aria-hidden="true">✦</span> Legal</p>
+        <h1 className="section__title legal-hero__title">Términos y condiciones</h1>
+        <p className="section__lead">Reglas claras para trabajar juntos. Están escritas en lenguaje sencillo: si algo no queda claro, escríbeme y lo hablamos antes de empezar.</p>
+        <p className="legal-hero__date">Última actualización: 1 de octubre de 2026</p>
       </header>
 
-      <div class="legal">
-        <nav class="legal__toc reveal" aria-label="Contenido">
-          <p class="legal__toc-title">Contenido</p>
+      <div className="legal">
+        <nav className="legal__toc reveal" aria-label="Contenido">
+          <p className="legal__toc-title">Contenido</p>
           <ol>
             <li><a href="#quienes">Quiénes somos</a></li>
             <li><a href="#propuesta">Cotización y propuesta</a></li>
@@ -93,15 +52,15 @@
           </ol>
         </nav>
 
-        <article class="legal__body">
-          <section id="quienes" class="reveal">
+        <article className="legal__body">
+          <section id="quienes" className="reveal">
             <h2><span>01</span> Quiénes somos</h2>
             <p><strong>Noir Studio</strong> es un estudio de desarrollo web que diseña y programa páginas web, landing pages, tiendas online, aplicaciones, sistemas a medida y piezas de branding.</p>
-            <p>Puedes contactarnos por WhatsApp al <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener"><span data-wa-display>nuestro WhatsApp</span></a> o en nuestra <a href="https://discord.gg/fNWeKew86h" target="_blank" rel="noopener">comunidad de Discord</a>.</p>
+            <p>Puedes contactarnos por WhatsApp al <WaLink wa="cotizar"><PhoneText fallback="nuestro WhatsApp" /></WaLink> o en nuestra <a href="https://discord.gg/fNWeKew86h" target="_blank" rel="noopener">comunidad de Discord</a>.</p>
             <p>Al aceptar una propuesta o pagar el anticipo de un proyecto, aceptas estos términos. Si la propuesta escrita dice algo distinto, manda lo que diga la propuesta.</p>
           </section>
 
-          <section id="propuesta" class="reveal">
+          <section id="propuesta" className="reveal">
             <h2><span>02</span> Cotización y propuesta</h2>
             <ul>
               <li>La cotización y la primera conversación son <strong>gratis y sin compromiso</strong>.</li>
@@ -111,7 +70,7 @@
             </ul>
           </section>
 
-          <section id="pagos" class="reveal">
+          <section id="pagos" className="reveal">
             <h2><span>03</span> Precio y forma de pago</h2>
             <ul>
               <li>Trabajamos con <strong>precio cerrado</strong>: lo acordado por escrito es lo que pagas, sin costos ocultos.</li>
@@ -122,7 +81,7 @@
             </ul>
           </section>
 
-          <section id="plazos" class="reveal">
+          <section id="plazos" className="reveal">
             <h2><span>04</span> Plazos de entrega</h2>
             <ul>
               <li>El plazo empieza a contar cuando recibimos el anticipo <strong>y</strong> el material necesario (textos, logo, fotos, accesos, etc.).</li>
@@ -132,7 +91,7 @@
             </ul>
           </section>
 
-          <section id="cambios" class="reveal">
+          <section id="cambios" className="reveal">
             <h2><span>05</span> Cambios y revisiones</h2>
             <ul>
               <li>Los ajustes <strong>dentro del alcance acordado</strong> están incluidos, tanto en la etapa de diseño como en la revisión final.</li>
@@ -141,7 +100,7 @@
             </ul>
           </section>
 
-          <section id="cliente" class="reveal">
+          <section id="cliente" className="reveal">
             <h2><span>06</span> Tus responsabilidades</h2>
             <ul>
               <li>Entregar contenido veraz y tener los derechos de uso de los textos, logos, fotos y marcas que nos envíes.</li>
@@ -150,7 +109,7 @@
             </ul>
           </section>
 
-          <section id="terceros" class="reveal">
+          <section id="terceros" className="reveal">
             <h2><span>07</span> Servicios de terceros</h2>
             <p>Algunos proyectos usan servicios externos como dominio, hosting, pasarelas de pago, correo, bases de datos o herramientas de pago. Para esos servicios:</p>
             <ul>
@@ -160,7 +119,7 @@
             </ul>
           </section>
 
-          <section id="propiedad" class="reveal">
+          <section id="propiedad" className="reveal">
             <h2><span>08</span> Propiedad del proyecto</h2>
             <ul>
               <li>Cuando el proyecto está <strong>pagado al 100&nbsp;%</strong>, eres dueño del diseño y del código desarrollados para ti, y recibes todos los accesos.</li>
@@ -169,7 +128,7 @@
             </ul>
           </section>
 
-          <section id="garantia" class="reveal">
+          <section id="garantia" className="reveal">
             <h2><span>09</span> Garantía y soporte</h2>
             <ul>
               <li>Corregimos <strong>sin costo</strong> los errores de programación de lo entregado que se reporten dentro del periodo de garantía indicado en la propuesta.</li>
@@ -178,7 +137,7 @@
             </ul>
           </section>
 
-          <section id="cancelacion" class="reveal">
+          <section id="cancelacion" className="reveal">
             <h2><span>10</span> Cancelación</h2>
             <ul>
               <li>Puedes cancelar el proyecto en cualquier momento avisando por escrito.</li>
@@ -187,17 +146,17 @@
             </ul>
           </section>
 
-          <section id="suscripciones" class="reveal">
+          <section id="suscripciones" className="reveal">
             <h2><span>11</span> Planes mensuales</h2>
             <p>Los servicios por suscripción (por ejemplo, la plataforma de reservas para barberías) se pagan mes a mes, sin contrato de permanencia, y puedes cancelarlos cuando quieras. Si un mes no se renueva, el servicio se suspende. Las condiciones de cada plan (precio, límites y funciones) son las publicadas para ese plan al momento de contratarlo.</p>
           </section>
 
-          <section id="demos" class="reveal">
+          <section id="demos" className="reveal">
             <h2><span>12</span> Demos de esta web</h2>
             <p>Los proyectos marcados como <strong>“Demo”</strong> son ejemplos para mostrar lo que podemos construir: los negocios, productos, precios, pedidos y estadísticas son ficticios y los pagos son simulados (no se cobra nada). Las fotos de las demos provienen de Unsplash, bajo su licencia de uso libre.</p>
           </section>
 
-          <section id="responsabilidad" class="reveal">
+          <section id="responsabilidad" className="reveal">
             <h2><span>13</span> Límite de responsabilidad</h2>
             <ul>
               <li>Ponemos todo nuestro esfuerzo en que tu proyecto funcione y te ayude a crecer, pero no podemos garantizar resultados comerciales específicos (ventas, clientes o posiciones en Google), porque dependen de factores externos.</li>
@@ -205,7 +164,7 @@
             </ul>
           </section>
 
-          <section id="ley" class="reveal">
+          <section id="ley" className="reveal">
             <h2><span>14</span> Ley aplicable y cambios</h2>
             <ul>
               <li>Estos términos se rigen por las leyes de la República de Colombia.</li>
@@ -214,7 +173,7 @@
             </ul>
           </section>
 
-          <section id="privacidad" class="legal__privacy reveal">
+          <section id="privacidad" className="legal__privacy reveal">
             <h2><span>15</span> Política de privacidad y tratamiento de datos</h2>
             <p>Cumplimos la Ley 1581 de 2012 de Colombia sobre protección de datos personales. Así tratamos tu información:</p>
 
@@ -234,54 +193,25 @@
             <p>Esta web guarda en tu propio navegador (almacenamiento local) la moneda que elegiste, las tasas de cambio del día, la hora de tus envíos del formulario (solo para evitar spam) y, en las demos, el carrito de prueba. No usamos cookies de rastreo ni de publicidad.</p>
 
             <h3>Servicios externos que usa esta web</h3>
-            <p>Google Fonts (tipografías), open.er-api.com (tasas de cambio), GitHub Pages (alojamiento), y WhatsApp y Discord cuando decides escribirnos. Estos servicios pueden recibir datos técnicos como tu dirección IP y se rigen por sus propias políticas de privacidad.</p>
+            <p>open.er-api.com (tasas de cambio), GitHub Pages (alojamiento), y WhatsApp y Discord cuando decides escribirnos. Estos servicios pueden recibir datos técnicos como tu dirección IP y se rigen por sus propias políticas de privacidad.</p>
 
             <h3>Tus derechos</h3>
-            <p>Puedes <strong>conocer, actualizar, corregir o pedir que eliminemos</strong> tus datos, y revocar tu autorización en cualquier momento. Solo escríbenos por WhatsApp al <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener"><span data-wa-display>nuestro WhatsApp</span></a>. Respondemos consultas en máximo 10 días hábiles y reclamos en máximo 15 días hábiles, como indica la ley.</p>
+            <p>Puedes <strong>conocer, actualizar, corregir o pedir que eliminemos</strong> tus datos, y revocar tu autorización en cualquier momento. Solo escríbenos por WhatsApp al <WaLink wa="cotizar"><PhoneText fallback="nuestro WhatsApp" /></WaLink>. Respondemos consultas en máximo 10 días hábiles y reclamos en máximo 15 días hábiles, como indica la ley.</p>
 
             <h3>Cuánto tiempo los guardamos</h3>
             <p>Mientras dure nuestra relación comercial y el tiempo que exijan las obligaciones legales o contables. Nuestros servicios están dirigidos a personas mayores de edad.</p>
           </section>
 
-          <div class="legal__cta reveal">
+          <div className="legal__cta reveal">
             <p><b>¿Tienes dudas sobre estos términos?</b> Pregúntame antes de empezar, sin compromiso.</p>
-            <a class="btn btn--chrome" href="index.html#contacto" data-wa="Hola, Noir Studio 👋 Leí los términos y condiciones y tengo una pregunta:" target="_blank" rel="noopener">Escribir por WhatsApp <span aria-hidden="true">✦</span></a>
+            <WaLink wa="terminos" className="btn btn--chrome">Escribir por WhatsApp <span aria-hidden="true">✦</span></WaLink>
           </div>
         </article>
       </div>
-    </div>
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <img src="assets/noir-wordmark-blanco.png" srcset="assets/noir-wordmark-440.png 440w, assets/noir-wordmark-blanco.png 640w" sizes="(max-width: 900px) 160px, 220px" width="640" height="178" alt="Noir" loading="lazy">
-        <p class="footer__motto">Ideas <span>/</span> Código <span>/</span> Resultados</p>
-        <p class="footer__slogan">Código que construye tu visión.</p>
-      </div>
-      <nav class="footer__nav" aria-label="Pie de página">
-        <a href="index.html#servicios">Servicios</a>
-        <a href="index.html#trabajos">Trabajos</a>
-        <a href="index.html#proceso">Proceso</a>
-        <a href="index.html#preguntas">Preguntas</a>
-        <a href="index.html#contacto">Contacto</a>
-      </nav>
-      <div class="footer__contact">
-        <a href="index.html#contacto" data-wa="cotizar" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://discord.gg/fNWeKew86h" data-discord target="_blank" rel="noopener">Discord</a>
-      </div>
-    </div>
-    <div class="container footer__bottom">
-      <p>© <span id="year">2026</span> Noir Studio. Todos los derechos reservados.</p>
-      <p class="footer__legal"><a href="terminos.html">Términos y condiciones</a> · <a href="terminos.html#privacidad">Privacidad</a></p>
-    </div>
-  </footer>
-
-  <a class="wa-float" href="index.html#contacto" data-wa="flotante" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z"/><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
-  </a>
-
-  <script src="js/main.js?v=202610012114" defer></script>
-</body>
-</html>
+    
+        </div>
+      </main>
+      <Footer onHome={false} />
+    </>
+  );
+}

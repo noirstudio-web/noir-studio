@@ -4,58 +4,73 @@
 
 ## 👉 [Ver la web en vivo](https://noirstudio-web.github.io/noir-studio/)
 
-https://noirstudio-web.github.io/noir-studio/
-
-- WhatsApp: [+57 313 563 9329](https://wa.me/573135639329)
+- WhatsApp: escríbenos desde la web
 - Comunidad en Discord: [discord.gg/fNWeKew86h](https://discord.gg/fNWeKew86h)
 
 ---
 
-## Páginas
+## Tecnologías
 
-| Página | Archivo |
+| Parte | Tecnologías |
 |---|---|
-| Inicio | `index.html` |
-| Términos y condiciones + privacidad | `terminos.html` |
-| Demo Noir Menu | `demos/noir-menu/index.html` |
-| Demo Tienda online | `demos/tienda/index.html` |
-| Página no encontrada | `404.html` |
+| Web principal (`apps/web`) | **Next.js 16** · **React 19** · **TypeScript** · **Tailwind CSS 4** · Node.js |
+| Demos (`apps/demos`) | **Vite 8** · **React 19** · **TypeScript** · **Tailwind CSS 4** |
+| Publicación | **Git** · **GitHub** · GitHub Actions → GitHub Pages |
+
+## Estructura
+
+```
+apps/
+├── web/                     ← Next.js (exporta HTML estático)
+│   ├── src/app/             ← páginas: inicio, /terminos, 404
+│   ├── src/components/      ← secciones en React (Hero, Process, QuoteForm, Effects…)
+│   ├── src/lib/site.ts      ← ✦ DATOS: número, mensajes, precios, servicios, proyectos, FAQ
+│   ├── public/              ← logos, imágenes, favicons, robots.txt, sitemap.xml
+│   └── scripts/csp.mjs      ← agrega la política de seguridad a cada página
+└── demos/                   ← Vite: /demos/noir-menu y /demos/tienda
+scripts/merge.mjs            ← une web + demos en _site/
+.github/workflows/deploy.yml ← compila y publica solo en cada cambio
+```
 
 ## Cómo cambiar lo más común
 
-| Quiero cambiar… | Dónde |
-|---|---|
-| Número de WhatsApp | `js/main.js` → `WHATSAPP_NUMBER` (y los `href="https://wa.me/…"` de los HTML como respaldo) |
-| Mensajes que llegan por WhatsApp | `js/main.js` → `WA_MESSAGES` |
-| Rangos de presupuesto | `js/main.js` → `BUDGET_COP` (en pesos colombianos; las demás monedas se calculan solas) |
-| Textos de la web | `index.html` |
-| Proyectos de "Trabajos" | `index.html`, sección `TRABAJOS` (hay un comentario con los pasos) |
-| Colores y diseño | `css/styles.css` (variables al inicio) |
-| Términos y condiciones | `terminos.html` |
+Casi todo está en **`apps/web/src/lib/site.ts`**:
 
-**Después de cada cambio en CSS o JS**, sube el número `?v=` en `index.html` y `terminos.html`
-(por ejemplo `styles.css?v=2` → `styles.css?v=3`) para que los visitantes vean la versión nueva.
+| Quiero cambiar… | Busca en `site.ts` |
+|---|---|
+| Número de WhatsApp | `WHATSAPP_PARTS` |
+| Mensajes que llegan por WhatsApp | `WA_MESSAGES` |
+| Rangos de presupuesto (en COP) | `BUDGET_COP` |
+| Tecnologías de la cinta | `TECH` |
+| Servicios, proyectos, pasos, ventajas, preguntas | `SERVICES`, `PROJECTS`, `STEPS`, `PERKS`, `FAQ` |
+
+Para agregar un proyecto real: copia el primer elemento de `PROJECTS`, cambia los datos y pon su captura en `apps/web/public/assets/proyectos/`.
+
+## Trabajar en tu computador
+
+```bash
+npm install          # una sola vez
+npm run dev          # web en http://localhost:3000/noir-studio
+npm run dev:demos    # demos en http://localhost:5173/noir-studio/demos/
+npm run build        # compila todo en _site/
+```
+
+Al subir cambios a `main` (`git push`), GitHub Actions compila y publica la web en 1–3 minutos.
 
 ## Seguridad
 
-- **Política de seguridad (CSP)** en cada página: el navegador solo ejecuta el código de esta web.
-  Si editas un `<script>` escrito dentro del HTML (no los archivos `.js`), hay que actualizar su hash en la etiqueta
-  `Content-Security-Policy` o el script dejará de funcionar.
+- **Política de seguridad (CSP)** en cada página: solo se ejecuta el código de esta web (los hashes se calculan solos al compilar).
 - **Anti-clickjacking**: si otra web intenta mostrar esta dentro de un marco, la página se oculta.
-- **Formulario anti-robots**: verificación humana deslizable, trampa invisible (honeypot), detección de acciones
-  automáticas, tiempo mínimo en la página y máximo 3 envíos cada 10 minutos.
-- **Número de WhatsApp oculto** para robots que recolectan teléfonos (se arma con JavaScript).
-- **robots.txt** bloquea robots de IA y de herramientas SEO (solo funciona con dominio propio).
+- **Formulario anti-robots**: verificación humana deslizable, trampa invisible, detección de acciones automáticas, tiempo mínimo y máximo 3 envíos cada 10 minutos.
+- **Número de WhatsApp oculto** para robots (se arma en el navegador).
+- **Tipografías propias**: la web principal no hace peticiones a Google al visitarla.
+- **robots.txt** bloquea robots de IA y de herramientas SEO (efectivo con dominio propio).
 
-## Publicación
+## Dominio propio
 
-La web se publica sola con **GitHub Pages** cada vez que se suben cambios a la rama `main` (tarda 1–2 minutos).
+1. Compra el dominio y en GitHub ve a **Settings → Pages → Custom domain**.
+2. DNS: registros `A` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` y `CNAME www` → `noirstudio-web.github.io`.
+3. En `.github/workflows/deploy.yml` agrega `BASE_PATH: ""` como variable de entorno del paso de compilación,
+   y cambia `SITE_URL` en `site.ts`, `sitemap.xml` y `robots.txt` por tu dominio.
 
-### Conectar un dominio propio
-1. Compra el dominio (Namecheap, Porkbun, Cloudflare, GoDaddy…).
-2. En GitHub: **Settings → Pages → Custom domain** → escribe tu dominio → Save.
-3. En el panel del dominio crea estos registros DNS:
-   - `A` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `CNAME` `www` → `noirstudio-web.github.io`
-4. Cuando cargue, activa **Enforce HTTPS** en Settings → Pages.
-5. Reemplaza `https://noirstudio-web.github.io/noir-studio/` por tu dominio en `index.html`, `terminos.html`, `sitemap.xml` y `robots.txt`.
+La versión anterior (HTML, CSS y JavaScript puro) quedó guardada en la etiqueta `v1-html`.
