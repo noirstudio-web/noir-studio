@@ -7,7 +7,7 @@ export function frameGuard() {
 }
 
 /** Número que recibe los pedidos, partido para que los robots no lo detecten. */
-export const WHATSAPP_NUMBER = ['57', '313', '563', '9329'].join('');
+export const WHATSAPP_NUMBER = ['57', '310', '373', '5812'].join('');
 
 export const money = (n: number) => '$' + Math.round(n).toLocaleString('es-CO');
 

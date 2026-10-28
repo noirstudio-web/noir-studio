@@ -13,7 +13,7 @@ export const asset = (path: string) => `${BASE_PATH}${path.startsWith('/') ? pat
 
 // ✦ Tu número de WhatsApp: código de país + número, partido en trozos para que los robots
 //   que recolectan teléfonos no lo encuentren en el código. Para cambiarlo, edita los trozos.
-export const WHATSAPP_PARTS = ['57', '313', '563', '9329'] as const;
+export const WHATSAPP_PARTS = ['57', '310', '373', '5812'] as const;
 export const DISCORD_URL = 'https://discord.gg/fNWeKew86h';
 
 // ✦ Datos legales del titular (aparecen en el Aviso legal y la Política de privacidad).
