@@ -231,18 +231,18 @@ export function QuoteForm() {
 
     const v = (k: keyof Fields) => fields[k].trim();
     const text = [
-      '¡Hola, Noir Studio! 👋',
-      'Llené el formulario de tu web y quiero cotizar este proyecto:',
+      'Hola, Noir Studio ✦',
+      'Te escribo desde el formulario de tu web para cotizar un proyecto.',
       '',
-      `👤 *Nombre:* ${v('nombre')}`,
-      `🏢 *Negocio:* ${v('negocio') || 'No especificado'}`,
-      `🧩 *Necesito:* ${v('necesidad')}`,
-      `💰 *Presupuesto:* ${v('presupuesto')}${v('presupuesto') === UNSURE ? ` (moneda: ${currency})` : ''}`,
+      `• *Nombre:* ${v('nombre')}`,
+      `• *Negocio:* ${v('negocio') || 'Sin especificar'}`,
+      `• *Necesito:* ${v('necesidad')}`,
+      `• *Presupuesto:* ${v('presupuesto')}${v('presupuesto') === UNSURE ? ` (moneda: ${currency})` : ''}`,
       '',
-      '📝 *Sobre mi proyecto:*',
+      '*Sobre mi proyecto:*',
       v('mensaje'),
       '',
-      'Quedo atento(a) a tu propuesta. ¡Gracias! ✦',
+      'Quedo atento(a) a tu propuesta. ¡Gracias!',
     ].join('\n');
 
     const url = waLink(text);

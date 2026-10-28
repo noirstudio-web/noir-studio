@@ -33,62 +33,85 @@ export const GOATCOUNTER_CODE = '';
 
 export type WaKey = 'cotizar' | 'barberia' | 'menu' | 'tienda' | 'flotante' | 'terminos';
 
-// ✦ Mensajes que llegan a tu WhatsApp desde cada botón. El cliente completa los espacios.
+// ✦ Mensajes que llegan a tu WhatsApp desde cada botón. El cliente solo completa los espacios.
+//   Usa símbolos simples (✦ •). Los emojis "grandes" (👋📌) se ven rotos (�) en algunos WhatsApp,
+//   por eso la web los quita automáticamente antes de enviar.
 export const WA_MESSAGES: Record<WaKey, string[]> = {
+  // Botones "Cotizar mi proyecto" (menú, inicio, proceso, contacto, footer)
   cotizar: [
-    '¡Hola, Noir Studio! 👋',
-    'Vengo de tu web y quiero cotizar un proyecto.',
+    'Hola, Noir Studio ✦',
+    'Vi tu página web y quiero cotizar un proyecto.',
     '',
-    '📌 *Mi negocio:* ',
-    '🧩 *Lo que necesito:* (página web, tienda online, app, sistema…)',
-    '🎯 *Objetivo:* (vender más, recibir reservas, verme profesional…)',
-    '📅 *Para cuándo lo necesito:* ',
-    '💰 *Presupuesto aproximado:* ',
+    '• *Mi nombre:* ',
+    '• *Mi negocio:* ',
+    '• *Qué necesito:* (página web, landing, tienda online, app, sistema o branding)',
+    '• *Objetivo principal:* (vender más, recibir reservas, verme más profesional…)',
+    '• *Para cuándo lo necesito:* ',
+    '• *Presupuesto aproximado:* ',
     '',
-    '¿Me cuentas cómo trabajas y qué incluye?',
+    '¿Me cuentas cómo trabajas y cuáles serían los siguientes pasos?',
+    '¡Gracias!',
   ],
+  // Proyecto real: reservas para barberías
   barberia: [
-    '¡Hola, Noir Studio! 💈',
-    'Vi tu plataforma de reservas para barberías y la quiero para mi negocio.',
+    'Hola, Noir Studio ✦',
+    'Vi tu plataforma de reservas para barberías y me interesa para mi negocio.',
     '',
-    '📌 *Nombre de la barbería:* ',
-    '👥 *Número de barberos:* ',
-    '📍 *Ciudad:* ',
-    '📲 *Instagram o web actual:* ',
+    '• *Mi nombre:* ',
+    '• *Nombre de la barbería:* ',
+    '• *Número de barberos:* ',
+    '• *Ciudad:* ',
+    '• *Instagram o web actual:* ',
     '',
     '¿Me explicas los planes y cómo activo la prueba gratis de 7 días?',
+    '¡Gracias!',
   ],
+  // Demo Noir Menu
   menu: [
-    '¡Hola, Noir Studio! 🍽️',
+    'Hola, Noir Studio ✦',
     'Probé la demo de Noir Menu y quiero un menú digital para mi restaurante.',
     '',
-    '📌 *Nombre del restaurante:* ',
-    '🍔 *Cantidad aproximada de platos:* ',
-    '🛵 *Pedidos para:* (mesa / domicilio / para recoger / todos)',
-    '📍 *Ciudad:* ',
+    '• *Mi nombre:* ',
+    '• *Nombre del restaurante:* ',
+    '• *Ciudad:* ',
+    '• *Cantidad aproximada de platos:* ',
+    '• *Pedidos para:* (mesa, domicilio, para recoger o todos)',
     '',
     '¿Cuánto costaría y en cuánto tiempo estaría listo?',
+    '¡Gracias!',
   ],
+  // Demo Tienda online
   tienda: [
-    '¡Hola, Noir Studio! 🛍️',
+    'Hola, Noir Studio ✦',
     'Probé la demo de la tienda online y quiero una para mi negocio.',
     '',
-    '📌 *Mi negocio:* ',
-    '👕 *Qué vendo:* ',
-    '📦 *Cantidad aproximada de productos:* ',
-    '💳 *Cómo quiero cobrar:* (tarjeta, PSE, Nequi, contra entrega…)',
-    '🚚 *¿Hago envíos?:* ',
+    '• *Mi nombre:* ',
+    '• *Mi negocio:* ',
+    '• *Qué vendo:* ',
+    '• *Cantidad aproximada de productos:* ',
+    '• *Cómo quiero cobrar:* (tarjeta, PSE, Nequi, contra entrega…)',
+    '• *¿Hago envíos?:* ',
     '',
     '¿Me ayudas con una cotización?',
+    '¡Gracias!',
   ],
+  // Botón verde flotante: corto, para quien apenas está mirando
   flotante: [
-    '¡Hola, Noir Studio! 👋',
-    'Estoy viendo tu web y me gustaría hablar sobre un proyecto para mi negocio.',
+    'Hola, Noir Studio ✦',
+    'Estoy viendo tu página web y me gustaría trabajar contigo.',
     '',
-    '📌 *Mi negocio:* ',
-    '🧩 *Lo que tengo en mente:* ',
+    '• *Mi nombre:* ',
+    '• *Mi negocio:* ',
+    '• *Lo que necesito:* ',
+    '',
+    '¿Cuándo podemos hablar? ¡Gracias!',
   ],
-  terminos: ['Hola, Noir Studio 👋 Leí los términos y condiciones y tengo una pregunta:'],
+  // Páginas legales
+  terminos: [
+    'Hola, Noir Studio ✦',
+    'Leí la información legal de tu web y tengo una pregunta:',
+    '',
+  ],
 };
 
 // ✦ Rangos de presupuesto en pesos colombianos (las demás monedas se calculan solas)

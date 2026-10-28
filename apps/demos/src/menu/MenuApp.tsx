@@ -199,12 +199,12 @@ function CartSheet({ cart, mesa, subtotal, onClose, onQty }: {
     if (type === 'Mesa' && !table.trim()) return setError('Escribe el número de mesa.');
     setError('');
     const msg = [
-      `🔥 *Nuevo pedido — ${RESTAURANT.name}*`, '',
-      ...lines.map(([id, l]) => `• ${l.qty}× ${DISHES[id].name} — ${money(DISHES[id].price * l.qty)}${l.note ? `\n   _${l.note}_` : ''}`), '',
-      `🧾 Subtotal: ${money(subtotal)}`, ...(fee ? [`🛵 Domicilio: ${money(fee)}`] : []), `💰 *Total: ${money(subtotal + fee)}*`, '',
-      `👤 ${name.trim()}`,
-      type === 'Mesa' ? `🍽️ Mesa ${table.trim()}` : type === 'Domicilio' ? `🛵 Domicilio: ${address.trim()}` : '🛍️ Para recoger',
-      `💳 Pago: ${pay}`, '', '_Pedido de prueba enviado desde la demo de Noir Menu ✦_',
+      `✦ *Nuevo pedido — ${RESTAURANT.name}*`, '',
+      ...lines.map(([id, l]) => `• ${l.qty} × ${DISHES[id].name} — ${money(DISHES[id].price * l.qty)}${l.note ? `\n   _${l.note}_` : ''}`), '',
+      `Subtotal: ${money(subtotal)}`, ...(fee ? [`Domicilio: ${money(fee)}`] : []), `*Total: ${money(subtotal + fee)}*`, '',
+      `• *Cliente:* ${name.trim()}`,
+      `• *Entrega:* ${type === 'Mesa' ? `Mesa ${table.trim()}` : type === 'Domicilio' ? `Domicilio, ${address.trim()}` : 'Para recoger'}`,
+      `• *Pago:* ${pay}`, '', '_Pedido de prueba enviado desde la demo de Noir Menu_',
     ].join('\n');
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   };
