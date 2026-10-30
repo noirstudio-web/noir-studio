@@ -69,7 +69,7 @@ export default function Terminos() {
               <li>La cotización y la primera conversación son <strong>gratis y sin compromiso</strong>.</li>
               <li>Antes de empezar recibes una <strong>propuesta escrita</strong> con el alcance (qué incluye y qué no), los entregables, la fecha estimada de entrega y el precio.</li>
               <li>El precio de la propuesta se mantiene durante el plazo de vigencia indicado en ella.</li>
-              <li>Los rangos de presupuesto que aparecen en esta web son orientativos; el precio final es el de la propuesta.</li>
+              <li>Los precios publicados en esta web son de referencia, en pesos colombianos. Los servicios marcados “Desde” dependen del alcance; el precio final es el de la propuesta escrita.</li>
             </ul>
           </section>
 

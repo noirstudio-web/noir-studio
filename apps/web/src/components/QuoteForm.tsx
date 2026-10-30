@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BUDGET_COP, NEEDS } from '@/lib/site';
+import { BUDGET_COP, SERVICES, servicePrice } from '@/lib/site';
 import { waLink } from '@/lib/whatsapp';
 
 /* ---------- Monedas ---------- */
@@ -55,20 +55,46 @@ const RATE_KEY = 'noir-form-sends';
 const RATE_MAX = 3, RATE_WINDOW = 10 * 60 * 1000; // máximo 3 envíos cada 10 minutos
 const recentSends = () => (store.get<number[]>(RATE_KEY) ?? []).filter((t) => Date.now() - t < RATE_WINDOW);
 
-type Fields = { nombre: string; negocio: string; necesidad: string; presupuesto: string; mensaje: string };
-const RULES: Record<keyof Fields, (v: string) => string> = {
+type Fields = {
+  nombre: string; negocio: string; ciudad: string; correo: string;
+  servicio: string; web: string; plazo: string; presupuesto: string; mensaje: string;
+};
+type FieldKey = keyof Fields;
+const EMPTY: Fields = { nombre: '', negocio: '', ciudad: '', correo: '', servicio: '', web: '', plazo: '', presupuesto: '', mensaje: '' };
+
+const WEB_OPTIONS = ['No, es nueva', 'Sí, quiero renovarla', 'Sí, necesito mejoras'];
+const PLAZOS = ['Lo antes posible', 'En 2 a 4 semanas', 'En 1 a 2 meses', 'Sin fecha definida'];
+const ASSETS = ['Logo', 'Textos', 'Fotos', 'Dominio'];
+
+const RULES: Partial<Record<FieldKey, (v: string) => string>> = {
   nombre: (v) => (v.length >= 2 ? '' : 'Escribe tu nombre.'),
-  negocio: () => '',
-  necesidad: (v) => (v ? '' : 'Elige qué necesitas.'),
+  correo: (v) => (!v || /^\S+@\S+\.\S{2,}$/.test(v) ? '' : 'Revisa el correo (o déjalo vacío).'),
+  servicio: (v) => (v ? '' : 'Elige el servicio que te interesa.'),
   presupuesto: (v) => (v ? '' : 'Elige un rango de presupuesto.'),
-  mensaje: (v) => (v.length >= 10 ? '' : 'Cuéntame un poco más sobre tu proyecto (mínimo 10 caracteres).'),
+  mensaje: (v) => (v.length >= 15 ? '' : 'Cuéntame un poco más sobre tu proyecto (mínimo 15 caracteres).'),
 };
 
 export function QuoteForm() {
-  const [fields, setFields] = useState<Fields>({ nombre: '', negocio: '', necesidad: '', presupuesto: '', mensaje: '' });
-  const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
+  const [fields, setFields] = useState<Fields>(EMPTY);
+  const [have, setHave] = useState<string[]>([]);
+  const [consent, setConsent] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<FieldKey | 'consent', string>>>({});
   const [tried, setTried] = useState(false);
   const [status, setStatus] = useState<React.ReactNode>('');
+  const [picked, setPicked] = useState(false);
+
+  // "Cotizar" en una tarjeta de servicio → llega aquí con ese servicio elegido
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      if (!SERVICES.some((s) => s.id === id)) return;
+      setFields((f) => ({ ...f, servicio: id }));
+      setPicked(true);
+      window.setTimeout(() => setPicked(false), 1600);
+    };
+    window.addEventListener('noir:service', onPick);
+    return () => window.removeEventListener('noir:service', onPick);
+  }, []);
 
   // Monedas
   const [rates, setRates] = useState<Rates>(FALLBACK);
@@ -132,6 +158,9 @@ export function QuoteForm() {
     }
   };
 
+  const service = SERVICES.find((s) => s.id === fields.servicio);
+  const approx = (cop: number) => (currency === 'COP' ? '' : ` ≈ ${num(nice((cop / rates.COP) * rates[currency]))} ${currency}`);
+
   /* ---------- Verificación humana ---------- */
   const loadedAt = useRef(0);
   const humanEvents = useRef(0);
@@ -186,31 +215,34 @@ export function QuoteForm() {
   };
 
   /* ---------- Validación y envío ---------- */
-  const validate = (f: Fields) => {
-    const errs: Partial<Record<keyof Fields, string>> = {};
-    (Object.keys(RULES) as (keyof Fields)[]).forEach((k) => { const m = RULES[k](f[k].trim()); if (m) errs[k] = m; });
+  const validate = (f: Fields, ok = consent) => {
+    const errs: Partial<Record<FieldKey | 'consent', string>> = {};
+    (Object.keys(RULES) as FieldKey[]).forEach((k) => { const m = RULES[k]!(f[k].trim()); if (m) errs[k] = m; });
+    if (!ok) errs.consent = 'Debes aceptar la política de privacidad para enviar.';
     return errs;
   };
-  const update = (k: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const f = { ...fields, [k]: e.target.value };
+  const set = (k: FieldKey, value: string) => {
+    const f = { ...fields, [k]: value };
     setFields(f);
     if (tried) setErrors(validate(f));
   };
+  const update = (k: FieldKey) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => set(k, e.target.value);
+  const toggleHave = (a: string) => setHave((h) => (h.includes(a) ? h.filter((x) => x !== a) : [...h, a]));
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTried(true);
     const errs = validate(fields);
     setErrors(errs);
-    const first = (Object.keys(errs) as (keyof Fields)[])[0];
+    const first = Object.keys(errs)[0];
     if (first) {
-      (e.currentTarget.elements.namedItem(first) as HTMLElement | null)?.focus();
+      document.getElementById(`f-${first}`)?.focus();
       setStatus('Revisa los campos marcados.');
       return;
     }
     // Robot que llenó la trampa: se descarta en silencio
     if (honeypot.current?.value) {
-      setFields({ nombre: '', negocio: '', necesidad: '', presupuesto: '', mensaje: '' });
+      setFields(EMPTY);
       setStatus('✦ ¡Gracias! Te responderé pronto.');
       return;
     }
@@ -229,17 +261,26 @@ export function QuoteForm() {
       return;
     }
 
-    const v = (k: keyof Fields) => fields[k].trim();
+    const v = (k: FieldKey) => fields[k].trim();
+    const opt = (label: string, k: FieldKey) => (v(k) ? [`• *${label}:* ${v(k)}`] : []);
     const text = [
       'Hola, Noir Studio ✦',
-      'Te escribo desde el formulario de tu web para cotizar un proyecto.',
+      'Te escribo desde tu web para solicitar una cotización.',
       '',
+      '*1. Mis datos*',
       `• *Nombre:* ${v('nombre')}`,
       `• *Negocio:* ${v('negocio') || 'Sin especificar'}`,
-      `• *Necesito:* ${v('necesidad')}`,
-      `• *Presupuesto:* ${v('presupuesto')}${v('presupuesto') === UNSURE ? ` (moneda: ${currency})` : ''}`,
+      ...opt('Ubicación', 'ciudad'),
+      ...opt('Correo', 'correo'),
       '',
-      '*Sobre mi proyecto:*',
+      '*2. Mi proyecto*',
+      `• *Servicio:* ${service ? `${service.title}${service.price != null ? ` (referencia: ${servicePrice(service)})` : ''}` : v('servicio')}`,
+      ...opt('Web actual', 'web'),
+      ...opt('Para cuándo', 'plazo'),
+      `• *Presupuesto:* ${v('presupuesto')}${v('presupuesto') === UNSURE ? ` (moneda: ${currency})` : ''}`,
+      ...(have.length ? [`• *Ya tengo:* ${have.join(', ')}`] : []),
+      '',
+      '*3. Detalles*',
       v('mensaje'),
       '',
       'Quedo atento(a) a tu propuesta. ¡Gracias!',
@@ -252,77 +293,148 @@ export function QuoteForm() {
     a.remove();
     store.set(RATE_KEY, recentSends().concat(Date.now()));
     resetVerify();                 // cada envío necesita una verificación nueva
-    setStatus(<>✦ ¡Listo! Se abrió WhatsApp con tu mensaje. ¿No se abrió? <a href={url} target="_blank" rel="noopener">Toca aquí</a>.</>);
+    setStatus(<>✦ ¡Listo! Se abrió WhatsApp con tu solicitud. ¿No se abrió? <a href={url} target="_blank" rel="noopener">Toca aquí</a>.</>);
   };
 
   const countHuman = (e: React.SyntheticEvent) => { if (e.nativeEvent.isTrusted) humanEvents.current++; };
-  const err = (k: keyof Fields) => ({ 'aria-invalid': errors[k] ? true : undefined, 'aria-describedby': `f-${k}-err` });
+  const aria = (k: FieldKey) => ({ 'aria-invalid': errors[k] ? true : undefined, 'aria-describedby': `f-${k}-err` });
+  const Err = ({ k }: { k: FieldKey | 'consent' }) => <p className="field__error" id={`f-${k}-err`} aria-live="polite">{errors[k]}</p>;
 
   return (
-    <form className="form reveal" id="quote-form" noValidate onSubmit={onSubmit}
+    <form className="form form--pro reveal" id="quote-form" noValidate onSubmit={onSubmit}
       onPointerDown={countHuman} onKeyDown={countHuman} onInput={countHuman}>
-      <h3 className="form__title">Cotiza tu proyecto</h3>
-      <p className="form__sub">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
-
-      <div className="form__row">
-        <div className="field">
-          <label htmlFor="f-nombre">Nombre <span className="req" aria-hidden="true">*</span></label>
-          <input id="f-nombre" name="nombre" type="text" autoComplete="name" required maxLength={60} placeholder="Tu nombre"
-            value={fields.nombre} onChange={update('nombre')} {...err('nombre')} />
-          <p className="field__error" id="f-nombre-err" aria-live="polite">{errors.nombre}</p>
+      <header className="form__head">
+        <div>
+          <h3 className="form__title">Solicita tu cotización</h3>
+          <p className="form__sub">Gratis y sin compromiso. Al enviar se abre WhatsApp con tu solicitud lista.</p>
         </div>
-        <div className="field">
-          <label htmlFor="f-negocio">Negocio</label>
-          <input id="f-negocio" name="negocio" type="text" autoComplete="organization" maxLength={80} placeholder="Tu negocio o marca (opcional)"
-            value={fields.negocio} onChange={update('negocio')} {...err('negocio')} />
-          <p className="field__error" id="f-negocio-err" aria-live="polite">{errors.negocio}</p>
+        <ul className="form__badges" aria-label="Lo que incluye">
+          <li>✦ Respuesta personal</li><li>✦ Precio cerrado</li><li>✦ 100 % confidencial</li>
+        </ul>
+      </header>
+
+      {/* 1 · Datos */}
+      <fieldset className="form__step">
+        <legend><span>01</span> Tus datos</legend>
+        <div className="form__row">
+          <div className="field">
+            <label htmlFor="f-nombre">Nombre completo <span className="req" aria-hidden="true">*</span></label>
+            <input id="f-nombre" name="nombre" type="text" autoComplete="name" required maxLength={60} placeholder="Ej: Laura Gómez"
+              value={fields.nombre} onChange={update('nombre')} {...aria('nombre')} />
+            <Err k="nombre" />
+          </div>
+          <div className="field">
+            <label htmlFor="f-negocio">Negocio o empresa</label>
+            <input id="f-negocio" name="negocio" type="text" autoComplete="organization" maxLength={80} placeholder="Ej: Café La Esquina"
+              value={fields.negocio} onChange={update('negocio')} {...aria('negocio')} />
+            <Err k="negocio" />
+          </div>
         </div>
-      </div>
+        <div className="form__row">
+          <div className="field">
+            <label htmlFor="f-ciudad">Ciudad y país</label>
+            <input id="f-ciudad" name="ciudad" type="text" autoComplete="address-level2" maxLength={60} placeholder="Ej: Medellín, Colombia"
+              value={fields.ciudad} onChange={update('ciudad')} {...aria('ciudad')} />
+            <Err k="ciudad" />
+          </div>
+          <div className="field">
+            <label htmlFor="f-correo">Correo <span className="opt">(opcional)</span></label>
+            <input id="f-correo" name="correo" type="email" autoComplete="email" inputMode="email" maxLength={80} placeholder="Para enviarte la propuesta"
+              value={fields.correo} onChange={update('correo')} {...aria('correo')} />
+            <Err k="correo" />
+          </div>
+        </div>
+      </fieldset>
 
-      <div className="field">
-        <label htmlFor="f-necesidad">¿Qué necesitas? <span className="req" aria-hidden="true">*</span></label>
-        <select id="f-necesidad" name="necesidad" required value={fields.necesidad} onChange={update('necesidad')} {...err('necesidad')}>
-          <option value="">Selecciona una opción</option>
-          {NEEDS.map((n) => <option key={n}>{n}</option>)}
-        </select>
-        <p className="field__error" id="f-necesidad-err" aria-live="polite">{errors.necesidad}</p>
-      </div>
-
-      <div className="form__row form__row--budget">
-        <div className="field">
-          <label htmlFor="f-moneda">Moneda</label>
-          <select id="f-moneda" name="moneda" aria-describedby="f-moneda-hint" value={currency} onChange={(e) => changeCurrency(e.target.value)}>
-            <optgroup label="Más usadas">
-              {currencyGroups.featured.map((c) => <option key={c} value={c}>{c} · {nameOf(c)}</option>)}
-            </optgroup>
-            <optgroup label="Todas las monedas">
-              {currencyGroups.rest.map((c) => <option key={c} value={c}>{c} · {nameOf(c)}</option>)}
-            </optgroup>
+      {/* 2 · Proyecto */}
+      <fieldset className="form__step">
+        <legend><span>02</span> Tu proyecto</legend>
+        <div className={`field ${picked ? 'is-picked' : ''}`}>
+          <label htmlFor="f-servicio">Servicio <span className="req" aria-hidden="true">*</span></label>
+          <select id="f-servicio" name="servicio" required value={fields.servicio} onChange={update('servicio')} {...aria('servicio')}>
+            <option value="">Selecciona un servicio</option>
+            {SERVICES.map((s) => <option key={s.id} value={s.id}>{s.title} · {servicePrice(s)}</option>)}
           </select>
-          <p className="field__hint" id="f-moneda-hint">{currency === 'COP' ? 'Elige la de tu país' : 'Valores aproximados según la tasa del día'}</p>
+          <Err k="servicio" />
+          {service && (
+            <p className="price-ref" aria-live="polite">
+              <span>Precio de referencia</span>
+              <b>{service.price != null ? servicePrice(service) : 'Cotización a medida'}</b>
+              {service.price != null && <small>{service.price != null && approx(service.price) ? `${approx(service.price).trim()} aprox.` : 'Pesos colombianos'}</small>}
+            </p>
+          )}
         </div>
+
         <div className="field">
-          <label htmlFor="f-presupuesto">Presupuesto <span className="req" aria-hidden="true">*</span></label>
-          <select id="f-presupuesto" name="presupuesto" required value={fields.presupuesto} onChange={update('presupuesto')} {...err('presupuesto')}>
+          <span className="field__label" id="f-web-label">¿Ya tienes página web?</span>
+          <div className="chips" role="radiogroup" aria-labelledby="f-web-label">
+            {WEB_OPTIONS.map((o) => (
+              <label key={o} className={`chip ${fields.web === o ? 'is-on' : ''}`}>
+                <input type="radio" name="web" value={o} checked={fields.web === o} onChange={() => set('web', o)} />{o}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="form__row">
+          <div className="field">
+            <label htmlFor="f-plazo">¿Para cuándo lo necesitas?</label>
+            <select id="f-plazo" name="plazo" value={fields.plazo} onChange={update('plazo')}>
+              <option value="">Selecciona un plazo</option>
+              {PLAZOS.map((p) => <option key={p}>{p}</option>)}
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="f-moneda">Moneda</label>
+            <select id="f-moneda" name="moneda" aria-describedby="f-moneda-hint" value={currency} onChange={(e) => changeCurrency(e.target.value)}>
+              <optgroup label="Más usadas">
+                {currencyGroups.featured.map((c) => <option key={c} value={c}>{c} · {nameOf(c)}</option>)}
+              </optgroup>
+              <optgroup label="Todas las monedas">
+                {currencyGroups.rest.map((c) => <option key={c} value={c}>{c} · {nameOf(c)}</option>)}
+              </optgroup>
+            </select>
+            <p className="field__hint" id="f-moneda-hint">{currency === 'COP' ? 'Elige la de tu país' : 'Valores aproximados según la tasa del día'}</p>
+          </div>
+        </div>
+
+        <div className="field">
+          <label htmlFor="f-presupuesto">Presupuesto disponible <span className="req" aria-hidden="true">*</span></label>
+          <select id="f-presupuesto" name="presupuesto" required value={fields.presupuesto} onChange={update('presupuesto')} {...aria('presupuesto')}>
             <option value="">Selecciona un rango</option>
             {budgetOptions.map((b) => <option key={b} value={b}>{b}</option>)}
           </select>
-          <p className="field__error" id="f-presupuesto-err" aria-live="polite">{errors.presupuesto}</p>
+          <Err k="presupuesto" />
         </div>
-      </div>
+      </fieldset>
 
-      <div className="field">
-        <label htmlFor="f-mensaje">Mensaje <span className="req" aria-hidden="true">*</span></label>
-        <textarea id="f-mensaje" name="mensaje" rows={5} required maxLength={1200}
-          placeholder="Cuéntame tu idea, qué te gustaría lograr y para cuándo lo necesitas."
-          value={fields.mensaje} onChange={update('mensaje')} {...err('mensaje')} />
-        <p className="field__error" id="f-mensaje-err" aria-live="polite">{errors.mensaje}</p>
-      </div>
+      {/* 3 · Detalles */}
+      <fieldset className="form__step">
+        <legend><span>03</span> Detalles</legend>
+        <div className="field">
+          <label htmlFor="f-mensaje">Cuéntame sobre tu proyecto <span className="req" aria-hidden="true">*</span></label>
+          <textarea id="f-mensaje" name="mensaje" rows={5} required maxLength={1500}
+            placeholder="¿Qué hace tu negocio? ¿Qué quieres lograr con la web? ¿Alguna página que te guste como referencia?"
+            value={fields.mensaje} onChange={update('mensaje')} {...aria('mensaje')} />
+          <p className="field__count" aria-hidden="true">{fields.mensaje.length} / 1500</p>
+          <Err k="mensaje" />
+        </div>
+        <div className="field">
+          <span className="field__label" id="f-have-label">¿Qué tienes listo? <span className="opt">(marca lo que aplique)</span></span>
+          <div className="chips" role="group" aria-labelledby="f-have-label">
+            {ASSETS.map((a) => (
+              <label key={a} className={`chip ${have.includes(a) ? 'is-on' : ''}`}>
+                <input type="checkbox" value={a} checked={have.includes(a)} onChange={() => toggleHave(a)} />{have.includes(a) ? '✓ ' : ''}{a}
+              </label>
+            ))}
+          </div>
+        </div>
+      </fieldset>
 
       {/* Trampa para robots: invisible para personas; si llega con texto, el envío se descarta */}
       <div className="hp" aria-hidden="true">
-        <label htmlFor="f-web">No llenes este campo</label>
-        <input id="f-web" name="sitio_web" type="text" tabIndex={-1} autoComplete="off" ref={honeypot} />
+        <label htmlFor="f-web-site">No llenes este campo</label>
+        <input id="f-web-site" name="sitio_web" type="text" tabIndex={-1} autoComplete="off" ref={honeypot} />
       </div>
 
       {/* Verificación humana */}
@@ -341,14 +453,21 @@ export function QuoteForm() {
         <p className="field__error" id="f-human-err" aria-live="polite">{verifyError}</p>
       </div>
 
+      {/* Autorización de datos (Ley 1581 de 2012) */}
+      <div className="consent">
+        <label className={`consent__box ${errors.consent ? 'is-error' : ''}`}>
+          <input id="f-consent" type="checkbox" checked={consent} aria-describedby="f-consent-err"
+            onChange={(e) => { setConsent(e.target.checked); if (tried) setErrors(validate(fields, e.target.checked)); }} />
+          <span>Autorizo el tratamiento de mis datos según la <a href="privacidad/">política de privacidad</a> y acepto los <a href="terminos/">términos y condiciones</a>. Mi información es confidencial.</span>
+        </label>
+        <Err k="consent" />
+      </div>
+
       <button className="btn btn--chrome btn--block" type="submit">
         Cotizar mi proyecto <span aria-hidden="true">✦</span>
       </button>
       <p className="form__status" id="form-status" role="status" aria-live="polite">{status}</p>
-      <p className="form__legal">
-        Los campos con <span aria-hidden="true">*</span><span className="sr-only">asterisco</span> son obligatorios.
-        Tu información es confidencial. Al enviar aceptas los <a href="terminos/">términos y condiciones</a> y la <a href="privacidad/">política de privacidad</a>.
-      </p>
+      <p className="form__legal">Los campos con <span aria-hidden="true">*</span><span className="sr-only">asterisco</span> son obligatorios.</p>
     </form>
   );
 }

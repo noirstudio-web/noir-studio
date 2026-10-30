@@ -6,7 +6,7 @@ import { Hero } from '@/components/Hero';
 import { Nav } from '@/components/Nav';
 import { Process } from '@/components/Process';
 import { Faq, Marquee, Perks, Projects, Services } from '@/components/Sections';
-import { asset, DISCORD_URL, FAQ, SITE_URL } from '@/lib/site';
+import { asset, DISCORD_URL, FAQ, SERVICES, SITE_URL } from '@/lib/site';
 
 const business = {
   '@type': 'ProfessionalService',
@@ -22,8 +22,14 @@ const business = {
   sameAs: [DISCORD_URL],
   knowsLanguage: 'es',
   priceRange: '$$',
-  makesOffer: ['Páginas web', 'Landing pages', 'Tiendas online', 'Apps', 'Sistemas a medida', 'Branding']
-    .map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+  // Servicios con su precio (Google puede mostrarlos en los resultados)
+  makesOffer: SERVICES.filter((s) => s.price != null).map((s) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: s.title, description: s.text },
+    priceSpecification: s.from
+      ? { '@type': 'PriceSpecification', minPrice: s.price, priceCurrency: 'COP' }
+      : { '@type': 'PriceSpecification', price: s.price, priceCurrency: 'COP' },
+  })),
 };
 const jsonLd = {
   '@context': 'https://schema.org',

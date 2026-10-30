@@ -1,6 +1,7 @@
-import { asset, FAQ, MARQUEE, PERKS, PROJECTS, SERVICES, type Project } from '@/lib/site';
+import { asset, FAQ, MARQUEE, PERKS, PROJECTS, SERVICE_CONDITIONS, SERVICES, servicePrice, type Project } from '@/lib/site';
 import { Icon } from './Icon';
 import { SectionHead } from './SectionHead';
+import { ServicePick } from './ServicePick';
 import { WaLink } from './WaLink';
 
 /* ---------- Cinta: servicios y beneficios ---------- */
@@ -18,23 +19,34 @@ export function Marquee() {
   );
 }
 
-/* ---------- Servicios ---------- */
+/* ---------- Servicios y precios ---------- */
 export function Services() {
   return (
     <section className="section" id="servicios" aria-labelledby="servicios-title">
       <div className="container">
-        <SectionHead id="servicios-title" eyebrow="01 — Servicios" title="Lo que construyo para tu negocio"
-          lead="Cada proyecto se diseña desde cero alrededor de tus clientes, tu marca y tus objetivos." />
-        <div className="cards cards--3">
+        <SectionHead id="servicios-title" eyebrow="01 — Servicios" title="Servicios y precios claros"
+          lead="Precios en pesos colombianos. Lo que acordamos por escrito es lo que pagas, sin costos ocultos." />
+        <div className="cards cards--3 cards--services">
           {SERVICES.map((s) => (
-            <article className="card glow reveal" key={s.title}>
-              <div className="card__icon" aria-hidden="true"><Icon name={s.icon} /></div>
+            <article className={`card card--service glow reveal ${s.id === 'otros' ? 'card--other' : ''}`} key={s.id}>
+              <div className="card__top">
+                <div className="card__icon" aria-hidden="true"><Icon name={s.icon} /></div>
+                <p className="card__price">
+                  {s.price == null
+                    ? <b>A tu medida</b>
+                    : <>{s.from && <small>Desde</small>}<b>{servicePrice({ ...s, from: false, unit: undefined })}</b>{s.unit && <small>{s.unit}</small>}</>}
+                </p>
+              </div>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
               <ul className="tags">{s.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+              <ServicePick id={s.id} title={s.title} />
             </article>
           ))}
         </div>
+        <ul className="conditions reveal" aria-label="Condiciones">
+          {SERVICE_CONDITIONS.map((c) => <li key={c.text}><span aria-hidden="true">{c.icon}</span>{c.text}</li>)}
+        </ul>
       </div>
     </section>
   );

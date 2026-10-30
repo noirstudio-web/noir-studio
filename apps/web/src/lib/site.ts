@@ -139,16 +139,40 @@ export const NAV_LINKS = [
 
 export type IconName =
   | 'web' | 'landing' | 'store' | 'app' | 'system' | 'star'
-  | 'bolt' | 'phone' | 'search' | 'shield' | 'chat' | 'key' | 'support';
+  | 'bolt' | 'phone' | 'search' | 'shield' | 'chat' | 'key' | 'support'
+  | 'building' | 'pen' | 'wrench' | 'gear' | 'plus';
 
-export const SERVICES: { icon: IconName; title: string; text: string; tags: string[] }[] = [
-  { icon: 'web', title: 'Páginas web', text: 'Sitios corporativos y de marca personal que transmiten confianza y convierten visitas en clientes.', tags: ['Corporativas', 'Portafolios', 'SEO'] },
-  { icon: 'landing', title: 'Landing pages', text: 'Una página enfocada en una sola acción: vender, captar contactos o lanzar tu producto.', tags: ['Campañas', 'Lanzamientos', 'Ads'] },
-  { icon: 'store', title: 'Tiendas online', text: 'Catálogo, carrito, pagos en línea y panel para gestionar productos y pedidos sin depender de nadie.', tags: ['E-commerce', 'Pagos', 'Inventario'] },
-  { icon: 'app', title: 'Apps', text: 'Aplicaciones web progresivas que se instalan en el celular y funcionan rápido en cualquier dispositivo.', tags: ['PWA', 'Mobile-first', 'Tiempo real'] },
-  { icon: 'system', title: 'Sistemas', text: 'Reservas, inventarios, dashboards y paneles administrativos hechos a la medida de tu operación.', tags: ['Dashboards', 'Reservas', 'APIs'] },
-  { icon: 'star', title: 'Branding', text: 'Logo, paleta, tipografías y piezas para redes: una identidad coherente para que tu marca se recuerde.', tags: ['Logo', 'Identidad', 'Redes'] },
+// ✦ Servicios y precios (pesos colombianos). Para cambiar un precio, edita "price".
+//   from: true → se muestra "Desde"; unit → texto después del precio (ej. "/ mes").
+export type Service = {
+  id: string; icon: IconName; title: string; text: string; tags: string[];
+  price?: number; from?: boolean; unit?: string;
+};
+export const SERVICES: Service[] = [
+  { id: 'landing', icon: 'landing', title: 'Landing page', price: 890_000, text: 'Una página enfocada en una sola acción: vender, captar contactos o lanzar tu producto.', tags: ['Campañas', 'Ventas', 'Ads'] },
+  { id: 'web-basica', icon: 'web', title: 'Página web básica', price: 1_690_000, text: 'Hasta 5 secciones para presentar tu negocio, tus servicios y tus datos de contacto.', tags: ['Hasta 5 secciones', 'SEO', 'Mobile-first'] },
+  { id: 'web-corporativa', icon: 'building', title: 'Página web corporativa', price: 2_990_000, text: 'De 6 a 10 secciones para empresas que necesitan mostrar más servicios, equipo y trabajos.', tags: ['6 a 10 secciones', 'Empresas', 'SEO'] },
+  { id: 'tienda', icon: 'store', title: 'Tienda online', price: 3_490_000, from: true, text: 'Catálogo, carrito, pagos en línea y panel para gestionar productos y pedidos sin depender de nadie.', tags: ['Pagos', 'Inventario', 'Envíos'] },
+  { id: 'sistema', icon: 'system', title: 'Sistema a medida', price: 4_990_000, from: true, text: 'Reservas, inventarios, dashboards y paneles administrativos hechos a la medida de tu operación.', tags: ['Reservas', 'Dashboards', 'Usuarios'] },
+  { id: 'app', icon: 'app', title: 'App a medida', price: 8_900_000, from: true, text: 'Aplicaciones para celular y computador, diseñadas desde cero para tu negocio y tus clientes.', tags: ['Mobile', 'Tiempo real', 'A medida'] },
+  { id: 'marca', icon: 'star', title: 'Identidad de marca completa', price: 990_000, text: 'Logo, paleta de colores, tipografías y piezas base para que tu marca se vea coherente en todas partes.', tags: ['Logo', 'Colores', 'Tipografías'] },
+  { id: 'logo', icon: 'pen', title: 'Logo', price: 390_000, text: 'Diseño de logo profesional para tu negocio, listo para usar en tu web y tus redes.', tags: ['Logo', 'Archivos finales'] },
+  { id: 'mantenimiento', icon: 'wrench', title: 'Mantenimiento web', price: 149_000, unit: '/ mes', text: 'Cambios de contenido, ajustes y soporte mes a mes para que tu web siga al día.', tags: ['Mensual', 'Soporte', 'Ajustes'] },
+  { id: 'instalacion', icon: 'gear', title: 'Instalación de planes mensuales', price: 199_000, unit: 'pago único', text: 'Configuración inicial de los planes por suscripción, como la plataforma de reservas para barberías.', tags: ['Pago único', 'Configuración'] },
+  { id: 'otros', icon: 'plus', title: 'Otros', text: '¿Necesitas algo que no está en la lista? Cuéntame tu idea y te preparo una cotización a medida, gratis y sin compromiso.', tags: ['A medida', 'Cotización gratis'] },
 ];
+
+export const SERVICE_CONDITIONS = [
+  { icon: '📄', text: 'Precio cerrado: lo acordado por escrito es lo que se paga.' },
+  { icon: '💳', text: 'Pago 50 % al iniciar y 50 % al aprobar el proyecto terminado.' },
+  { icon: '🌐', text: 'No incluye dominio, hosting ni comisiones de pasarelas de pago (van a nombre del cliente).' },
+  { icon: '🔎', text: '"Desde": el precio final depende del alcance y se confirma en la propuesta.' },
+];
+
+/** "$1.690.000" · "Desde $3.490.000" · "$149.000 / mes" */
+export const formatCOP = (n: number) => `$${new Intl.NumberFormat('es-CO').format(n)}`;
+export const servicePrice = (s: Service) =>
+  s.price == null ? 'A cotizar' : `${s.from ? 'Desde ' : ''}${formatCOP(s.price)}${s.unit ? ` ${s.unit}` : ''}`;
 
 export type Project = {
   status: 'live' | 'demo';
@@ -232,6 +256,7 @@ export const PERKS: { icon: IconName; title: string; text: string }[] = [
 ];
 
 export const FAQ = [
+  { q: '¿Cuánto cuesta una página web?', a: 'Una landing page cuesta $890.000, una página web básica $1.690.000 y una corporativa $2.990.000 (pesos colombianos). Las tiendas online van desde $3.490.000, los sistemas a medida desde $4.990.000 y las apps desde $8.900.000. El precio final se confirma por escrito en la propuesta y no incluye dominio, hosting ni comisiones de pasarelas de pago.' },
   { q: '¿Cuánto tiempo tarda mi proyecto?', a: 'Depende del alcance. Una landing page suele estar lista en 5 a 7 días, una web corporativa en 2 a 3 semanas y una tienda online o app en 3 a 6 semanas. En la propuesta recibes la fecha de entrega por escrito.' },
   { q: '¿Cómo es la forma de pago?', a: 'Trabajo con 50 % de anticipo para iniciar y el 50 % restante al entregar el proyecto terminado y aprobado por ti. Así ambos tenemos tranquilidad.' },
   { q: '¿Puedo pedir cambios?', a: 'Sí. El diseño se ajusta contigo antes de programar y hay una revisión final antes de publicar. Los cambios dentro del alcance acordado están incluidos; si surge algo nuevo, lo cotizamos aparte con total transparencia.' },
@@ -242,4 +267,4 @@ export const FAQ = [
   { q: '¿Trabajas con clientes de otros países?', a: 'Sí. Trabajo 100 % remoto con clientes de Colombia y de cualquier país de habla hispana. Coordinamos por WhatsApp, Discord o videollamada y acordamos un método de pago internacional.' },
 ];
 
-export const NEEDS = ['Página web', 'Landing page', 'Tienda online', 'App', 'Sistema a medida', 'Branding', 'Otro / no estoy seguro'];
+

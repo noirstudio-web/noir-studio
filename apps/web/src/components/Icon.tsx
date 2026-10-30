@@ -14,6 +14,11 @@ const PATHS: Record<IconName, React.ReactNode> = {
   chat: <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12Z" />,
   key: <><circle cx="8" cy="15" r="4.5" /><path d="m11.2 11.8 8.3-8.3M16.5 6.5l2.5 2.5M14 9l2 2" /></>,
   support: <><path d="M4 13v-1a8 8 0 0 1 16 0v1" /><rect x="3" y="13" width="4" height="6" rx="1.5" /><rect x="17" y="13" width="4" height="6" rx="1.5" /></>,
+  building: <><rect x="4" y="3" width="11" height="18" rx="1.5" /><path d="M15 9h4a1 1 0 0 1 1 1v11M8 7h3M8 11h3M8 15h3M2.5 21h19" /></>,
+  pen: <><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10Z" /><path d="m13.5 7.5 3 3" /></>,
+  wrench: <path d="M14.5 6.5a4 4 0 0 0 5 5L21 13l-2.5 2.5-1.5-1.5-8 8a2.1 2.1 0 0 1-3-3l8-8-1.5-1.5L15 7Z" />,
+  gear: <><circle cx="12" cy="12" r="3" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" /></>,
+  plus: <><circle cx="12" cy="12" r="9" /><path d="M12 8v8M8 12h8" /></>,
 };
 
 export function Icon({ name }: { name: IconName }) {
